@@ -1604,6 +1604,11 @@ libdbix-fulltextsearch-perl 0.73-10</screen>
           <para>
             The default sort order is <literal>name,version</literal>.
           </para>
+
+          <para>
+            Configuration Item: <literal><link
+            linkend='configCmdLine-Sorting'>Aptitude::CmdLine::Sorting</link></literal>
+          </para>
 	</listitem>
       </varlistentry>
 
@@ -2064,7 +2069,11 @@ Packages requiring libglib2.0-data:
       </varlistentry>
 
       <varlistentry>
-	<term><literal>-t</literal> <replaceable>release</replaceable>, <literal>--target-release</literal> <replaceable>release</replaceable></term>
+	<term>
+          <literal>-t</literal> <replaceable>release</replaceable>,
+          <literal>--target-release</literal> <replaceable>release</replaceable>,
+          <literal>--default-release</literal> <replaceable>release</replaceable>
+        </term>
 
 	<listitem>
 	  <para>
@@ -2204,7 +2213,10 @@ The following packages will be REMOVED:
       </varlistentry>
 
       <varlistentry>
-	<term><literal>-y</literal>, <literal>--assume-yes</literal></term>
+	<term>
+          <literal>-y</literal>, <literal>--yes</literal>,
+          <literal>--assume-yes</literal>
+        </term>
 
 	<listitem>
 	  <para>
@@ -2257,7 +2269,7 @@ The following packages will be REMOVED:
 	    <menuchoice><guimenu>Actions</guimenu><guimenuitem>Clean
 	    obsolete files</guimenuitem></menuchoice>).  You cannot
 	    use this option and
-	    <quote><literal>--autoclean-on-startup</literal></quote>,
+	    <quote><literal>--clean-on-startup</literal></quote>,
 	    <quote><literal>-i</literal></quote>, or
 	    <quote><literal>-u</literal></quote> at the same time.
 	  </para>
@@ -2283,7 +2295,7 @@ The following packages will be REMOVED:
       </varlistentry>
 
       <varlistentry>
-	<term><literal>-i</literal></term>
+	<term><literal>-i</literal>, <literal>--install-on-startup</literal></term>
 
 	<listitem>
 	  <para>
@@ -2310,7 +2322,7 @@ The following packages will be REMOVED:
       </varlistentry>
 
       <varlistentry>
-	<term><literal>-u</literal></term>
+	<term><literal>-u</literal>, <literal>--update-on-startup</literal></term>
 
 	<listitem>
 	  <para>

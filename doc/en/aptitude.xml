@@ -11003,6 +11003,25 @@ e: Examine  !: Apply  .: Next  ,: Previous</screen>
 	      </seg>
 	    </seglistitem>
 
+            <seglistitem id='configCmdLine-Sorting'>
+              <seg><literal>Aptitude::CmdLine::Sorting</literal></seg>
+              <seg><literal>name,version</literal></seg>
+              <seg>
+                Specify the order in which output from the <link
+                linkend='cmdlineSearch'><literal>search</literal></link>
+                and <link
+                linkend='cmdlineVersions'><literal>versions</literal></link>
+                commands should be displayed.  For instance, passing
+                <quote><literal>installsize</literal></quote> for
+                <replaceable>order</replaceable> will list packages in
+                order according to their size when installed (see the
+                section <quote><link
+                linkend='secSortingPolicy'>Customizing how packages
+                are sorted</link></quote> in the &aptitude; reference
+                manual for more information).
+              </seg>
+            </seglistitem>
+
 	    <seglistitem id='configCmdLine-Version-Display-Format'>
 	      <seg><literal>Aptitude::CmdLine::Version-Display-Format</literal></seg>
 	      <seg><literal>%c%a%M %p# %t %i</literal></seg>

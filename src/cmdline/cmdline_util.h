@@ -222,6 +222,17 @@ namespace aptitude
       get_pattern() const { return pattern; }
     };
 
+    /** \brief Read user-tag application requests from a configuration tree.
+     *
+     *  \param user_tags The vector to which the applications will be added.
+     *  \param config_item Name of the configuration item tree to read from.
+     *  \param is_add \b true if these are add requests.
+     *  \param implicit \b true if these are implicit requests.
+     */
+    bool read_user_tag_applications(std::vector<tag_application> &user_tags,
+                                    const char *config_item,
+                                    const bool is_add, const bool implicit);
+
     /** \brief Apply explicit and implicit user-tags to packages.
      *
      *  Explicit tags are applied where their associated pattern holds;

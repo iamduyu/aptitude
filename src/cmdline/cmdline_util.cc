@@ -732,6 +732,49 @@ namespace aptitude
       return rval;
     }
 
+
+    bool read_user_tag_applications(std::vector<tag_application> &user_tags,
+                                    const char *config_item,
+                                    const bool is_add, const bool implicit)
+    {
+      const Configuration::Item *tree = aptcfg->Tree(config_item);
+      if(tree == NULL)
+        return true;
+
+      for(Configuration::Item *item = tree->Child;
+          item != NULL;
+          item = item->Next)
+        {
+          if(implicit)
+            user_tags.push_back(tag_application(is_add, item->Value, NULL));
+          else
+            {
+              const std::string arg(item->Value);
+              const std::string::size_type splitloc = arg.find(',');
+              if(splitloc == arg.npos)
+                return _error->Error(_("No comma following tag name \"%s\""),
+                                     arg.c_str());
+              else
+                {
+                  const std::string patternstr(arg, splitloc + 1);
+                  const std::vector<const char *> terminators;
+                  cwidget::util::ref_ptr<aptitude::matching::pattern> p =
+                    aptitude::matching::parse(patternstr,
+                                              terminators,
+                                              true,
+                                              false);
+                  if(p.valid() == false)
+                    return false;
+
+                  const std::string tag(arg, 0, splitloc);
+                  user_tags.push_back(tag_application(is_add, tag, p));
+                }
+            }
+        }
+
+      return true;
+    }
+
     void apply_user_tags(const std::vector<tag_application> &user_tags)
     {
       using namespace matching;

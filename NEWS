@@ -11,10 +11,36 @@ Version 0.6.9                               "All in a days work"
                Previously this would result in a "no such package"
                error.
 
+  * New aliases for some command-line options:
+    --yes, for --assume-yes (apt-get)
+    --default-release, for --target-release (apt-utils)
+    --install-on-startup, for -i
+    --update-on-startup, for -u
+
+  * New configuration item:
+    Aptitude::CmdLine::Sorting, equivalent to --sort
+
+- Minor bugs:
+
+  * handle "-qq" like other apt-utils
+  * properly process all -o command line options (Closes: #587671)
+  * unknown command line options trigger an error (Closes: #434502)
+  * --add-user-tag-to, --remove-user-tag-from are working;
+    no bug reports suggests that noone has noticed they
+    were broken, but they work now anyway
+
 - Internal changes:
 
   * Unified the way packages are selected from command line
     arguments.
+
+  * Use apt's CommandLine parser
+
+    Previously aptitude was using it's own command line
+    parser implemented on top of getopt.  Replacing this
+    with the standard apt class means there are no longer
+    subtle quirks with our parser (such as "-qq" not
+    being valid when it is fine for other apt programs).
 
 - Cosmetic and UI bugs:
 
