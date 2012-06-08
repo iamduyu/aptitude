@@ -570,65 +570,23 @@ bool do_cmdline_show(string s, int verbose, const shared_ptr<terminal_metrics> &
       sourcestr = default_release;
     }
 
-  bool is_pattern = aptitude::matching::is_pattern(name);
-  pkgCache::PkgIterator pkg;
+  pkgset pkgset;
+  if(aptitude::cmdline::pkgset_from_string(&pkgset, s, GlobalError::NOTICE) == false)
+    return false;
 
-  if(!is_pattern)
-    {
-      pkg=(*apt_cache_file)->FindPkg(name);
+  bool rval = true;
 
-      if(pkg.end())
-	{
-	  _error->Error(_("Unable to locate package %s"), s.c_str());
-	  return false;
-	}
-    }
+  for(pkgset::const_iterator it = pkgset.begin();
+      it != pkgset.end();
+      ++it)
+    rval &= do_cmdline_show_target(*it,
+                                   source,
+                                   sourcestr,
+                                   verbose,
+                                   has_explicit_source,
+                                   term_metrics);
 
-  if(!is_pattern && !pkg.end())
-    return do_cmdline_show_target(pkg,
-                                  source,
-                                  sourcestr,
-                                  verbose,
-                                  has_explicit_source,
-                                  term_metrics);
-  else if(is_pattern)
-    {
-      using namespace aptitude::matching;
-      using cwidget::util::ref_ptr;
-
-      ref_ptr<pattern> p(parse(name));
-
-      if(!p.valid())
-	{
-	  _error->Error(_("Unable to parse pattern %s"), name.c_str());
-	  return false;
-	}
-
-      pkg_results_list matches;
-      ref_ptr<search_cache> search_info(search_cache::create());
-      search(p, search_info,
-	     matches,
-	     *apt_cache_file,
-	     *apt_package_records);
-
-      for(pkg_results_list::const_iterator it = matches.begin();
-          it != matches.end();
-          ++it)
-	{
-	  if(!do_cmdline_show_target(it->first,
-                                     source,
-                                     sourcestr,
-                                     verbose,
-                                     has_explicit_source,
-                                     term_metrics))
-	    return false;
-	}
-    }
-  else
-    ; // TODO: print an error message -- Christian will kill me if I
-      // make the pofile bigger right now.
-
-  return true;
+  return rval;
 }
 
 int cmdline_show(int argc, char *argv[], int verbose)
@@ -647,17 +605,11 @@ int cmdline_show(int argc, char *argv[], int verbose)
     }
 
   for(int i=1; i<argc; ++i)
-    if(!do_cmdline_show(argv[i], verbose, term))
-      {
-	_error->DumpErrors();
-	return -1;
-      }
+    do_cmdline_show(argv[i], verbose, term);
 
-  if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+  int rval = _error->PendingError() == true ? -1 : 0;
 
-  return 0;
+  _error->DumpErrors(GlobalError::DEBUG);
+
+  return rval;
 }

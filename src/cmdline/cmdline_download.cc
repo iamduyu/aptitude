@@ -87,49 +87,13 @@ int cmdline_download(int argc, char *argv[])
 	  sourcestr = default_release;
 	}
 
-      std::vector<pkgCache::PkgIterator> packages;
+      pkgset packages;
+      if(aptitude::cmdline::pkgset_from_string(&packages, name) == false)
+        continue;
 
-      if(!aptitude::matching::is_pattern(name))
-	{
-	  pkgCache::PkgIterator pkg=(*apt_cache_file)->FindPkg(name);
-	  if(pkg.end())
-	    {
-	      _error->Error(_("Can't find a package named \"%s\""), name.c_str());
-	      continue;
-	    }
-
-	  packages.push_back(pkg);
-	}
-      else
-	{
-	  using namespace aptitude::matching;
-	  using cwidget::util::ref_ptr;
-	  ref_ptr<pattern> p(parse(name.c_str()));
-	  if(!p.valid())
-	    {
-	      _error->DumpErrors();
-	      return false;
-	    }
-
-	  pkg_results_list matches;
-	  ref_ptr<search_cache> search_info(search_cache::create());
-	  search(p, search_info,
-		 matches,
-		 *apt_cache_file,
-		 *apt_package_records);
-
-          for(pkg_results_list::const_iterator it = matches.begin();
-              it != matches.end();
-              ++it)
-	    packages.push_back(it->first);
-
-	  // Maybe there should be a warning here if packages is
-	  // empty?  TODO: think about it again when the string freeze
-	  // is lifted post-lenny.
-	}
-
-      for(std::vector<pkgCache::PkgIterator>::const_iterator it =
-	    packages.begin(); it != packages.end(); ++it)
+      for(pkgset::const_iterator it = packages.begin();
+          it != packages.end();
+          ++it)
 	{
 	  const pkgCache::PkgIterator pkg = *it;
 

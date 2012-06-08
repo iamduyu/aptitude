@@ -520,114 +520,94 @@ bool cmdline_applyaction(string s,
       return false;
     }
 
-  if(!aptitude::matching::is_pattern(package))
+  pkgset pkgset;
+  if(aptitude::cmdline::pkgset_from_string(&pkgset, package) == false)
     {
-      pkgCache::PkgIterator pkg=(*apt_cache_file)->FindPkg(package.c_str());
-      if(pkg.end())
-	{
-	  // Assume the user asked for a source package.
-	  if(action == cmdline_build_depends)
-	    return cmdline_do_build_depends(package,
-					    seen_virtual_packages,
-					    source,
-					    sourcestr,
-					    arch_only,
-					    policy,
-					    to_install, to_hold,
-					    to_remove, to_purge,
-					    verbose,
-					    allow_auto,
-                                            term_metrics);
+      // Assume the user asked for a source package.
+      if(action == cmdline_build_depends)
+        return cmdline_do_build_depends(package,
+                                        seen_virtual_packages,
+                                        source,
+                                        sourcestr,
+                                        arch_only,
+                                        policy,
+                                        to_install, to_hold,
+                                        to_remove, to_purge,
+                                        verbose,
+                                        allow_auto,
+                                        term_metrics);
 
-	  // Maybe they misspelled the package name?
-	  pkgvector possible;
+      // Maybe they misspelled the package name?
+      pkgvector possible;
 
-	  for(pkgCache::PkgIterator j=(*apt_cache_file)->PkgBegin();
-	      !j.end(); ++j)
-	    {
-	      if(!(j.VersionList().end() && j.ProvidesList().end()) &&
-		 strstr(j.Name(), package.c_str()) != NULL)
-		possible.push_back(j);
-	    }
+      for(pkgCache::PkgIterator j=(*apt_cache_file)->PkgBegin();
+          !j.end(); ++j)
+        {
+          if(!(j.VersionList().end() && j.ProvidesList().end()) &&
+             strstr(j.Name(), package.c_str()) != NULL)
+            possible.push_back(j);
+        }
 
-	  if(!possible.empty())
-	    {
-	      // Don't overwhelm the user.
-	      if(possible.size()>40)
-		printf(_("Couldn't find package \"%s\", and more than 40\npackages contain \"%s\" in their name.\n"), package.c_str(), package.c_str());
-	      else
-		{
-		  printf(_("Couldn't find package \"%s\".  However, the following\npackages contain \"%s\" in their name:\n"), package.c_str(), package.c_str());
-		  cmdline_show_pkglist(possible, term_metrics);
-		}
-	    }
-	  else
-	    {
-	      for(pkgCache::PkgIterator j=(*apt_cache_file)->PkgBegin();
-		  !j.end(); ++j)
-		{
-		  for(pkgCache::VerIterator v = j.VersionList();
-		      !v.end(); ++v)
-		    {
-		      std::wstring desc = get_long_description(v, apt_package_records);
-		      if(desc.find(cw::util::transcode(package)) != desc.npos)
-			{
-			  possible.push_back(j);
-			  break;
-			}
-		    }
-		}
+      if(!possible.empty())
+        {
+          // Don't overwhelm the user.
+          if(possible.size()>40)
+            printf(_("Couldn't find package \"%s\", and more than 40\n"
+                     "packages contain \"%s\" in their name.\n"),
+                   package.c_str(), package.c_str());
+          else
+            {
+              printf(_("Couldn't find package \"%s\".  However, the following\n"
+                       "packages contain \"%s\" in their name:\n"),
+                     package.c_str(), package.c_str());
+              cmdline_show_pkglist(possible, term_metrics);
+            }
+        }
+      else
+        {
+          for(pkgCache::PkgIterator j=(*apt_cache_file)->PkgBegin();
+              !j.end(); ++j)
+            {
+              for(pkgCache::VerIterator v = j.VersionList();
+                  !v.end(); ++v)
+                {
+                  std::wstring desc = get_long_description(v, apt_package_records);
+                  if(desc.find(cw::util::transcode(package)) != desc.npos)
+                    {
+                      possible.push_back(j);
+                      break;
+                    }
+                }
+            }
 
-	      if(possible.empty())
-		printf(_("Couldn't find any package whose name or description matched \"%s\"\n"), package.c_str());
-	      else if(possible.size()>40)
-		printf(_("Couldn't find any package matching \"%s\", and more than 40\npackages contain \"%s\" in their description.\n"), package.c_str(), package.c_str());
-	      else
-		{
-		  printf(_("Couldn't find any package matching \"%s\".  However, the following\npackages contain \"%s\" in their description:\n"), package.c_str(), package.c_str());
-		  cmdline_show_pkglist(possible, term_metrics);
-		}
-	    }
+          if(possible.empty())
+            printf(_("Couldn't find any package whose name or description matched \"%s\"\n"),
+                   package.c_str());
+          else if(possible.size()>40)
+            printf(_("Couldn't find any package matching \"%s\", and more than 40\n"
+                     "packages contain \"%s\" in their description.\n"),
+                   package.c_str(), package.c_str());
+          else
+            {
+              printf(_("Couldn't find any package matching \"%s\".  However, the following\n"
+                       "packages contain \"%s\" in their description:\n"),
+                     package.c_str(), package.c_str());
+              cmdline_show_pkglist(possible, term_metrics);
+            }
+        }
 
-	  return false;
-	}
-
-      rval = cmdline_applyaction(action, pkg,
-				 seen_virtual_packages,
-				 to_install, to_hold, to_remove, to_purge,
-				 verbose, source,
-				 sourcestr, policy, arch_only, allow_auto,
-                                 term_metrics);
+      return false;
     }
-  else
-    {
-      cw::util::ref_ptr<pattern> p(parse(package.c_str()));
-      if(!p.valid())
-	{
-	  _error->DumpErrors();
-	  return false;
-	}
 
-      pkg_results_list matches;
-      cw::util::ref_ptr<search_cache> search_info(search_cache::create());
-      search(p, search_info, matches,
-	     *apt_cache_file,
-	     *apt_package_records);
-      for(pkg_results_list::const_iterator it = matches.begin();
-          it != matches.end();
-          ++it)
-	{
-	  if(!cmdline_applyaction(action, it->first,
-				  seen_virtual_packages,
-				  to_install, to_hold, to_remove, to_purge,
-				  verbose, source,
-				  sourcestr,
-				  policy, arch_only,
-				  allow_auto,
-                                  term_metrics))
-	    rval = false;
-	}
-    }
+  for(pkgset::const_iterator it = pkgset.begin();
+      it != pkgset.end();
+      ++it)
+    rval &= cmdline_applyaction(action, *it,
+                                seen_virtual_packages,
+                                to_install, to_hold, to_remove, to_purge,
+                                verbose, source,
+                                sourcestr, policy, arch_only, allow_auto,
+                                term_metrics);
 
   return rval;
 }

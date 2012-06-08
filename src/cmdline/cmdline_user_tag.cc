@@ -122,47 +122,20 @@ namespace aptitude
       bool all_ok = true;
       for(int i = 2; i < argc; ++i)
 	{
-	  if(!aptitude::matching::is_pattern(argv[i]))
-	    {
-	      pkgCache::PkgIterator pkg = (*apt_cache_file)->FindPkg(argv[i]);
-	      if(pkg.end())
-		{
-		  if(quiet == 0)
-                    std::cerr << ssprintf(_("No such package \"%s\""), argv[i])
-                              << std::endl;
-		  all_ok = false;
-		}
-	      else
-		do_user_tag(action, tag, pkg, verbose);
-	    }
-	  else
-	    {
-	      using namespace aptitude::matching;
-	      using cwidget::util::ref_ptr;
-
-	      ref_ptr<pattern> p(parse(argv[i]));
-
-	      if(!p.valid())
-		{
-		  _error->DumpErrors();
-		  all_ok = false;
-		}
-	      else
-		{
-		  pkg_results_list matches;
-		  ref_ptr<search_cache> search_info(search_cache::create());
-		  search(p, search_info,
-			 matches,
-			 *apt_cache_file,
-			 *apt_package_records);
-
-                  for(pkg_results_list::const_iterator it = matches.begin();
-                      it != matches.end();
-                      ++it)
-		    do_user_tag(action, tag, it->first, verbose);
-		}
+          pkgset packages;
+          if(pkgset_from_string(&packages, argv[i]) == false)
+            all_ok = false;
+          else
+            {
+              for(pkgset::const_iterator it = packages.begin();
+                  it != packages.end();
+                  ++it)
+                do_user_tag(action, tag, *it, verbose);
 	    }
 	}
+
+      if(all_ok == false)
+        _error->DumpErrors();
 
       shared_ptr<OpProgress> text_progress = make_text_progress(false, term, term, term);
       if(!(*apt_cache_file)->save_selection_list(*text_progress))

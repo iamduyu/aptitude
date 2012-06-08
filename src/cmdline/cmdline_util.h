@@ -431,6 +431,26 @@ namespace aptitude
         return std::wstring();
       }
     };
+
+    /** \brief Fill a pkgset using the given matching pattern.
+     *
+     *  This does not try any string as a search pattern, only those
+     *  which contain explicit search terms or regex characters.
+     */
+    bool pkgset_from_pattern(pkgset *packages, const string &pattern,
+                             GlobalError::MsgType error_type = GlobalError::ERROR);
+
+    /** \brief Fill a pkgset using the given string.  If the
+     *  string names exactly a package then insert that package,
+     *  otherwise, if the string is a search pattern, add all matching
+     *  packages.
+     *
+     *  Based on cacheset.cc(PackageContainerInterface::FromString).
+     *  TODO: Should be replaced with cacheset functions once we have
+     *  become more compatible with them.
+     */
+    bool pkgset_from_string(pkgset *packages, const string &str,
+                            GlobalError::MsgType error_type = GlobalError::ERROR);
   }
 }
 

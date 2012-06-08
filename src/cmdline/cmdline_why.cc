@@ -1290,18 +1290,14 @@ bool interpret_why_args(const std::vector<std::string> &args,
   for(std::vector<std::string>::const_iterator it = args.begin();
       it != args.end(); ++it)
     {
-      // If there isn't a tilde, treat it as an exact package name.
       cwidget::util::ref_ptr<pattern> p;
-      if(!aptitude::matching::is_pattern(*it))
-	{
-	  pkgCache::PkgIterator pkg = (*apt_cache_file)->FindPkg(*it);
-	  if(pkg.end())
-	    _error->Error(_("No package named \"%s\" exists."), it->c_str());
-	  else
-	    p = pattern::make_name(ssprintf("^%s$", pkg.Name()));
-	}
+      pkgCache::PkgIterator pkg = (*apt_cache_file)->FindPkg(*it);
+      if(pkg.end() == false)
+        p = pattern::make_exact_name(pkg.Name());
+      else if(aptitude::matching::is_pattern(*it) == true)
+        p = parse(*it);
       else
-	p = parse(*it);
+        _error->Error(_("Unable to locate package %s"), (*it).c_str());
 
       if(!p.valid())
 	parsing_arguments_failed = true;

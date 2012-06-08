@@ -812,5 +812,71 @@ namespace aptitude
 
       return output;
     }
+
+    pkgCache::PkgIterator pkg_from_name(const string &str,
+                                        GlobalError::MsgType error_type)
+    {
+      pkgCache::PkgIterator pkg = (*apt_cache_file)->FindPkg(str.c_str());
+
+      if(pkg.end() == true)
+        _error->Insert(error_type,
+                       _("Unable to locate package %s"), str.c_str());
+      return pkg;
+    }
+
+    bool pkgset_from_pattern(pkgset *packages, const string &pattern,
+                             GlobalError::MsgType error_type)
+    {
+      using aptitude::matching::pkg_results_list;
+      using aptitude::matching::search_cache;
+      using cwidget::util::ref_ptr;
+
+      if(aptitude::matching::is_pattern(pattern) == false)
+        return false;
+
+      ref_ptr<aptitude::matching::pattern> p(aptitude::matching::parse(pattern));
+      if(p.valid() == false)
+        return _error->Insert(error_type,
+                              _("Unable to parse pattern '%s'"), pattern.c_str());
+
+      pkg_results_list matches;
+      ref_ptr<search_cache> search_info(search_cache::create());
+      search(p, search_info,
+             matches,
+             *apt_cache_file,
+             *apt_package_records);
+
+      if(matches.empty() == true)
+        return _error->Insert(error_type,
+                              _("Couldn't find any package for pattern '%s'"),
+                              pattern.c_str());
+
+      for(pkg_results_list::const_iterator it = matches.begin();
+          it != matches.end();
+          ++it)
+        {
+          packages->insert(it->first);
+        }
+      return true;
+    }
+
+    bool pkgset_from_string(pkgset *packages, const string &str,
+                            GlobalError::MsgType error_type)
+    {
+      bool found = true;
+      _error->PushToStack();
+
+      pkgCache::PkgIterator pkg = pkg_from_name(str, error_type);
+      if(pkg.end() == false)
+        packages->insert(pkg);
+      else if(pkgset_from_pattern(packages, str, error_type) == false)
+        found = false;
+
+      if(found == true)
+        _error->RevertToStack();
+      else
+        _error->MergeWithStack();
+      return found;
+    }
   }
 }

@@ -72,7 +72,7 @@ namespace aptitude
 	}
 
       bool ok = true;
-      std::set<pkgCache::PkgIterator> packages;
+      pkgset packages;
       if(argc == 2)
 	{
 	  for(pkgCache::PkgIterator pIt = (*apt_cache_file)->PkgBegin();
@@ -82,58 +82,14 @@ namespace aptitude
       else
 	{
 	  for(int i = 2; i < argc; ++i)
-	    {
-	      std::string arg(argv[i]);
-
-	      if(!aptitude::matching::is_pattern(arg))
-		{
-		  pkgCache::PkgIterator pIt = (*apt_cache_file)->FindPkg(arg);
-		  if(pIt.end())
-		    {
-                      std::cerr << ssprintf(_("No such package \"%s\""), arg.c_str())
-                                << std::endl;
-		      ok = false;
-		    }
-		  else
-		    packages.insert(pIt);
-		}
-	      else
-		{
-		  using namespace aptitude::matching;
-		  using cwidget::util::ref_ptr;
-
-		  ref_ptr<pattern> p = parse(arg);
-
-		  if(p.valid())
-		    {
-		      _error->DumpErrors();
-		    }
-		  else
-		    {
-		      pkg_results_list matches;
-		      ref_ptr<search_cache> search_info(search_cache::create());
-		      search(p, search_info,
-			     matches,
-			     *apt_cache_file,
-			     *apt_package_records);
-
-                      for(pkg_results_list::const_iterator it = matches.begin();
-                          it != matches.end();
-                          ++it)
-			packages.insert(it->first);
-		    }
-		}
-	    }
+            ok &= pkgset_from_string(&packages, argv[i]);
 	}
 
       if(!ok)
-	return 2;
-
-      if(packages.size() == 0)
-	{
-	  printf(_("No packages were selected by the given search pattern; nothing to do.\n"));
-	  return 0;
-	}
+        {
+          _error->DumpErrors();
+          return 2;
+        }
 
       aptitude::apt::make_truncated_state_copy(out_dir, packages);
 
