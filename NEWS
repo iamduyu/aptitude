@@ -184,6 +184,10 @@ behaviour is desirable for two reasons:
 
   * [doc]: add section on exit status to the man page
 
+- Translation updates:
+
+  * Polish (Closes: #678153)
+
 [5/11/2012]
 Version 0.6.8                               "Never need a reason,
                                              never need a rhyme"
