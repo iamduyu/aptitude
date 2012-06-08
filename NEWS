@@ -1,6 +1,16 @@
 [6/8/2012]
 Version 0.6.9                               "All in a days work"
 
+- New features:
+
+  * [cmdline]: Regular expressions are now supported to match names
+               (same as apt-utils):
+
+                $ aptitude show ^tf$
+
+               Previously this would result in a "no such package"
+               error.
+
 - Internal changes:
 
   * Unified the way packages are selected from command line

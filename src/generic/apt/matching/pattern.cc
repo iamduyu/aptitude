@@ -79,7 +79,9 @@ namespace aptitude
 
     bool is_pattern(const std::string &s)
     {
-      return s.find_first_of("~?") != s.npos;
+      // regex characters are ".?+*|[^$"
+      // pattern characters are "~?"
+      return s.find_first_of("~?.?+*|[^$") != s.npos;
     }
   }
 }

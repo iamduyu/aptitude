@@ -2021,8 +2021,8 @@ namespace aptitude
      *  This is used in situations where it would be counterintuitive
      *  for all strings to be treated as search patterns, but where we
      *  want search patterns to be available.  Strings are considered
-     *  to be seach patterns if they contain a tilde (~) or a question
-     *  mark (?).
+     *  to be seach patterns if they contain a tilde (~), a question
+     *  mark (?), or any regex characters (.?+*|[^$).
      *
      *  \return \b true if the string qualifies as a search pattern.
      */
