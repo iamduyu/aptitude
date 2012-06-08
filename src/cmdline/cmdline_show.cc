@@ -604,15 +604,16 @@ bool do_cmdline_show(string s, int verbose, const shared_ptr<terminal_metrics> &
 	  return false;
 	}
 
-      std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > > matches;
+      pkg_results_list matches;
       ref_ptr<search_cache> search_info(search_cache::create());
       search(p, search_info,
 	     matches,
 	     *apt_cache_file,
 	     *apt_package_records);
 
-      for(std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > >::const_iterator
-	    it = matches.begin(); it != matches.end(); ++it)
+      for(pkg_results_list::const_iterator it = matches.begin();
+          it != matches.end();
+          ++it)
 	{
 	  if(!do_cmdline_show_target(it->first,
                                      source,

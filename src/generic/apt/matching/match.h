@@ -47,6 +47,12 @@ namespace aptitude
 
   namespace matching
   {
+    class structural_match;
+    typedef std::vector< std::pair< pkgCache::PkgIterator,
+                                    cwidget::util::ref_ptr<structural_match> > > pkg_results_list;
+    typedef std::vector< std::pair< pkgCache::VerIterator,
+                                    cwidget::util::ref_ptr<structural_match> > > ver_results_list;
+
     /** \brief Represents the atomic values that are selected by search
      *  patterns.
      *
@@ -119,8 +125,6 @@ namespace aptitude
 	  return false;
       }
     };
-
-    class structural_match;
 
     /** \brief Represents information about how a package was matched.
      *
@@ -703,7 +707,7 @@ namespace aptitude
      */
     void search(const cwidget::util::ref_ptr<pattern> &p,
 		const cwidget::util::ref_ptr<search_cache> &search_info,
-		std::vector<std::pair<pkgCache::PkgIterator, cwidget::util::ref_ptr<structural_match> > > &matches,
+		pkg_results_list &matches,
 		aptitudeDepCache &cache,
 		pkgRecords &records,
 		bool debug = false,
@@ -727,7 +731,7 @@ namespace aptitude
      */
     void search_versions(const cwidget::util::ref_ptr<pattern> &p,
                          const cwidget::util::ref_ptr<search_cache> &search_info,
-                         std::vector<std::pair<pkgCache::VerIterator, cwidget::util::ref_ptr<structural_match> > > &matches,
+                         ver_results_list &matches,
                          aptitudeDepCache &cache,
                          pkgRecords &records,
                          bool debug = false,

@@ -514,7 +514,7 @@ namespace gui
 
     bool limited = limit.valid();
 
-    std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > > matches;
+    pkg_results_list matches;
     ref_ptr<search_cache> search_info(search_cache::create());
     if(limited)
       {
@@ -523,8 +523,9 @@ namespace gui
 	int num = 0;
 	const int total = static_cast<int>(matches.size());
 
-	for(std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > >::const_iterator
-	      it = matches.begin(); it != matches.end(); ++it)
+        for(pkg_results_list::const_iterator it = matches.begin();
+            it != matches.end();
+            ++it)
 	  {
 	    if(canceled->is_canceled())
 	      return;

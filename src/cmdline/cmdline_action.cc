@@ -608,13 +608,14 @@ bool cmdline_applyaction(string s,
 	  return false;
 	}
 
-      std::vector<std::pair<pkgCache::PkgIterator, cw::util::ref_ptr<structural_match> > > matches;
+      pkg_results_list matches;
       cw::util::ref_ptr<search_cache> search_info(search_cache::create());
       search(p, search_info, matches,
 	     *apt_cache_file,
 	     *apt_package_records);
-      for(std::vector<std::pair<pkgCache::PkgIterator, cw::util::ref_ptr<structural_match> > >::const_iterator
-	    it = matches.begin(); it != matches.end(); ++it)
+      for(pkg_results_list::const_iterator it = matches.begin();
+          it != matches.end();
+          ++it)
 	{
 	  if(!cmdline_applyaction(action, it->first,
 				  seen_virtual_packages,

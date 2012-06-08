@@ -111,15 +111,16 @@ int cmdline_download(int argc, char *argv[])
 	      return false;
 	    }
 
-	  std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > > matches;
+	  pkg_results_list matches;
 	  ref_ptr<search_cache> search_info(search_cache::create());
 	  search(p, search_info,
 		 matches,
 		 *apt_cache_file,
 		 *apt_package_records);
 
-	  for(std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > >::const_iterator
-		it = matches.begin(); it != matches.end(); ++it)
+          for(pkg_results_list::const_iterator it = matches.begin();
+              it != matches.end();
+              ++it)
 	    packages.push_back(it->first);
 
 	  // Maybe there should be a warning here if packages is

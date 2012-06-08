@@ -3082,7 +3082,7 @@ namespace aptitude
 
     void search(const ref_ptr<pattern> &p,
 		const ref_ptr<search_cache> &search_info,
-		std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > > &matches,
+		pkg_results_list &matches,
 		aptitudeDepCache &cache,
 		pkgRecords &records,
                 bool debug,
@@ -3193,7 +3193,7 @@ namespace aptitude
 
     void search_versions(const ref_ptr<pattern> &p,
                          const ref_ptr<search_cache> &search_info,
-                         std::vector<std::pair<pkgCache::VerIterator, ref_ptr<structural_match> > > &matches,
+                         ver_results_list &matches,
                          aptitudeDepCache &cache,
                          pkgRecords &records,
                          bool debug,

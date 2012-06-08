@@ -98,15 +98,12 @@ namespace
                          const shared_ptr<terminal_metrics> &term_metrics,
                          const shared_ptr<terminal_output> &term_output)
   {
-    typedef std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > >
-      results_list;
-
     const shared_ptr<progress> search_progress_display =
       create_progress_display(term_locale, term_metrics, term_output);
     const shared_ptr<throttle> search_progress_throttle =
       create_throttle();
 
-    results_list output;
+    pkg_results_list output;
     ref_ptr<search_cache> search_info(search_cache::create());
     for(std::vector<ref_ptr<pattern> >::const_iterator pIt = patterns.begin();
         pIt != patterns.end(); ++pIt)
@@ -137,7 +134,7 @@ namespace
                              aptitude::cmdline::package_results_eq(sort_policy)),
                  output.end());
 
-    for(results_list::const_iterator it = output.begin(); it != output.end(); ++it)
+    for(pkg_results_list::const_iterator it = output.begin(); it != output.end(); ++it)
       {
         column_parameters *p =
           new aptitude::cmdline::search_result_column_parameters(it->second);
