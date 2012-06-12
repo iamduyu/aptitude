@@ -571,7 +571,7 @@ bool do_cmdline_show(string s, int verbose, const shared_ptr<terminal_metrics> &
     }
 
   pkgset pkgset;
-  if(aptitude::cmdline::pkgset_from_string(&pkgset, s, GlobalError::NOTICE) == false)
+  if(aptitude::cmdline::pkgset_from_string(&pkgset, name, GlobalError::NOTICE) == false)
     return false;
 
   bool rval = true;
