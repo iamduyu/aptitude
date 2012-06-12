@@ -66,7 +66,8 @@ void cmdline_show_stringlist(strvector &items,
  */
 pkgCache::VerIterator cmdline_find_ver(pkgCache::PkgIterator pkg,
 				       cmdline_version_source source,
-				       string sourcestr);
+				       string sourcestr,
+                                       GlobalError::MsgType error_type = GlobalError::ERROR);
 
 /** Starts up the visual UI in preview mode, and exits with status 0
  *  when the UI shuts down.
@@ -94,10 +95,6 @@ bool cmdline_parse_source(const string &input,
 			  cmdline_version_source &source,
 			  string &package,
 			  string &sourcestr);
-
-bool cmdline_parse_task(std::string pattern,
-                        aptitude::apt::task &task,
-                        std::string &arch);
 
 /** Run the given download and post-download commands using the
  *  standard command-line UI.  Runs the preparation routine, the
@@ -444,12 +441,21 @@ namespace aptitude
       }
     };
 
+    bool pkgset_from_task(pkgset * const pkgset, string pattern,
+                          GlobalError::MsgType error_type = GlobalError::ERROR);
+
+    /** \brief Fill a pkgset using the given regex to match package
+     *  names.
+     */
+    bool pkgset_from_regex(pkgset * const pkgset, string pattern,
+                           GlobalError::MsgType error_type = GlobalError::ERROR);
+
     /** \brief Fill a pkgset using the given matching pattern.
      *
      *  This does not try any string as a search pattern, only those
      *  which contain explicit search terms or regex characters.
      */
-    bool pkgset_from_pattern(pkgset *packages, const string &pattern,
+    bool pkgset_from_pattern(pkgset * const pkgset, string pattern,
                              GlobalError::MsgType error_type = GlobalError::ERROR);
 
     /** \brief Fill a pkgset using the given string.  If the
@@ -461,8 +467,9 @@ namespace aptitude
      *  TODO: Should be replaced with cacheset functions once we have
      *  become more compatible with them.
      */
-    bool pkgset_from_string(pkgset *packages, const string &str,
-                            GlobalError::MsgType error_type = GlobalError::ERROR);
+    bool pkgset_from_string(pkgset * const pkgset, string str,
+                            GlobalError::MsgType error_type = GlobalError::ERROR,
+                            GlobalError::MsgType pattern_error_type = GlobalError::NOTICE);
   }
 }
 

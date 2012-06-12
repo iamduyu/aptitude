@@ -93,58 +93,50 @@ namespace aptitude
 	action = action_remove;
       else
 	{
-	  fprintf(stderr, "Internal error: cmdline_user_tag encountered an unknown command name \"%s\"\n",
-		  argv[0]);
-	  return -1;
+          _error->Error("Internal error: cmdline_user_tag encountered an"
+                        " unknown command name \"%s\"\n",
+                        argv[0]);
+	  return 100;
 	}
 
       if(argc < 3)
 	{
-	  fprintf(stderr,
-		  _("%s: too few arguments; expected at least a tag name and a package.\n"),
-		  argv[0]);
-	  return -1;
+          _error->Error(_("%s: too few arguments; expected at least a tag"
+                          " name and a package.\n"),
+                        argv[0]);
+	  return 100;
 	}
 
-      _error->DumpErrors();
+      consume_errors();
 
       OpProgress progress;
 
       apt_init(&progress, true);
       if(_error->PendingError())
-	{
-	  _error->DumpErrors();
-	  return -1;
-	}
+        return 100;
 
       std::string tag(argv[1]);
 
-      bool all_ok = true;
+      pkgset pkgset;
       for(int i = 2; i < argc; ++i)
-	{
-          pkgset packages;
-          if(pkgset_from_string(&packages, argv[i]) == false)
-            all_ok = false;
-          else
-            {
-              for(pkgset::const_iterator it = packages.begin();
-                  it != packages.end();
-                  ++it)
-                do_user_tag(action, tag, *it, verbose);
-	    }
-	}
+        pkgset_from_string(&pkgset, argv[i]);
 
-      if(all_ok == false)
-        _error->DumpErrors();
+      if(pkgset.empty() == true)
+        {
+          _error->Error(_("No packages found"));
+          return 100;
+        }
+
+      for(pkgset::const_iterator it = pkgset.begin();
+          it != pkgset.end();
+          ++it)
+        do_user_tag(action, tag, *it, verbose);
 
       shared_ptr<OpProgress> text_progress = make_text_progress(false, term, term, term);
       if(!(*apt_cache_file)->save_selection_list(*text_progress))
-	return 1;
+	return 100;
 
-      if(!all_ok)
-	return 2;
-
-      return 0;
+      return _error->PendingError() == true ? 100 : 0;
     }
   }
 }

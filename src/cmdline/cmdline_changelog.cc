@@ -177,7 +177,6 @@ void set_name(temp::name n, temp::name *target)
       single_download_progress::failure(msg);
 
       _error->Error(_("Changelog download failed: %s"), msg.c_str());
-      _error->DumpErrors();
 
       out_changelog_file = temp::name();
       aptitude::cmdline::exit_main();
@@ -290,17 +289,16 @@ void do_cmdline_changelog(const vector<string> &packages,
 
   string default_release = aptcfg->Find("APT::Default-Release");
 
+  _error->PushToStack();
   for(vector<string>::const_iterator i=packages.begin(); i!=packages.end(); ++i)
     {
       // We need to do this because some code (see above) checks
-      // PendingError to see whether everything is OK.  In addition,
-      // dumping errors means we get sensible error message output
-      // (this will be true even if the PendingError check is removed
-      // ... which it arguably should be).
-      _error->DumpErrors();
+      // PendingError to see whether everything is OK.
+      _error->MergeWithStack();
+      _error->PushToStack();
       string input=*i;
 
-      cmdline_version_source source;
+      cmdline_version_source source = cmdline_version_cand;
       string package, sourcestr;
 
       if(!cmdline_parse_source(input, source, package, sourcestr))
@@ -429,7 +427,7 @@ void do_cmdline_changelog(const vector<string> &packages,
           _error->Error(_("Couldn't run pager %s"), pager);
     }
 
-  _error->DumpErrors();
+  _error->MergeWithStack();
 }
 
 // TODO: fetch them all in one go.
@@ -437,16 +435,13 @@ int cmdline_changelog(int argc, char *argv[])
 {
   shared_ptr<terminal_io> term = create_terminal();
 
-  _error->DumpErrors();
+  consume_errors();
 
   OpProgress progress;
   apt_init(&progress, false);
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   vector<string> packages;
   for(int i=1; i<argc; ++i)
@@ -454,7 +449,5 @@ int cmdline_changelog(int argc, char *argv[])
 
   do_cmdline_changelog(packages, term);
 
-  _error->DumpErrors();
-
-  return 0;
+  return _error->PendingError() ? 100 : 0;
 }

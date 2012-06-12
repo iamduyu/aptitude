@@ -220,7 +220,7 @@ namespace
 
 bool cmdline_applyaction(cmdline_pkgaction_type action,
 			 pkgCache::PkgIterator pkg,
-			 std::set<pkgCache::PkgIterator> &seen_virtual_packages,
+			 pkgset &seen_virtual_packages,
 			 pkgset &to_install, pkgset &to_hold,
 			 pkgset &to_remove, pkgset &to_purge,
 			 int verbose,
@@ -232,86 +232,99 @@ bool cmdline_applyaction(cmdline_pkgaction_type action,
                          const shared_ptr<terminal_metrics> &term_metrics)
 {
   // Handle virtual packages.
-  if(!pkg.ProvidesList().end())
+  if(!pkg.ProvidesList().end() && pkg.VersionList().end())
     {
-      if(pkg.VersionList().end())
-	{
-	  const bool seen_in_first_pass =
-	    seen_virtual_packages.find(pkg) != seen_virtual_packages.end();
+      const bool seen_in_first_pass =
+        seen_virtual_packages.find(pkg) != seen_virtual_packages.end();
 
-	  if(!seen_in_first_pass)
-	    {
-	      for(pkgCache::PrvIterator prv=pkg.ProvidesList(); !prv.end(); ++prv)
-		{
-		  if(prv.OwnerPkg().CurrentVer()==prv.OwnerVer())
-		    {
-		      if(verbose>0)
+      if(!seen_in_first_pass)
+        {
+          switch(action)
+            {
+            case cmdline_install:
+            case cmdline_installauto:
+              for(pkgCache::PrvIterator prv=pkg.ProvidesList();
+                  prv.end() == false;
+                  ++prv)
+                {
+                  if(prv.OwnerPkg().CurrentVer() == prv.OwnerVer())
+                    {
+                      if(verbose > 0)
                         printf(_("Note: \"%s\", providing the virtual package\n"
                                  "      \"%s\", is already installed.\n"),
                                prv.OwnerPkg().FullName(true).c_str(),
                                pkg.FullName(true).c_str());
-		      return true;
-		    }
-		  else if((*apt_cache_file)[prv.OwnerPkg()].InstVerIter(*apt_cache_file)==prv.OwnerVer())
-		    {
-		      if(verbose>0)
+                      return true;
+                    }
+                  else if((*apt_cache_file)[prv.OwnerPkg()].InstVerIter(*apt_cache_file)==prv.OwnerVer())
+                    {
+                      if(verbose > 0)
                         printf(_("Note: \"%s\", providing the virtual package\n"
                                  "      \"%s\", is already going to be installed.\n"),
 			       prv.OwnerPkg().FullName(true).c_str(),
                                pkg.FullName(true).c_str());
-		      return true;
-		    }
-		}
-	    }
+                      return true;
+                    }
+                }
+              break;
+            default:
+              break;
+            }
+        }
 
-	  seen_virtual_packages.insert(pkg);
+      seen_virtual_packages.insert(pkg);
 
-	  // See if there's only one possible package to install.
-	  pkgvector cands;
+      // See if there's only one possible package to install.
+      pkgvector cands;
 
-	  for(pkgCache::PrvIterator prv=pkg.ProvidesList();
-	      !prv.end(); ++prv)
-	    {
-	      if((*apt_cache_file)[prv.OwnerPkg()].CandidateVerIter(*apt_cache_file)==prv.OwnerVer())
-		cands.push_back(prv.OwnerPkg());
-	    }
+      for(pkgCache::PrvIterator prv=pkg.ProvidesList();
+          !prv.end(); ++prv)
+        {
+          if((*apt_cache_file)[prv.OwnerPkg()].CandidateVerIter(*apt_cache_file)==prv.OwnerVer())
+            cands.push_back(prv.OwnerPkg());
+        }
 
-	  if(cands.size()==0)
-	    {
-	      if(!seen_in_first_pass)
-                printf(_("\"%s\" exists in the package database, but it is not a\n"
-                         "real package and no package provides it.\n"),
-                       pkg.FullName(true).c_str());
-	      return false;
-	    }
-	  else if(cands.size()>1)
-	    {
-	      if(!seen_in_first_pass)
-		{
-		  printf(_("\"%s\" is a virtual package provided by:\n"),
-                         pkg.FullName(true).c_str());
-		  cmdline_show_pkglist(cands, term_metrics);
-		  printf(_("You must choose one to install.\n"));
-		}
-	      return false;
-	    }
-	  else if(cands.size()==1)
-	    {
-	      if(!seen_in_first_pass)
-		{
-                  printf(_("Note: selecting \"%s\" instead of the\n"
-                           "virtual package \"%s\"\n"),
-                         cands[0].FullName(true).c_str(),
-                         pkg.FullName(true).c_str());
-		}
-	      pkg = cands[0];
-	    }
- 	}
+      if(cands.size()==0)
+        {
+          if(!seen_in_first_pass)
+            printf(_("\"%s\" exists in the package database, but it is not a\n"
+                     "real package and no package provides it.\n"),
+                   pkg.FullName(true).c_str());
+          return false;
+        }
+      else if(cands.size()>1)
+        {
+          if(!seen_in_first_pass)
+            {
+              printf(_("\"%s\" is a virtual package provided by:\n"),
+                     pkg.FullName(true).c_str());
+              cmdline_show_pkglist(cands, term_metrics);
+              printf(_("You must choose one to install.\n"));
+              printf("\n");
+              _error->Error(_("Package '%s' has no installation candidate"),
+                            pkg.FullName(true).c_str());
+            }
+          return false;
+        }
+      else if(cands.size()==1)
+        {
+          if(!seen_in_first_pass)
+            {
+              printf(_("Note: selecting \"%s\" instead of the\n"
+                       "      virtual package \"%s\"\n"),
+                     cands[0].FullName(true).c_str(), pkg.Name());
+            }
+          pkg = cands[0];
+        }
     }
 
   pkgCache::VerIterator ver=pkg.CurrentVer();
   if(action==cmdline_install || action == cmdline_installauto)
-    ver=cmdline_find_ver(pkg, source, sourcestr);
+    {
+      ver=cmdline_find_ver(pkg, source, sourcestr);
+      if(ver.end() == true)
+        return false;
+    }
 
   pkgDepCache::StateCache &pkg_state((*apt_cache_file)[pkg]);
 
@@ -479,57 +492,32 @@ bool cmdline_applyaction(string s,
   if(!cmdline_parse_source(s, source, package, sourcestr))
     return false;
 
-  // Handle task installation.  Won't work if tasksel isn't installed.
-  aptitude::apt::task task;
-  string arch;
-  if(cmdline_parse_task(package, task, arch) == true)
-  {
-    printf(_("Note: selecting the task \"%s: %s\" for installation\n"),
-           task.name.c_str(), cw::util::transcode(task.shortdesc).c_str());
-
-    pkgset pkgset;
-    aptitude::apt::get_task_packages(&pkgset, task, arch);
-    for(pkgset::iterator pkg = pkgset.begin();
-        pkg != pkgset.end();
-        ++pkg)
-      {
-        rval = cmdline_applyaction(action, *pkg,
-                                   seen_virtual_packages,
-                                   to_install, to_hold, to_remove, to_purge,
-                                   verbose, source,
-                                   sourcestr,
-                                   policy, arch_only,
-                                   allow_auto,
-                                   term_metrics) && rval;
-      }
-
-    // break out.
-    return rval;
-  }
-
   // This is harmless for other commands, but it won't make sense.
   if(source == cmdline_version_version &&
      action != cmdline_install &&
      action != cmdline_forbid_version &&
      action != cmdline_installauto &&
      action != cmdline_build_depends)
-    {
-      printf(_("You can only specify a package version with an 'install' command or a 'forbid-version' command.\n"));
-      return false;
-    }
+    return _error->Error(_("You can only specify a package version with an"
+                           " 'install' command or a 'forbid-version' command"));
 
   if(source == cmdline_version_archive &&
      action != cmdline_install &&
      action != cmdline_installauto &&
      action != cmdline_build_depends)
-    {
-      printf(_("You can only specify a package archive with an 'install' command.\n"));
-      return false;
-    }
+    return _error->Error(_("You can only specify a package archive with an"
+                           " 'install' command"));
 
   pkgset pkgset;
-  if(aptitude::cmdline::pkgset_from_string(&pkgset, package) == false)
+  if(aptitude::cmdline::pkgset_from_string(&pkgset, package,
+                                           GlobalError::ERROR,
+                                           GlobalError::WARNING) == false)
     {
+      // pkgset_from_string generates a warning for patterns with no
+      // matches.
+      if(is_pattern(package) == true)
+        return false;
+
       // Assume the user asked for a source package.
       if(action == cmdline_build_depends)
         return cmdline_do_build_depends(package,

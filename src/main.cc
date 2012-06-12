@@ -440,7 +440,9 @@ namespace
       {
 	// ForTranslators: both the translated and the untranslated
 	// log level names are accepted here.
-	_error->Error(_("Unknown log level name \"%s\" (expected \"trace\", \"debug\", \"info\", \"warn\", \"error\", \"fatal\", or \"off\")."),
+        _error->Error(_("Unknown log level name \"%s\" (expected \"trace\","
+                        " \"debug\", \"info\", \"warn\", \"error\","
+                        " \"fatal\", or \"off\")."),
 		      level_name.c_str());
 	return;
       }
@@ -449,7 +451,7 @@ namespace
 
     if(!targetLogger)
       {
-	_error->Error(_("Invalid logger name \"%s\"."),
+	_error->Error(_("Invalid logger name \"%s\""),
 		      logger_name.c_str());
 	return;
       }
@@ -510,27 +512,6 @@ namespace
     Loggers::getAptitudeResolverSearchCosts()->setLevel(INFO_LEVEL);
   }
 }
-
-// Ensure that the cache is always closed when main() exits.  Without
-// this, there might be dangling flyweights hanging around, and those
-// can trigger aborts when the static flyweight pool is destroyed.
-//
-// TBH, I think it might be worth writing our own flyweight stand-in
-// to avoid this particular bit of stupid.  On the other hand, it
-// might be better to fully shut down the cache all the time, to
-// better detect leaks and so on?  I'm undecided -- and it shouldn't
-// take too long to clear out the cache.
-struct close_cache_on_exit
-{
-  close_cache_on_exit()
-  {
-  }
-
-  ~close_cache_on_exit()
-  {
-    apt_shutdown();
-  }
-};
 
 void do_message_logged(std::ostream &out,
                        const char *sourceFilename,
@@ -628,7 +609,16 @@ int main(int argc, const char *argv[])
   const char * const rootdir = getenv("APT_ROOT_DIR");
   apt_preinit(rootdir);
 
-  close_cache_on_exit close_on_exit;
+  // Ensure that the cache is always closed when main() exits.  Without
+  // this, there might be dangling flyweights hanging around, and those
+  // can trigger aborts when the static flyweight pool is destroyed.
+  //
+  // TBH, I think it might be worth writing our own flyweight stand-in
+  // to avoid this particular bit of stupid.  On the other hand, it
+  // might be better to fully shut down the cache all the time, to
+  // better detect leaks and so on?  I'm undecided -- and it shouldn't
+  // take too long to clear out the cache.
+  atexit(&apt_shutdown);
 
   // NOTE: this can of course be spoofed.  Anyone bothering to is off their
   //      rocker.
@@ -664,7 +654,7 @@ int main(int argc, const char *argv[])
   if(cmdl.Parse(argc, argv) == false)
     {
       _error->DumpErrors();
-      return 1;
+      return 100;
     }
 
   if(aptcfg->FindB("help", false) == true)
@@ -755,10 +745,10 @@ int main(int argc, const char *argv[])
   if(read_user_tag_applications(user_tags) == false)
     {
       _error->DumpErrors();
-      return 1;
+      return 100;
     }
 
-  group_by_option group_by_mode;
+  group_by_option group_by_mode = group_by_auto;
   try
     {
       group_by_mode = parse_group_by_option(group_by_mode_string);
@@ -766,10 +756,9 @@ int main(int argc, const char *argv[])
   catch(std::exception &ex)
     {
       _error->Error("%s", ex.what());
-      group_by_mode = group_by_auto;
     }
 
-  show_package_names_option show_package_names_mode;
+  show_package_names_option show_package_names_mode = show_package_names_auto;
   if(show_package_names_mode_string == "never" ||
      show_package_names_mode_string == P_("--show-package-names|never"))
     show_package_names_mode = show_package_names_never;
@@ -780,14 +769,11 @@ int main(int argc, const char *argv[])
           show_package_names_mode_string == P_("--show-package-names|always"))
     show_package_names_mode = show_package_names_always;
   else
-    {
-      _error->Error("%s",
-                    (boost::format(_("Invalid package names display mode \"%s\" (should be \"never\", \"auto\", or \"always\")."))
-                     % show_package_names_mode_string).str().c_str());
-      show_package_names_mode = show_package_names_auto;
-    }
+    _error->Error(_("Invalid package names display mode \"%s\" (should be"
+                    " \"never\", \"auto\", or \"always\")."),
+                  show_package_names_mode_string.c_str());
 
-  aptitude::why::roots_string_mode why_display_mode;
+  aptitude::why::roots_string_mode why_display_mode = aptitude::why::no_summary;
   if(show_why_summary_mode == "no-summary" || show_why_summary_mode == _("no-summary"))
     why_display_mode = aptitude::why::no_summary;
   else if(show_why_summary_mode == "first-package" || show_why_summary_mode == _("first-package"))
@@ -799,13 +785,13 @@ int main(int argc, const char *argv[])
   else if(show_why_summary_mode == "all-packages-with-dep-versions" || show_why_summary_mode == _("all-packages-with-dep-versions"))
     why_display_mode = aptitude::why::show_chain_with_versions;
   else
-    {
-      // ForTranslators: "why" here is the aptitude command name and
-      // should not be translated.
-      _error->Error(_("Invalid \"why\" summary mode \"%s\": expected \"no-summary\", \"first-package\", \"first-package-and-type\", \"all-packages\", or \"all-packages-with-dep-versions\"."),
-		    show_why_summary_mode.c_str());
-      why_display_mode = aptitude::why::no_summary;
-    }
+    // ForTranslators: "why" here is the aptitude command name and
+    // should not be translated.
+    _error->Error(_("Invalid \"why\" summary mode \"%s\": expected"
+                    " \"no-summary\", \"first-package\","
+                    " \"first-package-and-type\", \"all-packages\","
+                    " or \"all-packages-with-dep-versions\"."),
+                  show_why_summary_mode.c_str());
 
   apply_config_file_logging_levels(aptcfg);
 
@@ -840,28 +826,21 @@ int main(int argc, const char *argv[])
       ++num_startup_actions;
 
     if(num_startup_actions > 1)
-      {
-	fprintf(stderr, "%s",
-		_("Only one of --auto-clean-on-startup, --clean-on-startup, -i, and -u may be specified\n"));
-	usage();
-	exit(1);
-      }
+      _error->Error(_("Only one of --auto-clean-on-startup,"
+                      " --clean-on-startup, -i, and -u may be specified"));
   }
 
   if((update_only || install_only || autoclean_only || clean_only)
      && cmdline_mode == true)
-    {
-      fprintf(stderr, "%s\n",
-	      _("-u, -i, and --clean-on-startup may not be specified in command-line mode (eg, with 'install')"));
-      usage();
-      exit(1);
-    }
+    _error->Error(_("-u, -i, --clean-on-startup, and --autoclean-on-startup"
+                    " may not be specified in command-line mode (eg, with"
+                    " 'install')"));
 
   // Abort now if there were any errors.
   if(_error->PendingError() == true)
     {
       _error->DumpErrors();
-      return 1;
+      return 100;
     }
 
   _error->MergeWithStack();
@@ -869,44 +848,41 @@ int main(int argc, const char *argv[])
   // Possibly run off and do other commands.
   if(cmdline_mode == true)
     {
+      using namespace aptitude::cmdline;
+
       try
 	{
 	  // Connect up the "please consume errors" routine for the
 	  // command-line.
-	  consume_errors.connect(sigc::mem_fun(_error, (void (GlobalError::*)()) &GlobalError::DumpErrors));
-
-	  if(update_only || install_only || autoclean_only || clean_only)
-	    {
-	      fprintf(stderr, "%s\n",
-		      _("-u, -i, and --clean-on-startup may not be specified with a command"));
-	      usage();
-	      exit(1);
-	    }
+	  consume_errors.connect(
+            sigc::mem_fun(_error,
+                          (void (GlobalError::*)()) &GlobalError::PushToStack));
 
           int filec = cmdl.FileSize();
           char **filev = const_cast<char **>(cmdl.FileList);
+          int rval = 0;
 
 	  // TODO: warn the user if they passed --full-resolver to
 	  // something other than "upgrade" or do_action.
 
 	  if(!strcasecmp(filev[0], "update"))
-	    return cmdline_update(filec, filev, verbose);
+	    rval = cmdline_update(filec, filev, verbose);
 	  else if(!strcasecmp(filev[0], "clean"))
-	    return cmdline_clean(filec, filev, simulate);
+	    rval = cmdline_clean(filec, filev, simulate);
 	  else if(!strcasecmp(filev[0], "autoclean"))
-	    return cmdline_autoclean(filec, filev, simulate);
+	    rval = cmdline_autoclean(filec, filev, simulate);
 	  else if(!strcasecmp(filev[0], "forget-new"))
-	    return cmdline_forget_new(filec, filev,
+	    rval = cmdline_forget_new(filec, filev,
 				      status_fname, simulate);
 	  else if(!strcasecmp(filev[0], "search"))
-	    return cmdline_search(filec, filev,
+	    rval = cmdline_search(filec, filev,
 				  status_fname,
 				  package_display_format, width,
 				  sort_policy,
 				  disable_columns,
 				  debug_search);
           else if(!strcasecmp(filev[0], "versions"))
-            return cmdline_versions(filec, filev,
+            rval = cmdline_versions(filec, filev,
                                     status_fname,
                                     version_display_format, width,
                                     sort_policy,
@@ -915,11 +891,11 @@ int main(int argc, const char *argv[])
                                     group_by_mode,
                                     show_package_names_mode);
 	  else if(!strcasecmp(filev[0], "why"))
-	    return cmdline_why(filec, filev,
+	    rval = cmdline_why(filec, filev,
 			       status_fname, verbose,
 			       why_display_mode, false);
 	  else if(!strcasecmp(filev[0], "why-not"))
-	    return cmdline_why(filec, filev,
+	    rval = cmdline_why(filec, filev,
 			       status_fname, verbose,
 			       why_display_mode, true);
 	  else if( (!strcasecmp(filev[0], "install")) ||
@@ -939,71 +915,75 @@ int main(int argc, const char *argv[])
 		   (!strcasecmp(filev[0], "keep-all")) ||
 		   (!strcasecmp(filev[0], "build-dep")) ||
 		   (!strcasecmp(filev[0], "build-depends")))
-	    {
-	      return cmdline_do_action(filec, filev,
-				       status_fname,
-				       simulate, assume_yes, download_only,
-				       fix_broken, showvers, showdeps,
-				       showsize, showwhy,
-				       visual_preview, always_prompt,
-				       resolver_mode, safe_resolver_show_resolver_actions,
-				       safe_resolver_no_new_installs, safe_resolver_no_new_upgrades,
-				       user_tags,
-				       arch_only, queue_only, verbose);
-	    }
+            rval = cmdline_do_action(filec, filev,
+                                     status_fname,
+                                     simulate, assume_yes, download_only,
+                                     fix_broken, showvers, showdeps,
+                                     showsize, showwhy,
+                                     visual_preview, always_prompt,
+                                     resolver_mode, safe_resolver_show_resolver_actions,
+                                     safe_resolver_no_new_installs, safe_resolver_no_new_upgrades,
+                                     user_tags,
+                                     arch_only, queue_only, verbose);
 	  else if(!strcasecmp(filev[0], "add-user-tag") ||
 		  !strcasecmp(filev[0], "remove-user-tag"))
-	    return aptitude::cmdline::cmdline_user_tag(filec, filev,
-						       quiet, verbose);
+	    rval = cmdline_user_tag(filec, filev,
+                                    quiet, verbose);
 	  else if(!strcasecmp(filev[0], "extract-cache-subset"))
-	    return aptitude::cmdline::extract_cache_subset(filec,
-							   filev);
+	    rval = extract_cache_subset(filec, filev);
 	  else if(!strcasecmp(filev[0], "download"))
-	    return cmdline_download(filec, filev);
+	    rval = cmdline_download(filec, filev);
 	  else if(!strcasecmp(filev[0], "changelog"))
-	    return cmdline_changelog(filec, filev);
+	    rval = cmdline_changelog(filec, filev);
 	  else if(!strcasecmp(filev[0], "moo"))
-	    return cmdline_moo(filec, filev, verbose);
+	    rval = cmdline_moo(filec, filev, verbose);
 	  else if(!strcasecmp(filev[0], "show"))
-	    return cmdline_show(filec, filev, verbose);
+	    rval = cmdline_show(filec, filev, verbose);
 	  else if(!strcasecmp(filev[0], "dump-resolver"))
-	    return cmdline_dump_resolver(filec, filev, status_fname);
+	    rval = cmdline_dump_resolver(filec, filev, status_fname);
 	  else if(!strcasecmp(filev[0], "check-resolver"))
-	    return cmdline_check_resolver(filec, filev, status_fname);
+	    rval = cmdline_check_resolver(filec, filev, status_fname);
 	  else if(!strcasecmp(filev[0], "help"))
-	    {
-	      usage();
-	      exit(0);
-	    }
+            usage();
 	  // Debugging/profiling commands:
 	  else if(!strcasecmp(filev[0], "nop"))
 	    {
 	      OpTextProgress p(aptcfg->FindI("Quiet", 0));
-	      _error->DumpErrors();
 	      apt_init(&p, true);
-	      exit(0);
 	    }
 	  else if(!strcasecmp(filev[0], "nop-noselections"))
 	    {
 	      OpTextProgress p(aptcfg->FindI("Quiet", 0));
-	      _error->DumpErrors();
 	      apt_init(&p, false);
-	      exit(0);
 	    }
           else if(!strcasecmp(filev[0], "dump-config"))
             {
               OpTextProgress p(aptcfg->FindI("Quiet", 0));
               apt_init(&p, false);
               _config->Dump(std::cout);
-              _error->DumpErrors();
-              exit(0);
             }
 	  else
 	    {
-	      fprintf(stderr, _("Unknown command \"%s\"\n"), filev[0]);
-	      usage();
-	      exit(1);
+              _error->Error(_("Unknown command \"%s\""), filev[0]);
+              rval = 100;
 	    }
+
+          while(_error->StackCount() > 0)
+            _error->MergeWithStack();
+
+          if(_error->PendingError() == true && rval == 0)
+            rval = 100;
+
+          // Do not dump errors if user aborted.
+          if(rval == 1)
+            return rval;
+
+          if(aptcfg->FindI("quiet", 0) > 0)
+            _error->DumpErrors();
+          else
+            _error->DumpErrors(GlobalError::DEBUG);
+
+          return rval;
 	}
       catch(StdinEOFException)
 	{
@@ -1017,7 +997,7 @@ int main(int argc, const char *argv[])
 	  std::string backtrace = e.get_backtrace();
 	  if(!backtrace.empty())
 	    fprintf(stderr, _("Backtrace:\n%s\n"), backtrace.c_str());
-	  return -1;
+	  return 100;
 	}
     }
 
@@ -1103,11 +1083,11 @@ int main(int argc, const char *argv[])
           if(!backtrace.empty())
             fprintf(stderr, _("Backtrace:\n%s\n"), backtrace.c_str());
 
-          return -1;
+	  return 100;
         }
 
-      // The cache is closed when the close_on_exit object declared
-      // above is destroyed.
+      // The cache is closed by apt_shutdown, which was registered
+      // earlier with atexit(3).
 
       return 0;
     }

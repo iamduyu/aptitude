@@ -42,28 +42,23 @@ int cmdline_download(int argc, char *argv[])
 
   if(argc<=1)
     {
-      printf(_("download: you must specify at least one package to download\n"));
-      return -1;
+      _error->Error(_("download: you must specify at least one package to download"));
+      return 100;
     }
 
-  _error->DumpErrors();
+  consume_errors();
 
   shared_ptr<OpProgress> progress = make_text_progress(false, term, term, term);
   apt_init(progress.get(), false);
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   pkgSourceList list;
   if(!list.ReadMainList())
     {
       _error->Error(_("Couldn't read source list"));
-
-      _error->DumpErrors();
-      return -1;
+      return 100;
     }
 
   std::pair<download_signal_log *, boost::shared_ptr<acquire_download_progress> >
@@ -76,7 +71,7 @@ int cmdline_download(int argc, char *argv[])
 
   for(int i=1; i<argc; ++i)
     {
-      cmdline_version_source source;
+      cmdline_version_source source = cmdline_version_cand;
       string name, sourcestr;
       if(!cmdline_parse_source(argv[i], source, name, sourcestr))
 	continue;
@@ -103,7 +98,8 @@ int cmdline_download(int argc, char *argv[])
 	    continue;
 
 	  if(!ver.Downloadable())
-	    _error->Error(_("No downloadable files for %s version %s; perhaps it is a local or obsolete package?"),
+            _error->Error(_("No downloadable files for %s version %s;"
+                            " perhaps it is a local or obsolete package?"),
 			  name.c_str(), ver.VerStr());
 
 	  get_archive(&fetcher, &list, apt_package_records,
@@ -113,10 +109,7 @@ int cmdline_download(int argc, char *argv[])
 
   if(fetcher.Run()!=pkgAcquire::Continue)
     // We failed or were cancelled
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   return 0;
 }

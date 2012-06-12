@@ -54,8 +54,9 @@ namespace aptitude
     {
       if(argc < 2)
 	{
-	  fprintf(stderr, _("extract-cache-entries: at least one argument is required (the directory\nto which to write files).\n"));
-	  return -1;
+          _error->Error(_("extract-cache-entries: at least one argument is"
+                          " required (the directory\nto which to write files)"));
+          return 100;
 	}
 
       const shared_ptr<terminal_io> term = create_terminal();
@@ -66,12 +67,8 @@ namespace aptitude
 
       apt_init(progress.get(), true);
       if(_error->PendingError())
-	{
-	  _error->DumpErrors();
-	  return -1;
-	}
+        return 100;
 
-      bool ok = true;
       pkgset packages;
       if(argc == 2)
 	{
@@ -82,22 +79,22 @@ namespace aptitude
       else
 	{
 	  for(int i = 2; i < argc; ++i)
-            ok &= pkgset_from_string(&packages, argv[i]);
+            pkgset_from_string(&packages, argv[i]);
 	}
 
-      if(!ok)
+      if(_error->PendingError() == true)
+        return 100;
+
+      if(packages.size() == 0)
         {
-          _error->DumpErrors();
-          return 2;
+          printf(_("No packages were selected by the given search pattern;"
+                   " nothing to do.\n"));
+          return 0;
         }
 
       aptitude::apt::make_truncated_state_copy(out_dir, packages);
 
-      bool copy_ok = !_error->PendingError();
-
-      _error->DumpErrors();
-
-      return copy_ok ? 0 : 1;
+      return _error->PendingError() == true ? 100 : 0;
     }
   }
 }

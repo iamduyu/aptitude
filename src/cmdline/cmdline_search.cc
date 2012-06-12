@@ -126,8 +126,6 @@ namespace
 
     search_progress_display->done();
 
-    _error->DumpErrors();
-
     std::sort(output.begin(), output.end(),
               aptitude::cmdline::package_results_lt(sort_policy));
     output.erase(std::unique(output.begin(), output.end(),
@@ -154,7 +152,7 @@ namespace
         delete p;
       }
 
-    return 0;
+    return output.empty() ? 1 : 0;
   }
 }
 
@@ -171,13 +169,10 @@ int cmdline_search(int argc, char *argv[], const char *status_fname,
 
   pkg_sortpolicy *s=parse_sortpolicy(sort);
 
-  if(!s)
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+  if(s == NULL)
+    return 100;
 
-  _error->DumpErrors();
+  consume_errors();
 
   const unsigned int screen_width = term->get_screen_width();
   if(!width.empty())
@@ -191,9 +186,8 @@ int cmdline_search(int argc, char *argv[], const char *status_fname,
 
   if(!cw::util::transcode(display_format.c_str(), wdisplay_format))
     {
-      _error->DumpErrors();
-      fprintf(stderr, _("iconv of %s failed.\n"), display_format.c_str());
-      return -1;
+      _error->Error(_("iconv of %s failed"), display_format.c_str());
+      return 100;
     }
 
   boost::scoped_ptr<column_definition_list> columns;
@@ -202,15 +196,12 @@ int cmdline_search(int argc, char *argv[], const char *status_fname,
                               pkg_item::pkg_columnizer::defaults));
 
   if(columns.get() == NULL)
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   if(argc<=1)
     {
-      fprintf(stderr, _("search: You must provide at least one search term\n"));
-      return -1;
+      _error->Error(_("search: You must provide at least one search term"));
+      return 100;
     }
 
   shared_ptr<OpProgress> progress =
@@ -219,10 +210,7 @@ int cmdline_search(int argc, char *argv[], const char *status_fname,
   apt_init(progress.get(), true, status_fname);
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   vector<ref_ptr<pattern> > matchers;
 
@@ -232,11 +220,7 @@ int cmdline_search(int argc, char *argv[], const char *status_fname,
 
       ref_ptr<pattern> m = parse(arg);
       if(!m.valid())
-        {
-          _error->DumpErrors();
-
-          return -1;
-        }
+        return 100;
 
       matchers.push_back(m);
     }

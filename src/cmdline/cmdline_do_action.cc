@@ -1,6 +1,7 @@
 // cmdline_do_action.cc
 //
 //  Copyright (C) 2004, 2010 Daniel Burrows
+//  Copyright (C) 2012 Daniel Hartwig
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -101,7 +102,7 @@ int cmdline_do_action(int argc, char *argv[],
 {
   shared_ptr<terminal_io> term = create_terminal();
 
-  _error->DumpErrors();
+  consume_errors();
 
   cmdline_pkgaction_type default_action=cmdline_install;
 
@@ -157,8 +158,7 @@ int cmdline_do_action(int argc, char *argv[],
     {
       // Should never happen.
       _error->Error(_("Invalid operation %s"), argv[0]);
-      _error->DumpErrors();
-      return -1;
+      return 100;
     }
 
   if(resolver_mode == resolver_mode_default)
@@ -178,10 +178,7 @@ int cmdline_do_action(int argc, char *argv[],
             upgrade_mode == no_upgrade), status_fname);
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   // In case we aren't root.
   if(!simulate)
@@ -190,10 +187,7 @@ int cmdline_do_action(int argc, char *argv[],
     apt_cache_file->ReleaseLock();
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   pkgPolicy policy(&(*apt_cache_file)->GetCache());
   ReadPinFile(policy);
@@ -230,8 +224,8 @@ int cmdline_do_action(int argc, char *argv[],
     {
       if(argc != 1)
 	{
-	  cerr << _("Unexpected pattern argument following \"keep-all\"") << endl;
-	  return -1;
+          _error->Error(_("Unexpected pattern argument following \"keep-all\""));
+          return 100;
 	}
 
       for(pkgCache::PkgIterator i=(*apt_cache_file)->PkgBegin();
@@ -334,6 +328,9 @@ int cmdline_do_action(int argc, char *argv[],
     }
   }
 
+  if(_error->PendingError() == true)
+    return 100;
+
   if(resolver_mode == resolver_mode_safe)
     {
       if(!aptitude::cmdline::safe_resolve_deps(verbose,
@@ -342,8 +339,9 @@ int cmdline_do_action(int argc, char *argv[],
                                                safe_resolver_show_actions,
                                                term))
 	{
-	  fprintf(stderr, _("Unable to safely resolve dependencies, try running with --full-resolver.\n"));
-	  return -1;
+          _error->Error(_("Unable to safely resolve dependencies, try"
+                          " running with --full-resolver"));
+          return 100;
 	}
     }
 
@@ -366,10 +364,7 @@ int cmdline_do_action(int argc, char *argv[],
       aptitude::cmdline::apply_user_tags(user_tags);
 
       if(!(*apt_cache_file)->save_selection_list(*progress))
-	{
-	  _error->DumpErrors();
-	  return -1;
-	}
+        return 100;
       else
 	return 0;
     }
@@ -391,14 +386,18 @@ int cmdline_do_action(int argc, char *argv[],
       download_install_manager m(download_only,
 				 sigc::ptr_fun(&run_dpkg_directly));
 
+      // FIXME: Temporary work-around for bug #677175 in apt.
+      const size_t prev_err_stack_count = _error->StackCount();
+
       int rval =
 	(cmdline_do_download(&m, verbose, term, term, term, term)
-         == download_manager::success ? 0 : -1);
+         == download_manager::success ? 0 : 100);
+
+      while(_error->StackCount() > prev_err_stack_count)
+        _error->MergeWithStack();
 
       if(_error->PendingError())
-	rval = -1;
-
-      _error->DumpErrors();
+	rval = 100;
 
       return rval;
     }

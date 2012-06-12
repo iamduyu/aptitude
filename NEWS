@@ -1,6 +1,87 @@
 [6/8/2012]
 Version 0.6.9                               "All in a days work"
 
+Error conditions are much stricter, detecting errors is more
+reliable, and the exit status of all command-line actions is
+well-defined.
+
+All commands will return one of these values as their exit
+status:
+
+      0 – success
+      1 – user aborted (install, remove, …); or
+          no matches (search, why, why-not);
+    100 – failure
+
+For commands whose arguments are lists of packages or search
+patterns the following general conditions hold:
+
+    It is a failure if any package argument does not exactly
+    name a package.
+
+    It is a failure if any versioned argument requests a
+    version which is not available for every package
+    identified by that argument.  Versioned arguments are
+    those which end with a version or archive (release)
+    specifier, respectively “=<version>” and “/<archive>”.
+
+    If a command includes a request to install, remove, or
+    purge any package that command will not proceed if any
+    of the above failures occur.  Other commands may still
+    proceed in case of such failures but will exit with
+    non-zero status to indicate they were not completely
+    effective.
+
+Some commands have exceptions and/or extensions to the
+general conditions:
+
+  install, upgrade, remove, …:
+
+    Where a request specifies a virtual package it is a
+    failure if it has either no provider or multiple
+    providers.  If there is only one provider that package
+    will be selected instead of the virtual package.
+
+  search:
+
+    All arguments are considered patterns.  Arguments
+    without an explicit search term will be wrapped in an
+    implicit ‘?name’ term.
+
+This is a major change from previous versions where the
+program would have proceeded and possibly exited with a
+status indicating success (0) despite some requested actions
+being either invalid or ineffective.  The new, stricter
+behaviour is desirable for two reasons:
+
+- to prevent the situation where a request to replace one
+  set of packages with another set proceeds when (some of)
+  the replacements are not found or unavailable could cause
+  the undesired removal of arbitrary other packages;
+
+- to make the program more atomic and reliable when used for
+  automated tasks – by considering the entire request as
+  being essential to success another program can rely on an
+  exit status of 0 to mean that the request was completely
+  carried out.
+
+- Crashes and serious errors:
+
+  * [cmdline]: install and similar actions have much
+               stronger error checking and will exit more
+               reliably with non-zero status on failures
+
+               Failures which result in no action and a
+               non-zero exit status (100):
+               - a package argument does not exactly name
+                 an available package;
+               - a versioned argument requests a version
+                 which is not available for every package
+                 it applies to (Closes: #590686);
+
+  * [cmdline]: changelog exits with non-zero status on any
+               error (Closes: #675833)
+
 - New features:
 
   * [cmdline]: Regular expressions are now supported to match names
@@ -29,6 +110,16 @@ Version 0.6.9                               "All in a days work"
     no bug reports suggests that noone has noticed they
     were broken, but they work now anyway
 
+  * [cmdline]: Virtual packages which have an already
+               installed provider are only skipped when the
+               requested action is to install them.
+
+  * [cmdline]: search exit with status 1 if it found no
+               matches (Closes: #497299)
+
+  * [cmdline]: why exits with status 1 if it found no
+               reasons given the particular arguments
+
 - Internal changes:
 
   * Unified the way packages are selected from command line
@@ -42,10 +133,22 @@ Version 0.6.9                               "All in a days work"
     subtle quirks with our parser (such as "-qq" not
     being valid when it is fine for other apt programs).
 
+  * download_install_manager.cc:
+    - repeat if package manager result is DoAgain;
+    - report all download errors not just the first;
+
 - Cosmetic and UI bugs:
 
   * [cmdline]: Use arch-qualified names for virtual packages in
                more places as this is what apt-utils do.
+
+  * [cmdline]: Most errors are now displayed at the end of a command's
+               output which makes them easier to spot when there is
+               lots of output. (Closes: #430392)
+
+- Documentation:
+
+  * [doc]: add section on exit status to the man page
 
 [5/11/2012]
 Version 0.6.8                               "Never need a reason,

@@ -51,6 +51,7 @@
 #include <sigc++/bind.h>
 
 #include <cwidget/generic/util/ref_ptr.h>
+#include <cwidget/generic/util/ssprintf.h>
 
 #include <vector>
 
@@ -252,7 +253,7 @@ namespace
                          const shared_ptr<terminal_metrics> &term_metrics,
                          const shared_ptr<terminal_output> &term_output)
   {
-    // Set to -1 if any exact-name matches fail.  Also set to -1 if
+    // Set to 100 if any exact-name matches fail.  Also set to 1 if
     // there are no results at all.
     int return_value = 0;
 
@@ -291,16 +292,16 @@ namespace
         if(output_size == output.size() &&
            (*pIt)->get_type() == m::pattern::exact_name)
           {
-            return_value = 1;
-            _error->Error(_("No such package \"%s\""),
+            return_value = 100;
+            _error->Error(_("Unable to locate package %s"),
                           (*pIt)->get_exact_name_name().c_str());
           }
       }
 
     search_progress_display->done();
 
-    if(output.empty())
-      return_value = 2;
+    if(output.empty() && return_value == 0)
+      return_value = 1;
 
     // Decide how and whether to group the results.  Not initialized
     // so the compiler will check that we always assign a value.
@@ -388,7 +389,7 @@ namespace
         break;
 
       default:
-        _error->Error("Internal error: invalid show-package-names option.");
+        _error->Error("Internal error: invalid show-package-names option");
         do_show_package_names = package_names_should_auto_show;
         break;
       }
@@ -544,12 +545,9 @@ int cmdline_versions(int argc, char *argv[], const char *status_fname,
   pkg_sortpolicy *sort_policy = parse_sortpolicy(sort);
 
   if(!sort_policy)
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
-  _error->DumpErrors();
+  consume_errors();
 
   const unsigned int screen_width = term->get_screen_width();
   if(!width.empty())
@@ -563,9 +561,8 @@ int cmdline_versions(int argc, char *argv[], const char *status_fname,
 
   if(!cw::util::transcode(display_format.c_str(), wdisplay_format))
     {
-      _error->DumpErrors();
-      fprintf(stderr, _("iconv of %s failed.\n"), display_format.c_str());
-      return -1;
+      _error->Error(_("iconv of %s failed"), display_format.c_str());
+      return 100;
     }
 
   boost::scoped_ptr<cw::config::column_definition_list> columns;
@@ -574,15 +571,12 @@ int cmdline_versions(int argc, char *argv[], const char *status_fname,
                               pkg_item::pkg_columnizer::defaults));
 
   if(columns.get() == NULL)
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   if(argc <= 1)
     {
-      fprintf(stderr, _("versions: You must provide at least one package selector\n"));
-      return -1;
+      _error->Error(_("versions: You must provide at least one package selector"));
+      return 100;
     }
 
   OpProgress progress;
@@ -590,27 +584,33 @@ int cmdline_versions(int argc, char *argv[], const char *status_fname,
   apt_init(&progress, true, status_fname);
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   std::vector<cw::util::ref_ptr<m::pattern> > matchers;
+
+  bool parsing_arguments_failed = false;
 
   for(int i = 1; i < argc; ++i)
     {
       const char * const arg = argv[i];
 
-      cw::util::ref_ptr<m::pattern> m = m::parse(arg);
-      if(!m.valid())
-	{
-	  _error->DumpErrors();
+      cw::util::ref_ptr<m::pattern> m;
+      const pkgCache::PkgIterator pkg = (*apt_cache_file)->FindPkg(arg);
+      if(pkg.end() == false)
+        m = m::pattern::make_exact_name(pkg.Name());
+      else if(m::is_pattern(arg) == true)
+        m = m::parse(arg);
+      else
+        _error->Error(_("Unable to locate package %s"), arg);
 
-	  return -1;
-	}
-
-      matchers.push_back(m);
+      if(m.valid() == false)
+        parsing_arguments_failed = true;
+      else
+        matchers.push_back(m);
     }
+
+  if(parsing_arguments_failed == true)
+    return 100;
 
   return do_search_versions(matchers,
                             sort_policy,

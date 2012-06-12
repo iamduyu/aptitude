@@ -39,6 +39,7 @@
 #include <generic/apt/matching/match.h>
 #include <generic/apt/matching/parse.h>
 #include <generic/apt/matching/pattern.h>
+#include <generic/apt/matching/serialize.h>
 #include <generic/apt/tasks.h>
 
 // System includes:
@@ -71,15 +72,16 @@ using boost::shared_ptr;
 
 namespace
 {
-  const int no_install_run_from_ui_preview_return = -1;
-  const int ui_preview_install_failed_return = -1;
+  const int no_install_run_from_ui_preview_return = 1;
+  const int ui_preview_install_failed_return = 100;
 
   // Completion routine for the UI preview; causes the program to
-  // return 0 if the install succeded and 1 otherwise.
+  // return 0 if the install succeded, 1 if the user cancelled,
+  // and 100 otherwise.
   //
   // There's a question in my mind of what to do if the user cancels
   // the preview or runs multiple previews.  At the moment we return
-  // -1 if the preview is cancelled and the result of the last install
+  // 1 if the preview is cancelled and the result of the last install
   // run otherwise.
   void ui_preview_complete(bool success, int *result)
   {
@@ -150,7 +152,8 @@ void cmdline_show_pkglist(pkgvector &items,
 
 pkgCache::VerIterator cmdline_find_ver(pkgCache::PkgIterator pkg,
 				       cmdline_version_source source,
-				       string sourcestr)
+				       string sourcestr,
+                                       GlobalError::MsgType error_type)
 {
   switch(source)
     {
@@ -165,9 +168,13 @@ pkgCache::VerIterator cmdline_find_ver(pkgCache::PkgIterator pkg,
 	if(candver.end())
 	  {
 	    if(source == cmdline_version_cand)
-	      printf(_("No candidate version found for %s\n"), pkg.FullName(true).c_str());
+              _error->Insert(error_type,
+                             _("No candidate version found for %s"),
+                             pkg.FullName(true).c_str());
 	    else
-	      printf(_("No current or candidate version found for %s\n"), pkg.FullName(true).c_str());
+              _error->Insert(error_type,
+                             _("No current or candidate version found for %s"),
+                             pkg.FullName(true).c_str());
 	  }
 
 	return candver;
@@ -191,9 +198,10 @@ pkgCache::VerIterator cmdline_find_ver(pkgCache::PkgIterator pkg,
 	      return ver;
 	  }
 
-      printf(_("Unable to find an archive \"%s\" for the package \"%s\"\n"),
-	     sourcestr.c_str(),
-	     pkg.FullName(true).c_str());
+      _error->Insert(error_type,
+                     _("Unable to find an archive \"%s\" for the package \"%s\""),
+                     sourcestr.c_str(),
+                     pkg.FullName(true).c_str());
 
       return pkgCache::VerIterator(*apt_cache_file, 0);
     case cmdline_version_version:
@@ -201,14 +209,15 @@ pkgCache::VerIterator cmdline_find_ver(pkgCache::PkgIterator pkg,
 	if(sourcestr==ver.VerStr())
 	  return ver;
 
-      printf(_("Unable to find a version \"%s\" for the package \"%s\"\n"),
-	     sourcestr.c_str(),
-	     pkg.FullName(true).c_str());
+      _error->Insert(error_type,
+                     _("Unable to find a version \"%s\" for the package \"%s\""),
+                     sourcestr.c_str(),
+                     pkg.FullName(true).c_str());
 
       return pkgCache::VerIterator(*apt_cache_file, 0);
     default:
-      printf(_("Internal error: invalid value %i passed to cmdline_find_ver!\n"),
-	     source);
+      _error->Error(_("Internal error: invalid value %i passed to cmdline_find_ver!"),
+                    source);
       return pkg.VersionList();
     }
 }
@@ -220,7 +229,7 @@ bool cmdline_parse_source(const string &input,
 {
   string scratch=input;
 
-  source=cmdline_version_cand;
+  // source=cmdline_version_cand;
   sourcestr="";
 
   if(scratch.find('/')!=scratch.npos)
@@ -236,10 +245,8 @@ bool cmdline_parse_source(const string &input,
   if(scratch.find('=')!=scratch.npos)
     {
       if(source==cmdline_version_archive)
-	{
-	  printf(_("You cannot specify both an archive and a version for a package\n"));
-	  return false;
-	}
+        return _error->Error(_("You cannot specify both an archive and a"
+                               " version for a package"));
 
       source=cmdline_version_version;
       string::size_type loc=scratch.rfind('=');
@@ -250,30 +257,6 @@ bool cmdline_parse_source(const string &input,
 
   package=scratch;
 
-  return true;
-}
-
-bool cmdline_parse_task(string pattern,
-                        aptitude::apt::task &task,
-                        string &arch)
-{
-  const string::size_type archfound = pattern.find_last_of(':');
-  arch = "native";
-  if(archfound != string::npos)
-    {
-      arch = pattern.substr(archfound+1);
-      pattern.erase(archfound);
-    }
-
-  if(pattern[pattern.length() - 1] != '^')
-    return false;
-  pattern.erase(pattern.length() - 1);
-
-  const aptitude::apt::task *t = aptitude::apt::find_task(pattern);
-  if(t == NULL)
-    return _error->Error(_("Couldn't find task '%s'"), pattern.c_str());
-
-  task = *t;
   return true;
 }
 
@@ -465,7 +448,7 @@ download_manager::result cmdline_do_download(download_manager *m,
       // otherwise.
       OpProgress tmpProgress;
       // Dump errors so we don't spuriously think we failed.
-      _error->DumpErrors();
+      consume_errors();
       apt_load_cache(&tmpProgress, false, NULL);
       initial_stats = compute_apt_stats();
     }
@@ -480,7 +463,7 @@ download_manager::result cmdline_do_download(download_manager *m,
 
   // Dump errors here because prepare() might check for pending errors
   // and think something failed.
-  _error->DumpErrors();
+  consume_errors();
 
   if(!m->prepare(*progress, *log.get(), log.get()))
     return download_manager::failure;
@@ -584,38 +567,53 @@ namespace aptitude
       if(apt_source_list == NULL)
 	return NULL;
 
+      source_package rval = source_package();
+      bool done = false;
+
+      _error->PushToStack();
       for(pkgSourceList::const_iterator i = apt_source_list->begin();
-	  i != apt_source_list->end(); ++i)
+          done != true && i != apt_source_list->end();
+          ++i)
 	{
 	  if((*i)->GetDist() != archive)
 	    continue;
 
 	  vector<pkgIndexFile *> *indexes = (*i)->GetIndexFiles();
 
-	  for(vector<pkgIndexFile *>::const_iterator j = indexes->begin();
-	      j != indexes->end(); ++j)
+          for(vector<pkgIndexFile *>::const_iterator j = indexes->begin();
+              done != true && j != indexes->end();
+              ++j)
 	    {
 	      std::auto_ptr<pkgSrcRecords::Parser> p((*j)->CreateSrcParser());
 
 	      if(_error->PendingError())
-		return source_package();
-	      if(p.get() != 0)
+		done = true;
+	      else if(p.get() != 0)
 		{
 		  // Step through the file until we reach the end or find
 		  // the package:
 		  while(p.get()->Step() == true)
 		    {
 		      if(_error->PendingError() == true)
-			return source_package();
+                        {
+                          done = true;
+                          break;
+                        }
 
 		      if(p.get()->Package() == source_name)
-			return source_package(p.get());
+                        {
+                          rval = source_package(p.get());
+                          done = true;
+                          break;
+                        }
 		    }
 		}
 	    }
 	}
 
-      return source_package();
+      _error->RevertToStack();
+
+      return rval;
     }
 
     source_package find_source_package(const std::string &package,
@@ -652,7 +650,6 @@ namespace aptitude
 	  // version.
 
 	case cmdline_version_archive:
-	  _error->DumpErrors();
 	  rval = find_source_by_archive(source_package_name, version_source_string);
 	  break;
 
@@ -670,7 +667,8 @@ namespace aptitude
 	{
 	  pkgCache::VerIterator ver = cmdline_find_ver(pkg,
 						       version_source,
-						       version_source_string);
+						       version_source_string,
+                                                       GlobalError::NOTICE);
 
 	  if(!ver.end())
 	    {
@@ -719,7 +717,6 @@ namespace aptitude
 	      break; // We would have tried already if it was possible.
 
 	    case cmdline_version_archive:
-	      _error->DumpErrors();
 	      rval = find_source_by_archive(source_package_name, version_source_string);
 	      break;
 
@@ -868,52 +865,129 @@ namespace aptitude
       return pkg;
     }
 
-    bool pkgset_from_pattern(pkgset *packages, const string &pattern,
-                             GlobalError::MsgType error_type)
+    bool pkgset_from_task(pkgset * const pkgset, string pattern,
+                          GlobalError::MsgType error_type)
     {
-      using aptitude::matching::pkg_results_list;
-      using aptitude::matching::search_cache;
-      using cwidget::util::ref_ptr;
-
-      if(aptitude::matching::is_pattern(pattern) == false)
-        return false;
-
-      ref_ptr<aptitude::matching::pattern> p(aptitude::matching::parse(pattern));
-      if(p.valid() == false)
-        return _error->Insert(error_type,
-                              _("Unable to parse pattern '%s'"), pattern.c_str());
-
-      pkg_results_list matches;
-      ref_ptr<search_cache> search_info(search_cache::create());
-      search(p, search_info,
-             matches,
-             *apt_cache_file,
-             *apt_package_records);
-
-      if(matches.empty() == true)
-        return _error->Insert(error_type,
-                              _("Couldn't find any package for pattern '%s'"),
-                              pattern.c_str());
-
-      for(pkg_results_list::const_iterator it = matches.begin();
-          it != matches.end();
-          ++it)
+      const string::size_type archfound = pattern.find_last_of(':');
+      string arch = "native";
+      if(archfound != string::npos)
         {
-          packages->insert(it->first);
+          arch = pattern.substr(archfound+1);
+          pattern.erase(archfound);
         }
+
+      if(pattern[pattern.length() - 1] != '^')
+        return false;
+      pattern.erase(pattern.length() - 1);
+
+      const aptitude::apt::task *t = aptitude::apt::find_task(pattern);
+      if(t == NULL)
+        return _error->Insert(error_type,
+                              _("Couldn't find task '%s'"), pattern.c_str());
+
+      printf(_("Note: selecting the task \"%s: %s\" for installation\n"),
+             t->name.c_str(), cw::util::transcode(t->shortdesc).c_str());
+
+      aptitude::apt::get_task_packages(pkgset, *t, arch);
       return true;
     }
 
-    bool pkgset_from_string(pkgset *packages, const string &str,
-                            GlobalError::MsgType error_type)
+    bool pkgset_from_pattern(pkgset * const pkgset,
+                             cw::util::ref_ptr<aptitude::matching::pattern> pattern,
+                             string pattern_str,
+                             GlobalError::MsgType error_type)
+    {
+      namespace m = aptitude::matching;
+
+      m::pkg_results_list matches;
+      cw::util::ref_ptr<m::search_cache> search_info(m::search_cache::create());
+      m::search(pattern,
+                search_info,
+                matches,
+                *apt_cache_file,
+                *apt_package_records);
+
+      if(matches.empty() == true)
+        {
+          if(pattern_str.empty() == true)
+            pattern_str = m::serialize_pattern(pattern);
+          return _error->Insert(error_type,
+                                _("Couldn't find any package for pattern '%s'"),
+                                pattern_str.c_str());
+        }
+
+      for(m::pkg_results_list::const_iterator it = matches.begin();
+          it != matches.end();
+          ++it)
+        pkgset->insert(it->first);
+
+      return true;
+    }
+
+    bool pkgset_from_regex(pkgset * const pkgset, string pattern,
+                           GlobalError::MsgType error_type)
+    {
+      namespace m = aptitude::matching;
+      using cw::util::ref_ptr;
+
+      static const char * const isregex = ".?+|[^$";
+      if(pattern.find_first_of(isregex) == std::string::npos)
+        return false;
+
+      std::string regex = pattern;
+      size_t archfound = regex.find_last_of(':');
+      std::string arch = "native";
+      if(archfound != std::string::npos)
+        {
+          arch = regex.substr(archfound+1);
+          if(arch.find_first_of(isregex) == std::string::npos)
+            regex.erase(archfound);
+          else
+            archfound = std::string::npos;
+        }
+
+      ref_ptr<m::pattern> p = m::pattern::make_name(regex);
+      if(p.valid() == false)
+        return false;
+      if(archfound != std::string::npos)
+        p = m::pattern::make_and(p, m::pattern::make_architecture(arch));
+
+      return pkgset_from_pattern(pkgset, p, pattern, error_type);
+    }
+
+    bool pkgset_from_pattern(pkgset * const pkgset, string pattern,
+                             GlobalError::MsgType error_type)
+    {
+      namespace m = aptitude::matching;
+      using cwidget::util::ref_ptr;
+
+      if(m::is_pattern(pattern) == false)
+        return false;
+
+      ref_ptr<m::pattern> p(m::parse(pattern));
+      if(p.valid() == false)
+        return false;
+
+      return pkgset_from_pattern(pkgset, p, pattern, error_type);
+    }
+
+    bool pkgset_from_string(pkgset * const pkgset, string str,
+                            GlobalError::MsgType error_type,
+                            GlobalError::MsgType pattern_error_type)
     {
       bool found = true;
       _error->PushToStack();
 
-      pkgCache::PkgIterator pkg = pkg_from_name(str, error_type);
-      if(pkg.end() == false)
-        packages->insert(pkg);
-      else if(pkgset_from_pattern(packages, str, error_type) == false)
+      if(aptitude::matching::is_pattern(str) == false)
+        {
+          pkgCache::PkgIterator pkg = pkg_from_name(str, error_type);
+          if(pkg.end() == false)
+            pkgset->insert(pkg);
+          else if(pkgset_from_task(pkgset, str, error_type) == false &&
+                  pkgset_from_regex(pkgset, str, error_type) == false)
+            found = false;
+        }
+      else if(pkgset_from_pattern(pkgset, str, pattern_error_type) == false)
         found = false;
 
       if(found == true)

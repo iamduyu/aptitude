@@ -527,13 +527,20 @@ bool do_cmdline_show_target(const pkgCache::PkgIterator &pkg,
 			    bool has_explicit_source,
                             const shared_ptr<terminal_metrics> &term_metrics)
 {
-  if(verbose == 0 || has_explicit_source)
+  if(has_explicit_source == true)
     {
-      // HACK: default to current-or-candidate behavior.  This should be
-      // done in a more up-front way :-(.
-      if(source == cmdline_version_cand)
-	source = cmdline_version_curr_or_cand;
+      pkgCache::VerIterator ver = cmdline_find_ver(pkg, source, sourcestr,
+                                                   GlobalError::NOTICE);
+      if(ver.end() == true)
+        return false;
+
+      show_version(ver, verbose, term_metrics);
+    }
+  else if(verbose == 0)
+    {
+      _error->PushToStack();
       pkgCache::VerIterator ver = cmdline_find_ver(pkg, source, sourcestr);
+      _error->RevertToStack();
 
       if(ver.end())
 	ver = pkg.VersionList();
@@ -554,7 +561,7 @@ bool do_cmdline_show_target(const pkgCache::PkgIterator &pkg,
 
 bool do_cmdline_show(string s, int verbose, const shared_ptr<terminal_metrics> &term_metrics)
 {
-  cmdline_version_source source;
+  cmdline_version_source source = cmdline_version_curr_or_cand;
   string name, sourcestr;
   string default_release = aptcfg->Find("APT::Default-Release");
   bool has_explicit_source = false;
@@ -593,23 +600,23 @@ int cmdline_show(int argc, char *argv[], int verbose)
 {
   shared_ptr<terminal_io> term = create_terminal();
 
-  _error->DumpErrors();
+  consume_errors();
 
   shared_ptr<OpProgress> progress = make_text_progress(true, term, term, term);
   apt_init(progress.get(), false);
 
   if(_error->PendingError())
+    return 100;
+
+  bool found_any = false;
+  for(int i=1; i<argc; ++i)
+    found_any |= do_cmdline_show(argv[i], verbose, term);
+
+  if(!found_any)
     {
-      _error->DumpErrors();
-      return -1;
+      _error->Error(_("No packages found"));
+      return 100;
     }
 
-  for(int i=1; i<argc; ++i)
-    do_cmdline_show(argv[i], verbose, term);
-
-  int rval = _error->PendingError() == true ? -1 : 0;
-
-  _error->DumpErrors(GlobalError::DEBUG);
-
-  return rval;
+  return _error->PendingError() ? 100 : 0;
 }

@@ -2338,6 +2338,53 @@ The following packages will be REMOVED:
   </refsect1>
 
   <refsect1>
+    <title>Exit Status</title>
+
+    <variablelist>
+      <varlistentry>
+        <term><literal>0</literal></term>
+
+        <listitem>
+          <para>Success.</para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><literal>1</literal></term>
+
+        <listitem>
+          <para>User aborted or no matches.</para>
+
+          <para>
+            For most commands this means that the user aborted the
+            operation before it was completed.
+          </para>
+
+          <para>
+            For the <command>search</command>,
+            <command>versions</command>, <command>why</command>, and
+            <command>why-not</command> commands this indicates that
+            no matches were found.
+          </para>
+        </listitem>
+      </varlistentry>
+
+      <varlistentry>
+        <term><literal>100</literal></term>
+
+        <listitem>
+          <para>Failure.</para>
+
+          <para>
+            There was an error and some or all of the requested
+            actions could not be performed.
+          </para>
+        </listitem>
+      </varlistentry>
+    </variablelist>
+  </refsect1>
+
+  <refsect1>
     <title>Environment</title>
 
     <variablelist>
