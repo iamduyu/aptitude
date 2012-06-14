@@ -16,6 +16,11 @@ Version 0.6.9                               "All in a days work"
   * Unified the way packages are selected from command line
     arguments.
 
+- Cosmetic and UI bugs:
+
+  * [cmdline]: Use arch-qualified names for virtual packages in
+               more places as this is what apt-utils do.
+
 [5/11/2012]
 Version 0.6.8                               "Never need a reason,
                                              never need a rhyme"
