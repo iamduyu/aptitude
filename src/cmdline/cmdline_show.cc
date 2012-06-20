@@ -561,21 +561,14 @@ bool do_cmdline_show_target(const pkgCache::PkgIterator &pkg,
 
 bool do_cmdline_show(string s, int verbose, const shared_ptr<terminal_metrics> &term_metrics)
 {
-  cmdline_version_source source = cmdline_version_curr_or_cand;
+  cmdline_version_source source = cmdline_version_cand;
   string name, sourcestr;
-  string default_release = aptcfg->Find("APT::Default-Release");
   bool has_explicit_source = false;
 
   if(!cmdline_parse_source(s, source, name, sourcestr))
     return false;
 
   has_explicit_source = (source != cmdline_version_cand);
-
-  if(source == cmdline_version_cand && !default_release.empty())
-    {
-      source    = cmdline_version_archive;
-      sourcestr = default_release;
-    }
 
   pkgset pkgset;
   if(aptitude::cmdline::pkgset_from_string(&pkgset, name, GlobalError::NOTICE) == false)

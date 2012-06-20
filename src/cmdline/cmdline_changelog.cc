@@ -287,8 +287,6 @@ void do_cmdline_changelog(const vector<string> &packages,
 	pager="more";
     }
 
-  string default_release = aptcfg->Find("APT::Default-Release");
-
   _error->PushToStack();
   for(vector<string>::const_iterator i=packages.begin(); i!=packages.end(); ++i)
     {
@@ -303,12 +301,6 @@ void do_cmdline_changelog(const vector<string> &packages,
 
       if(!cmdline_parse_source(input, source, package, sourcestr))
 	continue;
-
-      if(source == cmdline_version_cand && !default_release.empty())
-	{
-	  source    = cmdline_version_archive;
-	  sourcestr = default_release;
-	}
 
       pkgCache::PkgIterator pkg=(*apt_cache_file)->FindPkg(package);
 
