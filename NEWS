@@ -79,6 +79,17 @@ behaviour is desirable for two reasons:
                  which is not available for every package
                  it applies to (Closes: #590686);
 
+  * [cmdline]: An install run will no longer proceed if any
+               package was unavailable or failed to download
+               correctly, instead an error will be shown
+               and exit with non-zero status (100).
+               (Closes: #121313, #302784)
+
+               The old behaviour can be obtained with the new
+               --fix-missing option or setting
+               Aptitude::CmdLine::Fix-Missing.
+
+
   * [cmdline]: changelog exits with non-zero status on any
                error (Closes: #675833)
 

@@ -384,6 +384,7 @@ int cmdline_do_action(int argc, char *argv[],
       aptitude::cmdline::apply_user_tags(user_tags);
 
       download_install_manager m(download_only,
+                                 aptcfg->FindB(PACKAGE "::CmdLine::Fix-Missing", false),
 				 sigc::ptr_fun(&run_dpkg_directly));
 
       // FIXME: Temporary work-around for bug #677175 in apt.

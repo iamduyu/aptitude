@@ -956,6 +956,7 @@ namespace gui
 
       boost::shared_ptr<download_install_manager> m =
 	boost::make_shared<download_install_manager>(false,
+                                                     true,
 						     sigc::ptr_fun(&gui_run_dpkg));
 
       start_download(m,

@@ -38,8 +38,11 @@
 using namespace std;
 
 download_install_manager::download_install_manager(bool _download_only,
+                                                   bool _fix_missing,
 						   const run_dpkg_in_terminal_func &_run_dpkg_in_terminal)
-  : log(NULL), download_only(_download_only),
+  : log(NULL),
+    download_only(_download_only),
+    fix_missing(_fix_missing),
     pm(new pkgDPkgPM(*apt_cache_file)),
     run_dpkg_in_terminal(_run_dpkg_in_terminal)
 {
@@ -137,6 +140,13 @@ download_manager::result download_install_manager::finish_pre_dpkg(pkgAcquire::R
 	{
 	  return success;
 	}
+    }
+
+  if(failed == true && fix_missing == false)
+    {
+      _error->Error(_("Unable to fetch some archives, maybe run aptitude"
+                      " update or try with --fix-missing?"));
+      return failure;
     }
 
   if(failed && !pm->FixMissing())

@@ -313,6 +313,8 @@ CommandLine::Args opts[] = {
   {0, "group-by", PACKAGE "::CmdLine::Versions-Group-By", CommandLine::HasArg},
   {0, "show-package-names", PACKAGE "::CmdLine::Versions-Show-Package-Names", CommandLine::HasArg},
   {'f', "fix-broken", PACKAGE "::CmdLine::Fix-Broken", 0},
+  {'m', "ignore-missing", PACKAGE "::CmdLine::Fix-Missing", 0},
+  {0, "fix-missing", PACKAGE "::CmdLine::Fix-Missing", 0},
   {'Z', "show-size-changes", PACKAGE "::CmdLine::Show-Size-Changes", 0},
   {'S', "pkgstates", PACKAGE "::%::pkgstates.in", CommandLine::HasArg},
   {'c', "config-file", 0, CommandLine::ConfigFile},

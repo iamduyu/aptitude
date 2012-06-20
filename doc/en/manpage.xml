@@ -1533,6 +1533,33 @@ libdbix-fulltextsearch-perl 0.73-10</screen>
 	</listitem>
       </varlistentry>
 
+      <varlistentry id='cmdlineOptionFixMissing'>
+	<term>
+          <literal>-m</literal>, <literal>--ignore-missing</literal>,
+          <literal>--fix-missing</literal>
+        </term>
+
+	<listitem>
+	  <para>
+            If a package is unavailable or fails to download correctly
+            try to continue installing packages without it.  The
+            package will still be marked for later installation, as
+            though <literal>--schedule-only</literal> had been used.
+            Configuration Item: <literal><link
+            linkend='configCmdLine-Fix-Missing'>Aptitude::CmdLine::Fix-Missing</link></literal>.
+	  </para>
+
+          <note>
+            <para>
+              This was the default behaviour in previous versions of
+              &aptitude; however it caused problems when trying to
+              detect errors using the exit status and was prone to
+              resulting in undesired effects.
+            </para>
+          </note>
+	</listitem>
+      </varlistentry>
+
       <varlistentry id='cmdlineOptionNoNewInstalls'>
 	<term>
 	  <literal>--no-new-installs</literal>
