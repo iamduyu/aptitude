@@ -89,6 +89,12 @@ behaviour is desirable for two reasons:
                --fix-missing option or setting
                Aptitude::CmdLine::Fix-Missing.
 
+  * [cmdline]: --visual-preview exits with non-zero status:
+               - user quits (1);
+               - a package fails to download and the user
+                 chooses not to continue (100); or
+               - a package fails to install (100).
+               (Closes: #282408)
 
   * [cmdline]: changelog exits with non-zero status on any
                error (Closes: #675833)
