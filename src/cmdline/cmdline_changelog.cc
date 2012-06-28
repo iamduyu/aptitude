@@ -230,7 +230,7 @@ void set_name(temp::name n, temp::name *target)
                                                                    term_metrics);
 
     boost::shared_ptr<aptitude::apt::changelog_info>
-      info = aptitude::apt::changelog_info::create(srcpkg, ver, section, name);
+      info = aptitude::apt::changelog_info::guess(srcpkg, ver, section, name);
 
     get_changelog(info,
 		  callbacks,
@@ -316,22 +316,6 @@ void do_cmdline_changelog(const vector<string> &packages,
 
 	  if(!ver.end())
 	    {
-	      // Move this to a central location and just display an
-	      // apt error?
-	      bool in_debian=false;
-
-	      for(pkgCache::VerFileIterator vf=ver.FileList();
-		  !vf.end() && !in_debian; ++vf)
-		if(!vf.File().end() && vf.File().Origin()!=NULL &&
-		   strcmp(vf.File().Origin(), "Debian")==0)
-		  in_debian=true;
-
-	      if(!in_debian)
-		{
-		  _error->Error(_("%s is not an official Debian package, cannot display its changelog."), input.c_str());
-		  continue;
-		}
-
               get_changelog(ver, filename, term_metrics);
 	    }
 	}

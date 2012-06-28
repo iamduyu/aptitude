@@ -126,6 +126,9 @@ behaviour is desirable for two reasons:
            in Debian Policy § 11.1 “Architecture specification
            strings”.
 
+  * [all]: Support downloading changelogs for packages on
+           third-party sites by guessing the URI. (LP: #563155)
+           
 - Minor bugs:
 
   * handle "-qq" like other apt-utils
