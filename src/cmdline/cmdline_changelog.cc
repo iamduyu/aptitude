@@ -331,39 +331,8 @@ void do_cmdline_changelog(const vector<string> &packages,
 		  _error->Error(_("%s is not an official Debian package, cannot display its changelog."), input.c_str());
 		  continue;
 		}
-	    }
 
-	  aptitude::cmdline::source_package p =
-	    aptitude::cmdline::find_source_package(package,
-						   source,
-						   sourcestr);
-
-	  // Use the source package if one was found; otherwise try to
-	  // use an explicit version.
-	  if(p.valid())
-	    {
-	      get_changelog_from_source(p.get_package(),
-					p.get_version(),
-					p.get_section(),
-					pkg.Name(),
-					filename,
-                                        term_metrics);
-	    }
-	  else
-	    {
-	      // Fall back to string-based guessing if the version is
-	      // invalid.
-	      if(ver.end())
-                {
-                  if(source == cmdline_version_version)
-                    filename = changelog_by_version(package, sourcestr, term_metrics);
-                  // If we don't even have a version string, leave
-                  // filename blank; we'll fail below.
-                }
-	      else
-		{
-		  get_changelog(ver, filename, term_metrics);
-		}
+              get_changelog(ver, filename, term_metrics);
 	    }
 	}
       else
@@ -381,33 +350,6 @@ void do_cmdline_changelog(const vector<string> &packages,
 					p.get_package(),
 					filename,
                                         term_metrics);
-	    }
-	  else
-	    {
-	      // We couldn't find a real or source package with the
-	      // given name and version.
-	      //
-	      // If the user didn't specify a version or selected a
-	      // candidate and we couldn't find anything, we have no
-	      // recourse.  But if they passed a version number, we
-	      // can fall back to just blindly guessing that the
-	      // version exists.
-
-	      switch(source)
-		{
-		case cmdline_version_cand:
-		  break;
-
-		case cmdline_version_curr_or_cand:
-		  break;
-
-		case cmdline_version_archive:
-		  break;
-
-		case cmdline_version_version:
-		  filename = changelog_by_version(package, sourcestr, term_metrics);
-		  break;
-		}
 	    }
 	}
 

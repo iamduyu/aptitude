@@ -154,6 +154,19 @@ behaviour is desirable for two reasons:
                where 'any' would select only the first such
                package.
 
+  * [all]: use up-to-date changelog uri construction from apt-get
+           using APT::Changelogs::Server
+
+  * [all]: drop disused Aptitude::Changelog-URL-Template
+
+  * [cmdline]: update to changelog logic:
+               - remove extraneous guess-work with source packages,
+                 which happened to also download the wrong changelog
+                 sometimes (Closes: #631464)
+               - changelog download works with no deb-src lines, so
+                 we don't need to instruct the user to add any
+                 (Closes: #587775, #537393)
+
 - Internal changes:
 
   * Unified the way packages are selected from command line

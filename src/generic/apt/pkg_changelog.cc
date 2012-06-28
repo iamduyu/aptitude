@@ -39,6 +39,8 @@
 #include <sigc++/bind.h>
 
 #include <apt-pkg/sourcelist.h>
+#include <apt-pkg/fileutl.h>
+#include <apt-pkg/strutl.h>
 
 #include <cwidget/generic/util/ssprintf.h>
 
@@ -86,12 +88,12 @@ namespace aptitude
     boost::shared_ptr<changelog_info>
     changelog_info::create(const std::string &source_package,
 			   const std::string &source_version,
-			   const std::string &section,
+                           const std::string &path,
 			   const std::string &display_name)
     {
       return boost::make_shared<changelog_info>(source_package,
 						source_version,
-						section,
+                                                path,
 						display_name);
     }
 
@@ -117,14 +119,18 @@ namespace aptitude
       const string source_version =
 	rec.SourceVer().empty() ? ver.VerStr() : rec.SourceVer();
 
+      string path;
+      path = flNotFile(rec.FileName());
+      path += source_package + "_" + StripEpoch(source_version);
+
       LOG_TRACE(Loggers::getAptitudeChangelog(),
 		"For " << ver.ParentPkg().Name()
 		<< " " << ver.VerStr() << ", getting the changelog of the source package "
-		<< source_package << " " << source_version);
+		<< source_package << " " << source_version << " from " << path);
 
       return boost::make_shared<changelog_info>(source_package,
 						source_version,
-						ver.Section(),
+                                                path,
 						ver.ParentPkg().Name());
     }
 
@@ -385,8 +391,8 @@ namespace aptitude
 		   << req.get_info()->get_source_package()
 		   << ", source_version = "
 		   << req.get_info()->get_source_version()
-		   << ", section = "
-		   << req.get_info()->get_section()
+		   << ", path = "
+		   << req.get_info()->get_path()
 		   << ", display_name = "
 		   << req.get_info()->get_display_name()
 		   << ", download = 0x"
@@ -436,7 +442,7 @@ namespace aptitude
 
 	  const string source_package(info.get_source_package());
 	  const string source_version(info.get_source_version());
-	  const string section(info.get_section());
+          const string path(info.get_path());
 	  const string name(info.get_display_name());
 	  const string short_description = cw::util::ssprintf(_("Changelog of %s"), name.c_str());
 
@@ -520,34 +526,9 @@ namespace aptitude
 		      }
 		}
 
-	      string realsection;
-
-	      if(section.find('/') != section.npos)
-		realsection.assign(section, 0, section.find('/'));
-	      else
-		realsection.assign("main");
-
-	      string prefix;
-
-	      if(source_package.size() > 3 &&
-		 source_package[0] == 'l' && source_package[1] == 'i' && source_package[2] == 'b')
-		prefix = std::string("lib") + source_package[3];
-	      else
-		prefix = source_package[0];
-
-	      string realver;
-
-	      if(source_version.find(':') != source_version.npos)
-		realver.assign(source_version, source_version.find(':') + 1, source_version.npos);
-	      else
-		realver = source_version;
-
-	      string uri = cw::util::ssprintf("http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog",
-					      realsection.c_str(),
-					      prefix.c_str(),
-					      source_package.c_str(),
-					      source_package.c_str(),
-					      realver.c_str());
+              string server = _config->Find("APT::Changelogs::Server",
+                                            "http://packages.debian.org/changelogs");
+              string uri = cw::util::ssprintf("%s/%s/changelog", server.c_str(), path.c_str());
 	      LOG_TRACE(logger,
 			"Adding " << uri
 			<< " as a URI for the changelog of " << source_package << " " << source_version);
