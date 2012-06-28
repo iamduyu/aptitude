@@ -597,7 +597,21 @@ int cmdline_versions(int argc, char *argv[], const char *status_fname,
       cw::util::ref_ptr<m::pattern> m;
       const pkgCache::PkgIterator pkg = (*apt_cache_file)->FindPkg(arg);
       if(pkg.end() == false)
-        m = m::pattern::make_exact_name(pkg.Name());
+        {
+          std::string name(arg);
+          const std::string::size_type archfound = name.find_last_of(':');
+          if(archfound != std::string::npos)
+            {
+              const std::string arch = name.substr(archfound + 1);
+              name.erase(archfound);
+              m = m::pattern::make_and(m::pattern::make_exact_name(pkg.Name()),
+                                       m::pattern::make_architecture(arch));
+            }
+          else
+            {
+              m = m::pattern::make_exact_name(pkg.Name());
+            }
+        }
       else if(m::is_pattern(arg) == true)
         m = m::parse(arg);
       else
