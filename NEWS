@@ -118,6 +118,11 @@ behaviour is desirable for two reasons:
   * New configuration item:
     Aptitude::CmdLine::Sorting, equivalent to --sort
 
+  * [all]: ?architecture search terms now support using specification
+           strings and wildcards (for example, “linux-any”) as defined
+           in Debian Policy § 11.1 “Architecture specification
+           strings”.
+
 - Minor bugs:
 
   * handle "-qq" like other apt-utils

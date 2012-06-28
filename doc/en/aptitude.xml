@@ -6212,6 +6212,18 @@ e: Examine  !: Apply  .: Next  ,: Previous</screen>
 	      special values <literal>native</literal> and
 	      <literal>foreign</literal>.
 	    </para>
+
+            <para>
+              The value of <replaceable>architecture</replaceable> can
+              also be an architecture specification string as defined
+              in Debian Policy § 11.1 <quote>Architecture
+              specification strings</quote>.  These are strings of the
+              form <quote><replaceable>os</replaceable>-<replaceable>arch</replaceable></quote>,
+              where either component can be the wildcard
+              <quote><literal>any</literal></quote>.  For example,
+              <quote><literal>any-i386</literal></quote> or
+              <quote><literal>linux-any</literal></quote>.
+            </para>
 	  </listitem>
 	</varlistentry>
 
