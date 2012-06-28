@@ -865,6 +865,57 @@ namespace aptitude
       return pkg;
     }
 
+    bool pkgset_from_group(pkgset * const pkgset, string name,
+                           GlobalError::MsgType error_type)
+    {
+      const string::size_type archfound = name.find_last_of(':');
+      string arch;
+      if(archfound != string::npos)
+        {
+          arch = name.substr(archfound + 1);
+          name.erase(archfound);
+        }
+
+      pkgCache::GrpIterator grp = (*apt_cache_file)->FindGrp(name);
+      if(grp.end() == false)
+        {
+          if(arch.empty() == true)
+            {
+              pkgCache::PkgIterator pkg = grp.FindPreferredPkg();
+              if(pkg.end() == false)
+                {
+                  pkgset->insert(pkg);
+                  return true;
+                }
+            }
+          else
+            {
+              bool found = false;
+              // for 'linux-any' return the first package matching,
+              // for 'linux-*' return all matches
+              const bool is_global = arch.find('*') != string::npos;
+              APT::CacheFilter::PackageArchitectureMatchesSpecification pams(arch);
+              for(pkgCache::PkgIterator pkg = grp.PackageList();
+                  pkg.end() == false;
+                  pkg = grp.NextPkg(pkg))
+                {
+                  if(pams(pkg) == false)
+                    continue;
+                  pkgset->insert(pkg);
+                  found = true;
+                  if(is_global == false)
+                    break;
+                }
+              if(found == true)
+                return true;
+            }
+        }
+
+      _error->Insert(error_type,
+                     _("Unable to locate package %s"), name.c_str());
+      return false;
+    }
+
     bool pkgset_from_task(pkgset * const pkgset, string pattern,
                           GlobalError::MsgType error_type)
     {
@@ -980,11 +1031,9 @@ namespace aptitude
 
       if(aptitude::matching::is_pattern(str) == false)
         {
-          pkgCache::PkgIterator pkg = pkg_from_name(str, error_type);
-          if(pkg.end() == false)
-            pkgset->insert(pkg);
-          else if(pkgset_from_task(pkgset, str, error_type) == false &&
-                  pkgset_from_regex(pkgset, str, error_type) == false)
+          if(pkgset_from_group(pkgset, str, error_type) == false
+             && pkgset_from_task(pkgset, str, error_type) == false
+             && pkgset_from_regex(pkgset, str, error_type) == false)
             found = false;
         }
       else if(pkgset_from_pattern(pkgset, str, pattern_error_type) == false)

@@ -142,6 +142,15 @@ behaviour is desirable for two reasons:
   * [cmdline]: why exits with status 1 if it found no
                reasons given the particular arguments
 
+  * [cmdline]: Package arguments without an arch-qualifier
+               will also consider foreign-arch packages, in
+               order of preference.  (LP: #892074)
+
+  * [cmdline]: Package arguments can use '*' wildcard in their
+               arch-qualifier to select all matching packages,
+               where 'any' would select only the first such
+               package.
+
 - Internal changes:
 
   * Unified the way packages are selected from command line

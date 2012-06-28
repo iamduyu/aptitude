@@ -441,6 +441,9 @@ namespace aptitude
       }
     };
 
+    bool pkgset_from_group(pkgset * const pkgset, string name,
+                           GlobalError::MsgType error_type = GlobalError::ERROR);
+
     bool pkgset_from_task(pkgset * const pkgset, string pattern,
                           GlobalError::MsgType error_type = GlobalError::ERROR);
 
