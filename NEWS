@@ -75,15 +75,18 @@ behaviour is desirable for two reasons:
                non-zero exit status (100):
                - a package argument does not exactly name
                  an available package;
+                 (Closes: #576212) (LP: #919216)
                - a versioned argument requests a version
                  which is not available for every package
-                 it applies to (Closes: #590686);
+                 it applies to;
+                 (Closes: #590686) (LP: #585408)
 
   * [cmdline]: An install run will no longer proceed if any
                package was unavailable or failed to download
                correctly, instead an error will be shown
                and exit with non-zero status (100).
-               (Closes: #121313, #302784)
+               (Closes: #121313, #302784, #639789)
+               (LP: #734737)
 
                The old behaviour can be obtained with the new
                --fix-missing option or setting
