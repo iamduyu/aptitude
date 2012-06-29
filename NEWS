@@ -104,6 +104,9 @@ ii. to make the program more atomic and reliable when used
 
   * [all]: Support downloading changelogs for packages on
            third-party sites by guessing the URI. (LP: #563155)
+
+  * [all]: New sort policy 'debsize' for sorting by package size.
+           Thanks to Marcel Partap.
            
 - Minor bugs:
 
