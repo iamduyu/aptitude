@@ -2100,10 +2100,8 @@ msgid "Homepage: "
 msgstr "官網： "
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "未發現任何解決方案。"
+msgstr "未找到套件"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2761,6 +2759,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
+"有部份套件檔無法取得，試著執行 aptitude update 或者試著加上 --fix-missing 選"
+"項？"
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

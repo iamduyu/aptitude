@@ -2211,10 +2211,8 @@ msgid "Homepage: "
 msgstr "Домівка: "
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "Неможливо знайти розв'язок."
+msgstr "Не знайдено жодного пакунка"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2897,7 +2895,8 @@ msgstr ""
 msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
-msgstr ""
+"Неможливо завантажити деякі архіви, імовірно треба виконати aptitude update "
+"або спробувати повторити запуск з ключем --fix-missing?"
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

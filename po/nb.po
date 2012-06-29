@@ -723,10 +723,9 @@ msgid "You must choose one to install.\n"
 msgstr "Du må velge en som skal installeres.\n"
 
 #: src/cmdline/cmdline_action.cc:304
-#, fuzzy, c-format
-#| msgid "Package %s is not installed, cannot forbid an upgrade\n"
+#, c-format
 msgid "Package '%s' has no installation candidate"
-msgstr "Pakke %s er ikke installert, kan ikke forby oppgradering\n"
+msgstr "Pakken «%s» har ingen installasjonskandidat"
 
 #: src/cmdline/cmdline_action.cc:313
 #, c-format
@@ -2200,10 +2199,8 @@ msgid "Homepage: "
 msgstr "Hjemmeside: "
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "Fant ingen løsning."
+msgstr "Fant ingen pakker"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2875,6 +2872,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
+"Klarte ikke å hente alle arkivene. Du kan prøve med «aptitude update» eller "
+"«--fix-missing»."
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

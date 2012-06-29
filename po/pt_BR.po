@@ -2232,10 +2232,8 @@ msgid "Homepage: "
 msgstr "Página web: "
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "Nenhuma resolução encontrada."
+msgstr "Nenhum pacote encontrado"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2915,6 +2913,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
+"Impossível buscar alguns arquivos, talvez executar aptitude update ou tentar "
+"com --fix-missing?"
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

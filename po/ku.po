@@ -1984,10 +1984,8 @@ msgid "Homepage: "
 msgstr "Malper:"
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "Çareserî nehat dîtin."
+msgstr "Pakêt nayên dîtin"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format

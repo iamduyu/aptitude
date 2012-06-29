@@ -731,10 +731,9 @@ msgid "You must choose one to install.\n"
 msgstr "Вы должны выбрать один для установки.\n"
 
 #: src/cmdline/cmdline_action.cc:304
-#, fuzzy, c-format
-#| msgid "Package %s is not installed, cannot forbid an upgrade\n"
+#, c-format
 msgid "Package '%s' has no installation candidate"
-msgstr "Пакет %s не установлен, поэтому не может быть запрещён к обновлению\n"
+msgstr "Для пакета «%s» не найден кандидат на установку"
 
 #: src/cmdline/cmdline_action.cc:313
 #, c-format
@@ -2226,10 +2225,8 @@ msgid "Homepage: "
 msgstr "Сайт: "
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No changelog found."
 msgid "No packages found"
-msgstr "Changelog не найден."
+msgstr "Не найдено ни одного пакета"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2918,6 +2915,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
+"Невозможно получить некоторые архивы, вероятно надо запустить aptitude update "
+"или попытаться повторить запуск с ключом --fix-missing"
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

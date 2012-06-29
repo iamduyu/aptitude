@@ -2117,10 +2117,8 @@ msgid "Homepage: "
 msgstr ""
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "ཧུམ་ཆ་མ་འཐོབ།"
+msgstr "ཐུམ་སྒྲིལ་ཚུ་མ་ཐོབ།"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format

@@ -707,10 +707,9 @@ msgid "You must choose one to install.\n"
 msgstr "Bạn phải chọn một gói cần cài.\n"
 
 #: src/cmdline/cmdline_action.cc:304
-#, fuzzy, c-format
-#| msgid "Package %s is not installed, cannot forbid an upgrade\n"
+#, c-format
 msgid "Package '%s' has no installation candidate"
-msgstr "Chưa cài đặt gói « %s » nên không thể cấm nâng cấp\n"
+msgstr "Gói « %s » không có ứng cử cài đặt"
 
 #: src/cmdline/cmdline_action.cc:313
 #, c-format
@@ -2206,10 +2205,8 @@ msgid "Homepage: "
 msgstr "Trang chủ : "
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "Không tìm thấy giải pháp."
+msgstr "Không tìm thấy gói"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format

@@ -900,10 +900,9 @@ msgid "You must choose one to install.\n"
 msgstr "インストールするものを一つ選んでください。\n"
 
 #: src/cmdline/cmdline_action.cc:304
-#, fuzzy, c-format
-#| msgid "Package %s is not installed, cannot forbid an upgrade\n"
+#, c-format
 msgid "Package '%s' has no installation candidate"
-msgstr "%s パッケージはインストールされていないので更新を禁止できません\n"
+msgstr "パッケージ '%s' にはインストール候補がありません"
 
 #: src/cmdline/cmdline_action.cc:313
 #, c-format
@@ -2416,10 +2415,8 @@ msgid "Homepage: "
 msgstr "ホームページ: "
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No packages are broken."
 msgid "No packages found"
-msgstr "依存関係が壊れているパッケージはありません。"
+msgstr "パッケージが見つかりません"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -3104,6 +3101,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
+"いくつかのアーカイブが取得できません。aptitude update を実行するか --fix-"
+"missing オプションを付けて試してみてください。"
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

@@ -713,10 +713,9 @@ msgid "You must choose one to install.\n"
 msgstr "Pro instalaci musíte vybrat jeden z nich.\n"
 
 #: src/cmdline/cmdline_action.cc:304
-#, fuzzy, c-format
-#| msgid "Package %s is not installed, cannot forbid an upgrade\n"
+#, c-format
 msgid "Package '%s' has no installation candidate"
-msgstr "Balík %s není nainstalován, nelze tedy zakázat aktualizaci\n"
+msgstr "Balík „%s“ nemá kandidáta pro instalaci"
 
 #: src/cmdline/cmdline_action.cc:313
 #, c-format
@@ -2199,10 +2198,8 @@ msgid "Homepage: "
 msgstr "Domovská stránka: "
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "Žádné řešení nebylo nalezeno."
+msgstr "Nebyly nalezeny žádné balíky"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2891,6 +2888,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
+"Nelze stáhnout některé archivy. Možná spusťte aptitude update nebo zkuste --"
+"fix-missing?"
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

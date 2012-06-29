@@ -2053,10 +2053,8 @@ msgid "Homepage: "
 msgstr ""
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "រក​មិន​ឃើញ​គុណភាព​បង្ហាញ ។"
+msgstr "រក​កញ្ចប់​មិន​ឃើញ"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format

@@ -620,10 +620,9 @@ msgid "You must choose one to install.\n"
 msgstr "N'heu de seleccionar un a instal·lar.\n"
 
 #: src/cmdline/cmdline_action.cc:304
-#, fuzzy, c-format
-#| msgid "Package %s is not installed, cannot forbid an upgrade\n"
+#, c-format
 msgid "Package '%s' has no installation candidate"
-msgstr "El paquet %s no està instal·lat, no es pot prohibir l'actualització\n"
+msgstr "El paquet «%s» no té candidat d'instaŀlació"
 
 #: src/cmdline/cmdline_action.cc:313
 #, c-format
@@ -2104,10 +2103,8 @@ msgid "Homepage: "
 msgstr ""
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "No s'ha trobat cap resolució."
+msgstr "No s'han trobat paquets"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2797,6 +2794,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
+"No es poden baixar alguns arxius, proveu a executar aptitude update o "
+"intenteu-ho amb --fix-missing."
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

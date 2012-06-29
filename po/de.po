@@ -729,11 +729,9 @@ msgid "You must choose one to install.\n"
 msgstr "Sie müssen eines zum Installieren auswählen.\n"
 
 #: src/cmdline/cmdline_action.cc:304
-#, fuzzy, c-format
-#| msgid "Package %s is not installed, cannot forbid an upgrade\n"
+#, c-format
 msgid "Package '%s' has no installation candidate"
-msgstr ""
-"Paket %s ist nicht installiert, Aktualisierung kann nicht verboten werden.\n"
+msgstr "Für Paket »%s« existiert kein Installationskandidat."
 
 #: src/cmdline/cmdline_action.cc:313
 #, c-format
@@ -2270,10 +2268,8 @@ msgid "Homepage: "
 msgstr "Homepage: "
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "Keine Lösung gefunden."
+msgstr "Keine Pakete gefunden"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2978,6 +2974,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
+"Einige Archive konnten nicht heruntergeladen werden; vielleicht »aptitude "
+"update« ausführen oder mit »--fix-missing« probieren?"
 
 # CHECKME
 #: src/generic/apt/download_install_manager.cc:154

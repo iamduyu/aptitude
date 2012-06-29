@@ -667,10 +667,9 @@ msgid "You must choose one to install.\n"
 msgstr "您必须选择一个来安装。\n"
 
 #: src/cmdline/cmdline_action.cc:304
-#, fuzzy, c-format
-#| msgid "Package %s is not installed, cannot forbid an upgrade\n"
+#, c-format
 msgid "Package '%s' has no installation candidate"
-msgstr "软件包 %s 并未安装，不能禁止升级\n"
+msgstr "软件包 %s 没有可供安装的候选者"
 
 #: src/cmdline/cmdline_action.cc:313
 #, c-format
@@ -2105,10 +2104,8 @@ msgid "Homepage: "
 msgstr "主页："
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No changelog found."
 msgid "No packages found"
-msgstr "未发现变更日志"
+msgstr "没有发现匹配的软件包"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2766,6 +2763,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
+"有几个软件包无法下载，您可以运行 aptitude update 或者加上 --fix-missing 的选项"
+"再试试？"
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

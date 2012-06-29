@@ -2246,10 +2246,8 @@ msgid "Homepage: "
 msgstr "Etxe orria "
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "Ez da bereizmenik aurkitu."
+msgstr "Ez da paketerik aurkitu"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2937,6 +2935,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
+"Ezin izan dira artxibo batzuk lortu; beharbada aptitude update exekutatu, edo "
+"--fix-missing aukerarekin saiatu?"
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

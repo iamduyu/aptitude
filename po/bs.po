@@ -1986,9 +1986,8 @@ msgid "Homepage: "
 msgstr ""
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
 msgid "No packages found"
-msgstr "Automatski prikazuj zašto su paketi oštećeni"
+msgstr "Paketi nisu pronađeni"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format

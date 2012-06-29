@@ -617,11 +617,9 @@ msgid "You must choose one to install.\n"
 msgstr "A telepítéshez ki kell választani valamit!\n"
 
 #: src/cmdline/cmdline_action.cc:304
-#, fuzzy, c-format
-#| msgid "Package %s is not installed, cannot forbid an upgrade\n"
+#, c-format
 msgid "Package '%s' has no installation candidate"
-msgstr ""
-"A(z) %s csomag nincs telepítve, így nem lehet megtiltani a frissítését.\n"
+msgstr "„%s” csomagnak nincs telepítésre jelölt verziója"
 
 #: src/cmdline/cmdline_action.cc:313
 #, c-format
@@ -2108,10 +2106,8 @@ msgid "Homepage: "
 msgstr ""
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "Nem találok megoldást."
+msgstr "Nem találhatók csomagok"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2797,6 +2793,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
+"Nem lehet letölteni néhány archívumot. Próbálja futtatni az „aptitude update” "
+"parancsot, vagy használja a --fix-missing kapcsolót."
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

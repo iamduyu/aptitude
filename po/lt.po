@@ -2176,10 +2176,8 @@ msgid "Homepage: "
 msgstr "Svetainė: "
 
 #: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
-#, fuzzy
-#| msgid "No resolution found."
 msgid "No packages found"
-msgstr "Sprendimas nerastas."
+msgstr "Paketų nerasta"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2861,6 +2859,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
+"Nepavyko parsiųsti kai kurių archyvų, pabandykite paleisti „aptitude update“ "
+"arba pabandykite su parametru --fix-missing?"
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"
