@@ -35,13 +35,7 @@
 
 #include <cwidget/generic/util/transcode.h>
 
-#ifdef HAVE_EPT_AXI
-#include <ept/axi/axi.h>
-#else
-#error "Don't know how to use the debtags Xapian database."
-#endif
-
-#include <xapian/enquire.h>
+#include <xapian.h>
 
 #include <algorithm>
 
@@ -61,7 +55,6 @@ namespace aptitude
   {
     namespace
     {
-#ifdef HAVE_EPT_AXI
       typedef Xapian::Database debtags_db;
 
       const Xapian::docid get_docid_by_name(const debtags_db &db,
@@ -81,7 +74,6 @@ namespace aptitude
       {
         return db;
       }
-#endif
 
       /** \brief Evaluate any regular expression-based pattern.
        *
@@ -388,11 +380,7 @@ namespace aptitude
       {
 	try
 	  {
-#ifdef HAVE_EPT_AXI
-            db.reset(new Xapian::Database(ept::axi::path_db()));
-#else
-#error "Can't figure out how to create the debtags database."
-#endif
+            db.reset(new Xapian::Database("/var/lib/apt-xapian-index/index"));
 	  }
 	catch(...)
 	  {

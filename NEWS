@@ -187,6 +187,8 @@ behaviour is desirable for two reasons:
     - repeat if package manager result is DoAgain;
     - report all download errors not just the first;
 
+  * Use standard apt-xapian-index location, rather than libept.
+
 - Cosmetic and UI bugs:
 
   * [cmdline]: Use arch-qualified names for virtual packages in

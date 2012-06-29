@@ -51,6 +51,23 @@ AC_CHECK_LIB(pthread, main,
 	HAVE_LIBPTHREAD=1
 	, [AC_MSG_ERROR([Can't find the POSIX thread libraries])])
 
+AC_PATH_PROG(XAPIAN_CONFIG, xapian-config)
+if test ! -x "$XAPIAN_CONFIG"
+then
+  AC_MSG_ERROR([Can't find xapian-config -- please install libxapian-dev])
+fi
+XAPIAN_CXXFLAGS="$($XAPIAN_CONFIG --cxxflags)"
+XAPIAN_LIBS="$($XAPIAN_CONFIG --libs)"
+
+OLD_CXXFLAGS="$CXXFLAGS"
+OLD_LIBS="$LIBS"
+
+CXXFLAGS="$CXXFLAGS $XAPIAN_CXXFLAGS"
+LIBS="$LIBS $XAPIAN_LIBS"
+AC_CHECK_HEADER([xapian.h], [],
+    [AC_MSG_ERROR([Can't find the xapian headers -- please install libxapian-dev])])
+CXXFLAGS="$OLD_CXXFLAGS"
+LIBS="$OLD_LIBS"
 
 ########################################################################
 
@@ -355,30 +372,6 @@ int main(int argc, char **argv)
       AC_MSG_FAILURE([Can't figure out how to access the ept debtags database.])
     fi
 
-    TEXTSEARCH_OK=0
-
-    AC_MSG_CHECKING([whether ept/axi exists])
-    AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-#include <ept/axi/axi.h>
-
-int main(int argc, char **argv)
-{
-  Xapian::Database db(ept::axi::path_db());
-
-  return 0;
-}])],
-        [
-        AC_MSG_RESULT([yes])
-        AC_DEFINE([HAVE_EPT_AXI], [], [Define if ept/axi/axi.h can provide docids.])
-        TEXTSEARCH_OK=1
-        ],
-        [AC_MSG_RESULT([no])])
-
-    if test x$TEXTSEARCH_OK = x0
-    then
-      AC_MSG_FAILURE([Can't figure out how to access the ept Xapian database.])
-    fi
-
     AC_MSG_CHECKING([whether ept::debtags::Vocabulary::tagData exists and returns ept::debtags::voc::TagData *])
 
     AC_COMPILE_IFELSE([AC_LANG_SOURCE([
@@ -472,8 +465,8 @@ then
   AC_DEFINE([HAVE_GTK], [], [Define if the GTK+ frontend is included in the build.])
 fi
 
-CXXFLAGS="$CXXFLAGS $SIGC_CFLAGS $CWIDGET_CFLAGS $ept_CFLAGS $SQLITE3_CFLAGS"
-LIBS="$LIBS $SIGC_LIBS $CWIDGET_LIBS $ept_LIBS $SQLITE3_LIBS $BOOST_IOSTREAMS_LIB"
+CXXFLAGS="$CXXFLAGS $SIGC_CFLAGS $CWIDGET_CFLAGS $ept_CFLAGS $SQLITE3_CFLAGS $XAPIAN_CXXFLAGS"
+LIBS="$LIBS $SIGC_LIBS $CWIDGET_LIBS $ept_LIBS $SQLITE3_LIBS $BOOST_IOSTREAMS_LIB $XAPIAN_LIBS"
 CPPFLAGS="$CPPFLAGS $BOOST_CPPFLAGS"
 LDFLAGS="$LDFLAGS $BOOST_LDFLAGS"
 
