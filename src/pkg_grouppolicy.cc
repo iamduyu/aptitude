@@ -1615,7 +1615,7 @@ public:
 	    string desc(get_facet_long_description(*ti));
 	    string shortdesc(get_facet_short_description(*ti));
 #else // HAVE_EPT
-	    string desc = get_facet_description(*ti);
+	    string desc = facet_description(thisfacet);
 	    string shortdesc(desc, 0, desc.find('\n'));
 #endif
 

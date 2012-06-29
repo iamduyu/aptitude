@@ -198,6 +198,11 @@ behaviour is desirable for two reasons:
                output which makes them easier to spot when there is
                lots of output. (Closes: #430392)
 
+- Build system changes:
+
+  * Using libept is optional; use --disable-ept to disable it.
+    Debtags are not properly supported without libept.
+
 - Documentation:
 
   * [doc]: add section on exit status to the man page
