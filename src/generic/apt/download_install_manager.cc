@@ -172,6 +172,9 @@ download_manager::result download_install_manager::finish_pre_dpkg(pkgAcquire::R
     case pkgPackageManager::Completed:  rval = success; break;
     case pkgPackageManager::Failed:     rval = failure; break;
     case pkgPackageManager::Incomplete: rval = do_again; break;
+    default:
+      rval = failure;
+      _error->Error("Unexpected result from pkgPackageManager::DoInstallPreFork");
     }
 
   return rval;
@@ -304,6 +307,9 @@ void download_install_manager::finish(pkgAcquire::RunResult result,
 	case failure:
 	  res = pkgPackageManager::Failed;
 	  break;
+        default:
+          res = pkgPackageManager::Failed;
+          _error->Error("Unexpected result from download_install_manager::finish_pre_dpkg");
 	}
 
       finish_post_dpkg(res,
