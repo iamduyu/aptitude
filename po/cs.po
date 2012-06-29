@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-06-03 12:21+0800\n"
 "Last-Translator: Miroslav Kure <kurem@debian.cz>\n"
 "Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
@@ -959,16 +959,12 @@ msgid "[Working]"
 msgstr "[Pracuji]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, fuzzy
-#| msgid ""
-#| "extract-cache-entries: at least one argument is required (the directory\n"
-#| "to which to write files).\n"
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
-"extract-cache-entries: je vyžadován nejméně jeden argument (adresář,\n"
-"do kterého se mají zapsat soubory).\n"
+"extract-cache-entries: je vyžadován nejméně jeden argument (adresář, "
+"do kterého se mají zapsat soubory)"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format

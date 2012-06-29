@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-05-23 10:14+0800\n"
 "Last-Translator: Eddy Petrișor <eddy.petrisor@gmail.com>\n"
 "Language-Team: Romanian <debian-l10n-romanian@lists.debian.org>\n"
@@ -933,8 +933,7 @@ msgstr "Argument șablon neașteptat după „keep-all”"
 
 #: src/cmdline/cmdline_do_action.cc:342
 msgid "Unable to safely resolve dependencies, try running with --full-resolver"
-msgstr ""
-"Nu se pot rezolva dependențele, încercați să rulați cu --full-resolver"
+msgstr "Nu se pot rezolva dependențele, încercați să rulați cu --full-resolver"
 
 #: src/cmdline/cmdline_do_action.cc:380 src/cmdline/cmdline_simulate.cc:60
 #: src/main.cc:992
@@ -991,16 +990,12 @@ msgid "[Working]"
 msgstr "[În lucru]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, fuzzy
-#| msgid ""
-#| "extract-cache-entries: at least one argument is required (the directory\n"
-#| "to which to write files).\n"
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
-"extract-cache-entries: este necesar cel puțin un argument (directorul în\n"
-" care să se scrie fișierele).\n"
+"extract-cache-entries: este necesar cel puțin un argument (directorul în"
+" care să se scrie fișierele)"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format
@@ -2931,8 +2926,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
-"Nu s-au putut aduce unele arhive, poate ar fi o idee bună să rulați 'aptitude "
-"update' sau încercați cu --fix-missing?"
+"Nu s-au putut aduce unele arhive, poate ar fi o idee bună să rulați "
+"'aptitude update' sau încercați cu --fix-missing?"
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

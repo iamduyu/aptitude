@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-06-03 12:23+0800\n"
 "Last-Translator: quad-nrg.net <yodesy@quad-nrg.net>\n"
 "Language-Team: Greek <debian-l10n-greek@lists.debian.org>\n"
@@ -807,8 +807,7 @@ msgstr ""
 #: src/cmdline/cmdline_action.cc:508
 msgid "You can only specify a package archive with an 'install' command"
 msgstr ""
-"Δεν μπορείτε να καθορίσετε όνομα αρχείου πακέτου με την εντολή "
-"εγκατάστασης"
+"Δεν μπορείτε να καθορίσετε όνομα αρχείου πακέτου με την εντολή εγκατάστασης"
 
 #: src/cmdline/cmdline_action.cc:550
 #, c-format
@@ -1000,16 +999,12 @@ msgid "[Working]"
 msgstr "[Λειτουργεί]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, fuzzy
-#| msgid ""
-#| "extract-cache-entries: at least one argument is required (the directory\n"
-#| "to which to write files).\n"
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
-"extract-cache-entries: απαιτείται τουλάχιστον ένα όρισμα (ο κατάλογος \n"
-"στον οποίον θα γραφούν τα αρχεία).\n"
+"extract-cache-entries: απαιτείται τουλάχιστον ένα όρισμα (ο κατάλογος "
+"στον οποίον θα γραφούν τα αρχεία)"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format
@@ -2610,8 +2605,7 @@ msgstr "Αδύνατο το parse μερικών σχημάτων ταιριάσ
 #, c-format
 msgid "%s: this command requires at least one argument (the package to query)"
 msgstr ""
-"%s: αυτή η εντολή απαιτεί τουλάχιστον ένα όρισμα (το πακέτο προς "
-"διερεύνηση)"
+"%s: αυτή η εντολή απαιτεί τουλάχιστον ένα όρισμα (το πακέτο προς διερεύνηση)"
 
 #: src/cmdline/cmdline_why.h:212
 msgid "Unknown version selection, something is very wrong."

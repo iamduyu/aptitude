@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-06-03 12:27+0800\n"
 "Last-Translator: Priti Patil <prithisd@gmail.com>\n"
 "Language-Team: <janabhaaratii@cdacmumbai.in>\n"
@@ -672,8 +672,7 @@ msgid ""
 "You can only specify a package version with an 'install' command or a "
 "'forbid-version' command"
 msgstr ""
-"पॅकेजची आवृत्ती तुम्ही फक्त 'संस्थापित करा' आज्ञेने किंवा 'निषिध्द-आवृत्ती' आज्ञेनेच नमूद करू "
-"शकता"
+"पॅकेजची आवृत्ती तुम्ही फक्त 'संस्थापित करा' आज्ञेने किंवा 'निषिध्द-आवृत्ती' आज्ञेनेच नमूद करू शकता"
 
 #: src/cmdline/cmdline_action.cc:508
 msgid "You can only specify a package archive with an 'install' command"
@@ -816,8 +815,7 @@ msgstr "वििच्छेद करा \n"
 #: src/cmdline/cmdline_download.cc:45
 msgid "download: you must specify at least one package to download"
 msgstr ""
-"डाउनलोड (उतरवून घेणे)ः डाउनलोड करण्यासाठी तुम्हांला किमान एक पॅकेज तरी नमूद करायलाच "
-"हवे"
+"डाउनलोड (उतरवून घेणे)ः डाउनलोड करण्यासाठी तुम्हांला किमान एक पॅकेज तरी नमूद करायलाच हवे"
 
 #: src/cmdline/cmdline_download.cc:60
 #: src/generic/apt/download_install_manager.cc:87
@@ -866,8 +864,8 @@ msgstr "(काम करीत आहे)"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90

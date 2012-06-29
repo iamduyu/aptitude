@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-02-23 16:55+0800\n"
 "Last-Translator: Asho Yeh <ashoyeh@gmail.com>\n"
 "Language-Team: Chinese/Traditional <zh-l10n@linux.org.tw>\n"
@@ -897,16 +897,12 @@ msgid "[Working]"
 msgstr "[正在工作]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, fuzzy
-#| msgid ""
-#| "extract-cache-entries: at least one argument is required (the directory\n"
-#| "to which to write files).\n"
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
-"extract-cache-entries：至少需要一個參數(該目錄\n"
-"為寫入檔案用)。\n"
+"extract-cache-entries：至少需要一個參數(該目錄"
+"為寫入檔案用)"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format

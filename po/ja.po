@@ -186,7 +186,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-06-03 12:26+0800\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
@@ -1089,8 +1089,7 @@ msgstr "\"keep-all\" の後に想定外のパターン引数があります"
 #: src/cmdline/cmdline_do_action.cc:342
 msgid "Unable to safely resolve dependencies, try running with --full-resolver"
 msgstr ""
-"依存関係を安全に解決できません。--full-resolver をつけて実行してみてくださ"
-"い"
+"依存関係を安全に解決できません。--full-resolver をつけて実行してみてください"
 
 #: src/cmdline/cmdline_do_action.cc:380 src/cmdline/cmdline_simulate.cc:60
 #: src/main.cc:992
@@ -1148,16 +1147,12 @@ msgid "[Working]"
 msgstr " [作業中]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, fuzzy
-#| msgid ""
-#| "extract-cache-entries: at least one argument is required (the directory\n"
-#| "to which to write files).\n"
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
 "extract-cache-entries: 少なくとも 1 つの引数 (ファイルを書き込むディレクト"
-"リ) が必要です。\n"
+"リ) が必要です"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format
@@ -2460,8 +2455,7 @@ msgstr "%s のインストール候補のバージョンが見つかりません
 #: src/cmdline/cmdline_util.cc:176
 #, c-format
 msgid "No current or candidate version found for %s"
-msgstr ""
-"%s は、現在のバージョンもインストール候補のバージョンも見つかりません"
+msgstr "%s は、現在のバージョンもインストール候補のバージョンも見つかりません"
 
 #: src/cmdline/cmdline_util.cc:202
 #, c-format

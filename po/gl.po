@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-06-03 12:25+0800\n"
 "Last-Translator: Jacobo Tarrío <jtarrio@debian.org>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -981,16 +981,12 @@ msgid "[Working]"
 msgstr "[A traballar]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, fuzzy
-#| msgid ""
-#| "extract-cache-entries: at least one argument is required (the directory\n"
-#| "to which to write files).\n"
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
 "extract-cache-entries: precísase de alomenos un argumento (o directorio no "
-"que gravar os ficheiros).\n"
+"que gravar os ficheiros)"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format
@@ -2300,6 +2296,7 @@ msgid "Unable to find a version \"%s\" for the package \"%s\""
 msgstr "Non se puido atopar unha versión \"%s\" para o paquete \"%s\""
 
 #: src/cmdline/cmdline_util.cc:219
+#, c-format
 msgid "Internal error: invalid value %i passed to cmdline_find_ver!"
 msgstr "Erro interno: pasouse o valor non válido %i a cmdline_find_ver"
 
@@ -2569,8 +2566,7 @@ msgstr "Non se puideron analizar algúns patróns de busca."
 #: src/cmdline/cmdline_why.cc:1362
 #, c-format
 msgid "%s: this command requires at least one argument (the package to query)"
-msgstr ""
-"%s: esta orde precisa de alomenos un argumento (o paquete a consultar)"
+msgstr "%s: esta orde precisa de alomenos un argumento (o paquete a consultar)"
 
 #: src/cmdline/cmdline_why.h:212
 msgid "Unknown version selection, something is very wrong."

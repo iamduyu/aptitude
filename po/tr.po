@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-02-23 16:54+0800\n"
 "Last-Translator: Erçin EKER <ercin.eker@linux.org.tr>\n"
 "Language-Team: Turkish <debian-l10n-turkish@lists.debian.org>\n"
@@ -861,8 +861,8 @@ msgstr "[Çalışılıyor]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
@@ -2092,6 +2092,7 @@ msgstr "İndirilen eskimiş dosyalar siliniyor"
 #: src/cmdline/cmdline_update.cc:55
 msgid "The update command takes no arguments"
 msgstr "Güncelle komutu argüman kabul etmez"
+
 #: src/cmdline/cmdline_user_tag.cc:65
 #, fuzzy, c-format
 msgid "Adding user tag \"%s\" to the package \"%s\".\n"

@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude 0.4.11\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-06-03 12:23+0800\n"
 "Last-Translator: Javier Fernandez-Sanguino <jfs@debian.org>\n"
 "Language-Team: Debian-l10n-Spanish <debian-l10n-spanish@lists.debian.org>\n"
@@ -753,6 +753,7 @@ msgid "You must choose one to install.\n"
 msgstr "Debe elegir uno para instalar.\n"
 
 #: src/cmdline/cmdline_action.cc:304
+#, c-format
 msgid "Package '%s' has no installation candidate"
 msgstr "El paquete «%s» no tiene un candidato para la instalación"
 
@@ -815,8 +816,7 @@ msgstr ""
 
 #: src/cmdline/cmdline_action.cc:508
 msgid "You can only specify a package archive with an 'install' command"
-msgstr ""
-"Sólo puede especificar un archivo de un paquete con la orden «install»"
+msgstr "Sólo puede especificar un archivo de un paquete con la orden «install»"
 
 #: src/cmdline/cmdline_action.cc:550
 #, c-format
@@ -1013,16 +1013,12 @@ msgid "[Working]"
 msgstr "[Trabajando]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, fuzzy
-#| msgid ""
-#| "extract-cache-entries: at least one argument is required (the directory\n"
-#| "to which to write files).\n"
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
-"extract-cache-entries: es necesario al menos un argumento (el directorio\n"
-"en el que escribir los ficheros).\n"
+"extract-cache-entries: es necesario al menos un argumento (el directorio "
+"en el que escribir los ficheros)"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format
@@ -2350,13 +2346,11 @@ msgstr "Incapaz de encontrar una versión \"%s\" para el paquete \"%s\""
 #: src/cmdline/cmdline_util.cc:219
 #, c-format
 msgid "Internal error: invalid value %i passed to cmdline_find_ver!"
-msgstr ""
-"¡Error interno: se ha pasado a cmdline_find_ver un valor inválido %i!"
+msgstr "¡Error interno: se ha pasado a cmdline_find_ver un valor inválido %i!"
 
 #: src/cmdline/cmdline_util.cc:248
 msgid "You cannot specify both an archive and a version for a package"
-msgstr ""
-"No puede especificar un archivo y una versión para un paquete a la vez"
+msgstr "No puede especificar un archivo y una versión para un paquete a la vez"
 
 #: src/cmdline/cmdline_util.cc:345
 #, c-format
@@ -2619,8 +2613,7 @@ msgstr "No se pudo interpretar algunos patrón de comparación."
 #: src/cmdline/cmdline_why.cc:1362
 #, c-format
 msgid "%s: this command requires at least one argument (the package to query)"
-msgstr ""
-"%s: esta orden necesita al menos un argumento (el paquete a consultar)"
+msgstr "%s: esta orden necesita al menos un argumento (el paquete a consultar)"
 
 #: src/cmdline/cmdline_why.h:212
 msgid "Unknown version selection, something is very wrong."

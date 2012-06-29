@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude 0.4.11.11\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-02-12 15:29+0800\n"
 "Last-Translator: Marcos Alvarez Costales <marcos.alvarez.costales@gmail."
 "com>\n"
@@ -967,16 +967,12 @@ msgid "[Working]"
 msgstr "[Trabayando]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, fuzzy
-#| msgid ""
-#| "extract-cache-entries: at least one argument is required (the directory\n"
-#| "to which to write files).\n"
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
-"extract-cache-entries: ye requeríu al menos un argumentu (el direutoriu\n"
-"nel qu'escribir ficheros).\n"
+"extract-cache-entries: ye requeríu al menos un argumentu (el direutoriu "
+"nel qu'escribir ficheros)"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format
@@ -2287,8 +2283,7 @@ msgstr "Fallu internu: ¡pasose a cmdline_find_ver un valor %i nun válidu!"
 
 #: src/cmdline/cmdline_util.cc:248
 msgid "You cannot specify both an archive and a version for a package"
-msgstr ""
-"Nun puedes especifiar un archivu y una versión pa un paquete a la vez"
+msgstr "Nun puedes especifiar un archivu y una versión pa un paquete a la vez"
 
 #: src/cmdline/cmdline_util.cc:345
 #, c-format
@@ -2551,8 +2546,7 @@ msgstr "Nun se puede interpretar dalgún patrón de comparación"
 #: src/cmdline/cmdline_why.cc:1362
 #, c-format
 msgid "%s: this command requires at least one argument (the package to query)"
-msgstr ""
-"%s: Esti comandu requier al menos un argumentu (el paquete a guetar)"
+msgstr "%s: Esti comandu requier al menos un argumentu (el paquete a guetar)"
 
 #: src/cmdline/cmdline_why.h:212
 msgid "Unknown version selection, something is very wrong."

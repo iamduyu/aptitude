@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-06-03 12:25+0800\n"
 "Last-Translator: Jean-Baka Domelevo Entfellner <domelevo@gmail.com>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
@@ -990,17 +990,12 @@ msgid "[Working]"
 msgstr "[En cours]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, fuzzy
-#| msgid ""
-#| "extract-cache-entries: at least one argument is required (the directory\n"
-#| "to which to write files).\n"
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
 "extract-cache-entries : au moins un paramètre est requis (le répertoire où "
-"sont.\n"
-"écrits les fichiers).\n"
+"sont écrits les fichiers)"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format
@@ -2606,8 +2601,7 @@ msgstr "Impossible d'analyser certains motifs de correspondance."
 #, c-format
 msgid "%s: this command requires at least one argument (the package to query)"
 msgstr ""
-"%s: cette commande a besoin d'au moins un paramètre (le paquet à "
-"rechercher)"
+"%s: cette commande a besoin d'au moins un paramètre (le paquet à rechercher)"
 
 #: src/cmdline/cmdline_why.h:212
 msgid "Unknown version selection, something is very wrong."
@@ -2983,8 +2977,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
-"Impossible de récupérer quelques archives, peut-être devrez-vous lancer"
-" aptitude update ou essayer avec --fix-missing ?"
+"Impossible de récupérer quelques archives, peut-être devrez-vous lancer "
+"aptitude update ou essayer avec --fix-missing ?"
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

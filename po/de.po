@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude 0.6.6-1\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-06-03 12:22+0800\n"
 "Last-Translator: Holger Wansing <linux@wansing-online.de>\n"
 "Language-Team: Debian German <debian-l10n-german@lists.debian.org>\n"
@@ -983,17 +983,13 @@ msgid "[Working]"
 msgstr "[Arbeite]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, fuzzy
-#| msgid ""
-#| "extract-cache-entries: at least one argument is required (the directory\n"
-#| "to which to write files).\n"
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
 "extract-cache-entries: mindestens ein Argument wird benötigt (das "
-"Verzeichnis,\n"
-"in das Dateien geschrieben werden sollen).\n"
+"Verzeichnis, "
+"in das Dateien geschrieben werden sollen)"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format
@@ -2333,8 +2329,7 @@ msgstr ""
 
 #: src/cmdline/cmdline_util.cc:248
 msgid "You cannot specify both an archive and a version for a package"
-msgstr ""
-"Sie können nicht sowohl Archiv als auch Version eines Pakets angeben."
+msgstr "Sie können nicht sowohl Archiv als auch Version eines Pakets angeben."
 
 #: src/cmdline/cmdline_util.cc:345
 #, c-format
@@ -2598,8 +2593,7 @@ msgstr "Einige Suchmuster konnten nicht ausgewertet werden."
 #, c-format
 msgid "%s: this command requires at least one argument (the package to query)"
 msgstr ""
-"%s: dieser Befehl benötigt mindestens ein Argument (das abzufragende "
-"Paket)."
+"%s: dieser Befehl benötigt mindestens ein Argument (das abzufragende Paket)."
 
 #: src/cmdline/cmdline_why.h:212
 msgid "Unknown version selection, something is very wrong."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-06-03 13:17+0800\n"
 "Last-Translator: Tshewang Norbu <bumthap2006@hotmail.com>\n"
 "Language-Team: Dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -834,8 +834,7 @@ msgstr "བར་བཤོལ།\n"
 
 #: src/cmdline/cmdline_download.cc:45
 msgid "download: you must specify at least one package to download"
-msgstr ""
-"ཕབ་ལེན:ཕབ་ལེན་འབད་ནིའི་དོན་ལུ་ ཁྱོད་ཀྱིས་ཉུང་ཤོས་རང་ཐུམ་སྒྲིལ་གཅིག་གསལ་བཀོད་འབད་དགོཔ་ཨིན།"
+msgstr "ཕབ་ལེན:ཕབ་ལེན་འབད་ནིའི་དོན་ལུ་ ཁྱོད་ཀྱིས་ཉུང་ཤོས་རང་ཐུམ་སྒྲིལ་གཅིག་གསལ་བཀོད་འབད་དགོཔ་ཨིན།"
 
 #: src/cmdline/cmdline_download.cc:60
 #: src/generic/apt/download_install_manager.cc:87
@@ -891,8 +890,8 @@ msgstr "[ལཱ་ཡགོག་འབད་དོ]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90

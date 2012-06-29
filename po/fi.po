@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude 0.4.4\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-06-03 12:25+0800\n"
 "Last-Translator: Jaakko Kangasharju <ashar@iki.fi>\n"
 "Language-Team: Finnish <debian-l10n-finnish@lists.debian.org>\n"
@@ -674,8 +674,7 @@ msgid ""
 "You can only specify a package version with an 'install' command or a "
 "'forbid-version' command"
 msgstr ""
-"Vain 'install'- ja 'forbid-version'-komennoille voi määrittää paketin "
-"version"
+"Vain 'install'- ja 'forbid-version'-komennoille voi määrittää paketin version"
 
 #: src/cmdline/cmdline_action.cc:508
 msgid "You can only specify a package archive with an 'install' command"
@@ -871,8 +870,8 @@ msgstr "[Toimin]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
@@ -2772,8 +2771,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
-"Joidenkin arkistojen nouto ei onnistunut, ehkä \"aptitude update\" auttaa tai "
-"kokeile --fix-missing?"
+"Joidenkin arkistojen nouto ei onnistunut, ehkä \"aptitude update\" auttaa "
+"tai kokeile --fix-missing?"
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"

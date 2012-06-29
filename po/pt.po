@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-06-03 12:29+0800\n"
 "Last-Translator: Miguel Figueiredo <elmig@debianPT.org>\n"
 "Language-Team: Portuguese <traduz@debianpt.org>\n"
@@ -795,8 +795,7 @@ msgstr ""
 
 #: src/cmdline/cmdline_action.cc:508
 msgid "You can only specify a package archive with an 'install' command"
-msgstr ""
-"Só pode especificar um repositório de pacotes com o comando 'install'"
+msgstr "Só pode especificar um repositório de pacotes com o comando 'install'"
 
 #: src/cmdline/cmdline_action.cc:550
 #, c-format
@@ -985,16 +984,12 @@ msgid "[Working]"
 msgstr "[A trabalhar]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, fuzzy
-#| msgid ""
-#| "extract-cache-entries: at least one argument is required (the directory\n"
-#| "to which to write files).\n"
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
-"extract-cache-entries: é necessário pelo menos um argumento (o directório\n"
-"para onde escrever os ficheiros).\n"
+"extract-cache-entries: é necessário pelo menos um argumento (o directório "
+"para onde escrever os ficheiros)"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format
@@ -2280,8 +2275,7 @@ msgstr "Nenhuma foi encontrada nenhuma versão actual ou candidata para %s"
 #: src/cmdline/cmdline_util.cc:202
 #, c-format
 msgid "Unable to find an archive \"%s\" for the package \"%s\""
-msgstr ""
-"Não foi possível encontrar um repositório \"%s\" para o pacote \"%s\""
+msgstr "Não foi possível encontrar um repositório \"%s\" para o pacote \"%s\""
 
 #: src/cmdline/cmdline_util.cc:213
 #, c-format
@@ -2556,8 +2550,7 @@ msgstr "Não foi possível processar alguns padrões a coincidir."
 #, c-format
 msgid "%s: this command requires at least one argument (the package to query)"
 msgstr ""
-"%s: este comando necessita de pelo menos um argumento (o pacote a "
-"interrogar)"
+"%s: este comando necessita de pelo menos um argumento (o pacote a interrogar)"
 
 #: src/cmdline/cmdline_why.h:212
 msgid "Unknown version selection, something is very wrong."

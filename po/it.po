@@ -43,7 +43,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude 0.4.11.10\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-29 12:22+0800\n"
+"POT-Creation-Date: 2012-06-29 17:45+0800\n"
 "PO-Revision-Date: 2012-06-03 12:26+0800\n"
 "Last-Translator: Danilo Piazzalunga <danilopiazza@gmail.com>\n"
 "Language-Team: Italian <tp@lists.linux.it>\n"
@@ -1014,16 +1014,12 @@ msgid "[Working]"
 msgstr "[In corso]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, fuzzy
-#| msgid ""
-#| "extract-cache-entries: at least one argument is required (the directory\n"
-#| "to which to write files).\n"
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files)"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
-"extract-cache-entries: è richiesto almeno un argomento (la directory in\n"
-"cui scrivere i file).\n"
+"extract-cache-entries: è richiesto almeno un argomento (la directory in "
+"cui scrivere i file)"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format
@@ -2580,8 +2576,7 @@ msgstr "Impossibile analizzare il modello di ricerca."
 #, c-format
 msgid "%s: this command requires at least one argument (the package to query)"
 msgstr ""
-"%s: questo comando richiede almeno un argomento (il pacchetto da "
-"esaminare)"
+"%s: questo comando richiede almeno un argomento (il pacchetto da esaminare)"
 
 #: src/cmdline/cmdline_why.h:212
 msgid "Unknown version selection, something is very wrong."
@@ -2940,8 +2935,8 @@ msgid ""
 "Unable to fetch some archives, maybe run aptitude update or try with --fix-"
 "missing?"
 msgstr ""
-"Impossibile scaricare alcuni pacchetti. Potrebbe essere utile eseguire"
-" \"aptitude update\" o provare l'opzione \"--fix-missing\"."
+"Impossibile scaricare alcuni pacchetti. Potrebbe essere utile eseguire "
+"\"aptitude update\" o provare l'opzione \"--fix-missing\"."
 
 #: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"
