@@ -55,7 +55,7 @@ namespace aptitude
       if(argc < 2)
 	{
           _error->Error(_("extract-cache-entries: at least one argument is"
-                          " required (the directory\nto which to write files)"));
+                          " required (the directory to which to write files)"));
           return 100;
 	}
 
