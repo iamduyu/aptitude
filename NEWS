@@ -10,43 +10,19 @@ status:
 
       0 – success
       1 – user aborted (install, remove, …); or
-          no matches (search, why, why-not);
+          no matches (search, versions, why, why-not)
     100 – failure
 
-For commands whose arguments are lists of packages or search
-patterns the following general conditions hold:
+Most commands will now fail *without* proceeding if any
+package arguments are not available, or are not available in
+the requested version or archive.  Specifying a virtual
+package which does not have exactly one provider will also
+result in failure.
 
-    It is a failure if any package argument does not exactly
-    name a package.
-
-    It is a failure if any versioned argument requests a
-    version which is not available for every package
-    identified by that argument.  Versioned arguments are
-    those which end with a version or archive (release)
-    specifier, respectively “=<version>” and “/<archive>”.
-
-    If a command includes a request to install, remove, or
-    purge any package that command will not proceed if any
-    of the above failures occur.  Other commands may still
-    proceed in case of such failures but will exit with
-    non-zero status to indicate they were not completely
-    effective.
-
-Some commands have exceptions and/or extensions to the
-general conditions:
-
-  install, upgrade, remove, …:
-
-    Where a request specifies a virtual package it is a
-    failure if it has either no provider or multiple
-    providers.  If there is only one provider that package
-    will be selected instead of the virtual package.
-
-  search:
-
-    All arguments are considered patterns.  Arguments
-    without an explicit search term will be wrapped in an
-    implicit ‘?name’ term.
+Finally, install actions will not proceed if any package
+fails to download correctly.  The option --fix-missing is
+added to override this and the old behaviour can be restored
+by setting Aptitude::CmdLine::Fix-Missing in apt.conf.
 
 This is a major change from previous versions where the
 program would have proceeded and possibly exited with a
@@ -54,16 +30,16 @@ status indicating success (0) despite some requested actions
 being either invalid or ineffective.  The new, stricter
 behaviour is desirable for two reasons:
 
-- to prevent the situation where a request to replace one
-  set of packages with another set proceeds when (some of)
-  the replacements are not found or unavailable could cause
-  the undesired removal of arbitrary other packages;
+ i. to prevent the situation where a request to replace one
+    set of packages with another set proceeds when (some of)
+    the replacements are not found or unavailable could
+    cause the undesired removal of arbitrary other packages;
 
-- to make the program more atomic and reliable when used for
-  automated tasks – by considering the entire request as
-  being essential to success another program can rely on an
-  exit status of 0 to mean that the request was completely
-  carried out.
+ii. to make the program more atomic and reliable when used
+    for automated tasks – by considering the entire request
+    as being essential to success another program can rely
+    on an exit status of 0 to mean that the request was
+    completely carried out.
 
 - Crashes and serious errors:
 
