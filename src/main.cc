@@ -726,7 +726,7 @@ int main(int argc, const char *argv[])
     resolver_mode = resolver_mode_safe;
   if(aptcfg->FindB(PACKAGE "::%::safe-resolver", false) == true
      && aptcfg->FindB(PACKAGE "::%::full-resolver", false) == true)
-    _error->Error(_("Conflicting command line options --safe-resolver and --full-options"));
+    _error->Error(_("Conflicting command line options --safe-resolver and --full-resolver"));
   if(aptcfg->FindB(PACKAGE "::%::safe-resolver", false) == true)
     resolver_mode = resolver_mode_safe;
   if(aptcfg->FindB(PACKAGE "::%::full-resolver", false) == true)
