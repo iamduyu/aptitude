@@ -51,244 +51,6 @@ AC_CHECK_LIB(pthread, main,
 	HAVE_LIBPTHREAD=1
 	, [AC_MSG_ERROR([Can't find the POSIX thread libraries])])
 
-PKG_CHECK_MODULES(ept, libept, [], [AC_MSG_ERROR([Can't find the ept library -- please install libept-dev])])
-AC_DEFINE([HAVE_EPT], [], [Backwards compatibility symbol; must always be defined.])
-
-############################ CHECKS FOR EPT ############################
-
-OLD_CXXFLAGS="$CXXFLAGS"
-
-CXXFLAGS="$CXXFLAGS $ept_CFLAGS"
-
-dnl Newer versions of libept use strings instead of various old ept
-dnl data structures.  Test for each one individually.
-DEBTAGS_OK=0
-
-AC_MSG_CHECKING([whether ept::debtags::Tag exists])
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-#include <ept/debtags/tag.h>
-
-int main(int argc, char **argv)
-{
-  ept::debtags::Tag t;
-
-  return 0;
-}])],
-        [
-        AC_MSG_RESULT(yes)
-        AC_DEFINE([HAVE_EPT_DEBTAGS_TAG], [], [Define if ept::debtags::Tag exists.])
-        DEBTAGS_OK=1
-        ],
-        [AC_MSG_RESULT(no)])
-
-AC_MSG_CHECKING([whether ept::debtags::Facet exists])
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-#include <ept/debtags/tag.h>
-
-int main(int argc, char **argv)
-{
-  ept::debtags::Facet f;
-
-  return 0;
-}])],
-        [
-        AC_DEFINE([HAVE_EPT_DEBTAGS_FACET], [], [Define if ept::debtags::Facet exists])
-        AC_MSG_RESULT([yes])
-        ],
-        [AC_MSG_RESULT([no])])
-
-AC_MSG_CHECKING([whether ept::debtags::getTagsOfItem returns a set of strings.])
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-#include <ept/debtags/debtags.h>
-
-int main(int argc, char **argv)
-{
-  // This would always crash, but we only care if it type-checks.
-  ept::debtags::Debtags DB;
-  std::set<std::string> result = DB.getTagsOfItem("foo");
-
-  return 0;
-}
-])],
-        [
-        AC_MSG_RESULT(yes)
-        AC_DEFINE([EPT_DEBTAGS_GETTAGSOFITEM_RETURNS_STRINGS], [], [Define if ept::debtags::Debtags::getTagsOfItem returns a set of strings])
-        DEBTAGS_OK=1
-        ],
-        [
-        AC_MSG_RESULT(no)
-        ])
-
-if test x$DEBTAGS_OK = x0
-then
-  AC_MSG_FAILURE([Can't figure out how to access the ept debtags database.])
-fi
-
-TEXTSEARCH_OK=0
-
-dnl Newer versions of ept got rid of the whole textsearch header and
-dnl instead just include the Xapian database directly.  See which
-dnl version we're dealing with.
-AC_MSG_CHECKING([whether ept::textsearch exists])
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-#include <ept/textsearch/textsearch.h>
-
-int main(int argc, char **argv)
-{
-  ept::textsearch::TextSearch db;
-
-  db.docidByName("foo");
-
-  return 0;
-}])],
-        [
-        AC_MSG_RESULT(yes)
-        AC_DEFINE([HAVE_EPT_TEXTSEARCH], [], [Define if ept::textsearch exists])
-        TEXTSEARCH_OK=1
-        ],
-        [
-        AC_MSG_RESULT(no)
-        ])
-
-dnl Now look in the new location:
-AC_MSG_CHECKING([whether ept/axi exists])
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-#include <ept/axi/axi.h>
-
-int main(int argc, char **argv)
-{
-  Xapian::Database db(ept::axi::path_db());
-
-  return 0;
-}])],
-        [
-        AC_MSG_RESULT([yes])
-        AC_DEFINE([HAVE_EPT_AXI], [], [Define if ept/axi/axi.h can provide docids.])
-        TEXTSEARCH_OK=1
-        ],
-        [AC_MSG_RESULT([no])])
-
-if test x$TEXTSEARCH_OK = x0
-then
-  AC_MSG_FAILURE([Can't figure out how to access the ept Xapian database.])
-fi
-
-AC_MSG_CHECKING([whether ept::debtags::Vocabulary::tagData exists and returns ept::debtags::voc::TagData *])
-
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-#include <ept/debtags/vocabulary.h>
-
-int main(int argc, char **argv)
-{
-  ept::debtags::Vocabulary vocabulary;
-  const ept::debtags::voc::TagData *td = vocabulary.tagData("foo");
-
-  // Use td so the compiler doesn't complain:
-  return td == NULL ? 1 : 0;
-}])],
-        [
-        AC_MSG_RESULT([yes])
-        AC_DEFINE([HAVE_EPT_DEBTAGS_VOCABULARY_TAG_DATA], [], [Define if the ept debtags vocabulary object exists and supports tagData()])
-        ],
-        [AC_MSG_RESULT([no])])
-
-
-AC_MSG_CHECKING([whether ept::debtags::Vocabulary::facetData exists and returns ept::debtags::voc::FacetData *])
-
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-#include <ept/debtags/vocabulary.h>
-
-int main(int argc, char **argv)
-{
-  ept::debtags::Vocabulary vocabulary;
-  const ept::debtags::voc::FacetData *fd = vocabulary.facetData("foo");
-
-  // Use fd so the compiler doesn't complain:
-  return fd == NULL ? 1 : 0;
-}])],
-        [
-        AC_MSG_RESULT([yes])
-        AC_DEFINE([HAVE_EPT_DEBTAGS_VOCABULARY_FACET_DATA], [], [Define if the ept debtags vocabulary object exists and supports facetData()])
-        ],
-        [AC_MSG_RESULT([no])])
-
-AC_MSG_CHECKING([whether ept::debtags::Tag::fullname() exists])
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-#include <ept/debtags/tag.h>
-
-int main(int argc, char **argv)
-{
-  ept::debtags::Tag t;
-
-  std::string s = t.fullname();
-
-  return 0;
-}])],
-        [
-        AC_MSG_RESULT([yes])
-        AC_DEFINE([HAVE_EPT_DEBTAGS_TAG_FULLNAME], [], [Define if ept::debtags::Tag exists and has a fullname() method])
-        ],
-        [AC_MSG_RESULT([no])])
-
-
-AC_MSG_CHECKING([whether ept::debtags::Facet exists and supports name()])
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-#include <ept/debtags/tag.h>
-
-int main(int argc, char **argv)
-{
-  ept::debtags::Facet f;
-
-  const std::string name = f.name();
-
-  return 0;
-}])],
-        [
-        AC_MSG_RESULT([yes])
-        AC_DEFINE([HAVE_EPT_DEBTAGS_FACET_NAME], [], [Define if ept::debtags::Facet exists and supports description retrieval.])
-        ],
-        [AC_MSG_RESULT([no])])
-
-
-AC_MSG_CHECKING([whether ept::debtags::Facet exists and supports description retrieval])
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-#include <ept/debtags/tag.h>
-
-int main(int argc, char **argv)
-{
-  ept::debtags::Facet f;
-
-  const std::string longDesc = f.longDescription();
-  const std::string shortDesc = f.shortDescription();
-
-  return 0;
-}])],
-        [
-        AC_MSG_RESULT([yes])
-        AC_DEFINE([HAVE_EPT_DEBTAGS_FACET_DESCRIPTION], [], [Define if ept::debtags::Facet exists and supports description retrieval.])
-        ],
-        [AC_MSG_RESULT([no])])
-
-AC_MSG_CHECKING([whether ept::debtags::Tag exists and supports description retrieval])
-AC_COMPILE_IFELSE([AC_LANG_SOURCE([
-#include <ept/debtags/tag.h>
-
-int main(int argc, char **argv)
-{
-  ept::debtags::Tag t;
-
-  const std::string longDesc = t.longDescription();
-  const std::string shortDesc = t.shortDescription();
-
-  return 0;
-}])],
-        [
-        AC_MSG_RESULT([yes])
-        AC_DEFINE([HAVE_EPT_DEBTAGS_TAG_DESCRIPTION], [], [Define if ept::debtags::Tag exists and supports description retrieval.])
-        ],
-        [AC_MSG_RESULT([no])])
-
-CXXFLAGS="$OLD_CXXFLAGS"
 
 ########################################################################
 
@@ -542,6 +304,131 @@ PKG_CHECK_MODULES(SQLITE3, sqlite3)
   ]) dnl Check for libraries only if compiling the program.
 
 AM_CONDITIONAL([BUILD_LOCAL_GMOCK], [test x$BUILD_LOCAL_GMOCK = x1])
+
+########################################################################
+
+WANT_HAVE_EPT=1
+AC_ARG_ENABLE(ept,
+	AS_HELP_STRING(--disable-ept, [disable use of ept library]),
+	[if test x$enableval = xno
+	 then
+	     WANT_HAVE_EPT=0
+	 fi])
+
+HAVE_EPT=0
+AS_IF(
+  [test x$WANT_HAVE_EPT = x1 && test "x$enable_aptitude" != xno],
+  [HAVE_EPT=1
+   PKG_CHECK_MODULES([ept], [libept], [],
+     [AC_MSG_ERROR([Can't find the ept library -- please install libept-dev])])
+
+   OLD_CXXFLAGS="$CXXFLAGS"
+
+   CXXFLAGS="$CXXFLAGS $ept_CFLAGS"
+
+   DEBTAGS_OK=0
+
+   AC_MSG_CHECKING([whether ept::debtags::getTagsOfItem returns a set of strings.])
+   AC_COMPILE_IFELSE([AC_LANG_SOURCE([
+#include <ept/debtags/debtags.h>
+
+int main(int argc, char **argv)
+{
+  // This would always crash, but we only care if it type-checks.
+  ept::debtags::Debtags DB;
+  std::set<std::string> result = DB.getTagsOfItem("foo");
+
+  return 0;
+}])],
+        [
+        AC_MSG_RESULT(yes)
+        AC_DEFINE([EPT_DEBTAGS_GETTAGSOFITEM_RETURNS_STRINGS], [],
+            [Define if ept::debtags::Debtags::getTagsOfItem returns a set of strings])
+        DEBTAGS_OK=1
+        ],
+        [
+        AC_MSG_RESULT(no)
+        ])
+
+    if test x$DEBTAGS_OK = x0
+    then
+      AC_MSG_FAILURE([Can't figure out how to access the ept debtags database.])
+    fi
+
+    TEXTSEARCH_OK=0
+
+    AC_MSG_CHECKING([whether ept/axi exists])
+    AC_COMPILE_IFELSE([AC_LANG_SOURCE([
+#include <ept/axi/axi.h>
+
+int main(int argc, char **argv)
+{
+  Xapian::Database db(ept::axi::path_db());
+
+  return 0;
+}])],
+        [
+        AC_MSG_RESULT([yes])
+        AC_DEFINE([HAVE_EPT_AXI], [], [Define if ept/axi/axi.h can provide docids.])
+        TEXTSEARCH_OK=1
+        ],
+        [AC_MSG_RESULT([no])])
+
+    if test x$TEXTSEARCH_OK = x0
+    then
+      AC_MSG_FAILURE([Can't figure out how to access the ept Xapian database.])
+    fi
+
+    AC_MSG_CHECKING([whether ept::debtags::Vocabulary::tagData exists and returns ept::debtags::voc::TagData *])
+
+    AC_COMPILE_IFELSE([AC_LANG_SOURCE([
+#include <ept/debtags/vocabulary.h>
+
+int main(int argc, char **argv)
+{
+  ept::debtags::Vocabulary vocabulary;
+  const ept::debtags::voc::TagData *td = vocabulary.tagData("foo");
+
+  // Use td so the compiler doesn't complain:
+  return td == NULL ? 1 : 0;
+}])],
+        [
+        AC_MSG_RESULT([yes])
+        AC_DEFINE([HAVE_EPT_DEBTAGS_VOCABULARY_TAG_DATA], [], [Define if the ept debtags vocabulary object exists and supports tagData()])
+        ],
+        [AC_MSG_RESULT([no])])
+
+    AC_MSG_CHECKING([whether ept::debtags::Vocabulary::facetData exists and returns ept::debtags::voc::FacetData *])
+
+    AC_COMPILE_IFELSE([AC_LANG_SOURCE([
+#include <ept/debtags/vocabulary.h>
+
+int main(int argc, char **argv)
+{
+  ept::debtags::Vocabulary vocabulary;
+  const ept::debtags::voc::FacetData *fd = vocabulary.facetData("foo");
+
+  // Use fd so the compiler doesn't complain:
+  return fd == NULL ? 1 : 0;
+}])],
+        [
+        AC_MSG_RESULT([yes])
+        AC_DEFINE([HAVE_EPT_DEBTAGS_VOCABULARY_FACET_DATA], [], [Define if the ept debtags vocabulary object exists and supports facetData()])
+        ],
+        [AC_MSG_RESULT([no])])
+
+   CXXFLAGS="$OLD_CXXFLAGS"
+  ],
+
+  [test "x$enable_aptitude" != xno],
+  [AC_MSG_NOTICE([The ept library is not being used; use --enable-ept to enable it.])])
+
+if test x$HAVE_EPT = x1
+then
+  AC_DEFINE([HAVE_EPT], [], [Define if the ept library is to be used.])
+fi
+
+########################################################################
 
 WANT_HAVE_GTK=0
 AC_ARG_ENABLE(gtk,
