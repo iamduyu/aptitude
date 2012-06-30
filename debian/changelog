@@ -1,3 +1,48 @@
+aptitude (0.6.9-1) unstable; urgency=low
+
+  * New upstream release.
+    - See NEWS for full details.
+    - Checking for errors on the command-line is much stricter,
+      and many commands which would previously run will now
+      exit with failure.
+      (Closes: #576212, #590686, #282408, #434502)
+      (LP: #919216, #585408)
+    - An install run will no longer proceed if any
+      package was unavailable or failed to download
+      correctly, instead an error will be shown
+      and exit with non-zero status (100).
+      (Closes: #121313, #302784, #639789)
+      (LP: #734737)
+    - Some commands (search, versions, changelog, …) will exit
+      with non-zero status (1, or some times 100) if there were
+      no matches for the given arguments.
+      (Closes: #675833, #497299)
+    - Support downloading changelogs for packages on
+      third-party sites by guessing the URI. (LP: #563155)
+    - Properly process all -o command line options.
+      (Closes: #587671)
+    - Package arguments without an arch-qualifier
+      will also consider foreign-arch packages, in
+      order of preference.  (LP: #892074)
+    - Use up-to-date changelog uri construction from apt-get
+      using APT::Changelogs::Server.
+    - Minor fixes to changelog downloading on the command-line.
+      (Closes: #631464, #587775, #537393)
+    - Do not group packages as tasks based on their name,
+      rather, use their section.  (Closes: #679602)
+    - Most errors are now displayed at the end of a command's
+      output which makes them easier to spot when there is
+      lots of output. (Closes: #430392)
+  * Remove dependency on libept, now access debtags and Xapian
+    directly.  (Closes: #501732, #504153, #677551)
+  * Depend on libxapian instead.
+  * Depend on newer version of libapt-pkg for architecture
+    specification string support.
+  * Translation updates:
+    - Polish (Closes: #678153)
+
+ -- Daniel Hartwig <mandyke@gmail.com>  Sat, 30 Jun 2012 19:57:24 +0800
+
 aptitude (0.6.8-1) unstable; urgency=low
   
   * Fix build with g++ 4.7
