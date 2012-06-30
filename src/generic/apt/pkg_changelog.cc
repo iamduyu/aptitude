@@ -39,6 +39,8 @@
 #include <sigc++/bind.h>
 
 #include <apt-pkg/sourcelist.h>
+#include <apt-pkg/fileutl.h>
+#include <apt-pkg/strutl.h>
 
 #include <cwidget/generic/util/ssprintf.h>
 
@@ -83,15 +85,89 @@ namespace aptitude
       }
     }
 
+    std::string get_changelog_uri(const std::string &path)
+    {
+      string server = _config->Find("APT::Changelogs::Server",
+                                    "http://packages.debian.org/changelogs");
+
+      return cw::util::ssprintf("%s/%s/changelog",
+                                server.c_str(),
+                                path.c_str());
+    }
+
+    /* Construct a changelog file path for third party sites that do
+     * not use packages.debian.org/changelogs
+     * This simply uses the ArchiveURI() of the source pkg and looks for
+     * a .changelog file there.
+     */
+    bool guess_third_party_changelog_uri(pkgCache::VerIterator ver,
+                                         const std::string &path,
+                                         std::string &out_uri)
+    {
+      // guess uri for third-party packages
+      pkgCache::VerFileIterator vf = ver.FileList();
+      pkgCache::PkgFileIterator pf = vf.File();
+      pkgIndexFile *index;
+      if(apt_source_list->FindIndex(pf, index) == false)
+        return false;
+
+      out_uri = index->ArchiveURI(path + ".changelog");
+      return true;
+    }
+
     boost::shared_ptr<changelog_info>
     changelog_info::create(const std::string &source_package,
 			   const std::string &source_version,
-			   const std::string &section,
+                           const std::vector<std::string> &uri_list,
 			   const std::string &display_name)
     {
       return boost::make_shared<changelog_info>(source_package,
 						source_version,
-						section,
+                                                uri_list,
+						display_name);
+    }
+
+    boost::shared_ptr<changelog_info>
+    changelog_info::guess(const std::string &source_package,
+			  const std::string &source_version,
+                          const std::string &section,
+			  const std::string &display_name)
+    {
+      string realsection;
+      const string::size_type slashfound = section.find('/');
+      if(slashfound != section.npos)
+        realsection.assign(section, 0, slashfound);
+      else
+        realsection.assign("main");
+
+      string prefix;
+      if(source_package.size() > 3
+         && source_package.compare(0, 3, "lib") == 0)
+        prefix.assign(source_package, 0, 4);
+      else
+        prefix.assign(source_package, 0, 1);
+
+      string realver = StripEpoch(source_version);
+
+      vector<string> uri_list;
+
+      string path;
+      path = cw::util::ssprintf("pool/%s/%s/%s/%s_%s",
+                                realsection.c_str(),
+                                prefix.c_str(),
+                                source_package.c_str(),
+                                source_package.c_str(),
+                                realver.c_str());
+
+      uri_list.push_back(get_changelog_uri(path));
+
+      LOG_TRACE(Loggers::getAptitudeChangelog(),
+		"Getting the changelog of the source package "
+		<< source_package << " " << source_version);
+
+      return boost::make_shared<changelog_info>(source_package,
+						source_version,
+                                                uri_list,
 						display_name);
     }
 
@@ -117,6 +193,18 @@ namespace aptitude
       const string source_version =
 	rec.SourceVer().empty() ? ver.VerStr() : rec.SourceVer();
 
+      string path;
+      path = flNotFile(rec.FileName());
+      path += source_package + "_" + StripEpoch(source_version);
+
+      vector<string> uri_list;
+
+      uri_list.push_back(get_changelog_uri(path));
+
+      string third_party_uri;
+      if(guess_third_party_changelog_uri(ver, path, third_party_uri))
+        uri_list.push_back(third_party_uri);
+
       LOG_TRACE(Loggers::getAptitudeChangelog(),
 		"For " << ver.ParentPkg().Name()
 		<< " " << ver.VerStr() << ", getting the changelog of the source package "
@@ -124,7 +212,7 @@ namespace aptitude
 
       return boost::make_shared<changelog_info>(source_package,
 						source_version,
-						ver.Section(),
+                                                uri_list,
 						ver.ParentPkg().Name());
     }
 
@@ -385,8 +473,6 @@ namespace aptitude
 		   << req.get_info()->get_source_package()
 		   << ", source_version = "
 		   << req.get_info()->get_source_version()
-		   << ", section = "
-		   << req.get_info()->get_section()
 		   << ", display_name = "
 		   << req.get_info()->get_display_name()
 		   << ", download = 0x"
@@ -436,7 +522,7 @@ namespace aptitude
 
 	  const string source_package(info.get_source_package());
 	  const string source_version(info.get_source_version());
-	  const string section(info.get_section());
+          const vector<string> uri_list(info.get_uri_list());
 	  const string name(info.get_display_name());
 	  const string short_description = cw::util::ssprintf(_("Changelog of %s"), name.c_str());
 
@@ -520,40 +606,17 @@ namespace aptitude
 		      }
 		}
 
-	      string realsection;
+              for(vector<string>::const_iterator uri = uri_list.begin();
+                  uri != uri_list.end();
+                  ++uri)
+                {
+                  LOG_TRACE(logger,
+                            "Adding " << (*uri)
+                            << " as a URI for the changelog of " << source_package
+                            << " " << source_version);
 
-	      if(section.find('/') != section.npos)
-		realsection.assign(section, 0, section.find('/'));
-	      else
-		realsection.assign("main");
-
-	      string prefix;
-
-	      if(source_package.size() > 3 &&
-		 source_package[0] == 'l' && source_package[1] == 'i' && source_package[2] == 'b')
-		prefix = std::string("lib") + source_package[3];
-	      else
-		prefix = source_package[0];
-
-	      string realver;
-
-	      if(source_version.find(':') != source_version.npos)
-		realver.assign(source_version, source_version.find(':') + 1, source_version.npos);
-	      else
-		realver = source_version;
-
-	      string uri = cw::util::ssprintf("http://packages.debian.org/changelogs/pool/%s/%s/%s/%s_%s/changelog",
-					      realsection.c_str(),
-					      prefix.c_str(),
-					      source_package.c_str(),
-					      source_package.c_str(),
-					      realver.c_str());
-	      LOG_TRACE(logger,
-			"Adding " << uri
-			<< " as a URI for the changelog of " << source_package << " " << source_version);
-
-	      download.push_back(uri);
-
+                  download.push_back(*uri);
+                }
 
 	      LOG_TRACE(logger,
 			"Starting to download " << short_description);

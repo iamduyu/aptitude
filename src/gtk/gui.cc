@@ -956,6 +956,7 @@ namespace gui
 
       boost::shared_ptr<download_install_manager> m =
 	boost::make_shared<download_install_manager>(false,
+                                                     true,
 						     sigc::ptr_fun(&gui_run_dpkg));
 
       start_download(m,
@@ -1271,32 +1272,23 @@ namespace gui
     if(pkg.end())
       return where;
 
-#ifdef HAVE_EPT
     using aptitude::apt::get_fullname;
     using aptitude::apt::get_tags;
     using aptitude::apt::tag;
 
-    const std::set<tag> realS(get_tags(pkg));
-    const std::set<tag> * const s(&realS);
-#else
-    const std::set<tag> * const s(get_tags(pkg));
-#endif
+    const std::set<tag> s(get_tags(pkg));
 
-    if(s != NULL && !s->empty())
+    if(s->empty() == false)
       {
 	bool first = true;
 	where = buffer->insert_with_tag(where,
 					ssprintf(_("Tags of %s:\n"), pkg.Name()),
 					headerTag);
 	// TODO: indent all the tags.
-	for(std::set<tag>::const_iterator it = s->begin();
-	    it != s->end(); ++it)
+	for(std::set<tag>::const_iterator it = s.begin();
+	    it != s.end(); ++it)
 	  {
-#ifdef HAVE_EPT
 	    const std::string name(get_fullname(*it));
-#else
-	    const std::string name(it->str());
-#endif
 
 	    if(first)
 	      first = false;

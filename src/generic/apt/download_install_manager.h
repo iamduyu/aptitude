@@ -59,6 +59,10 @@ class download_install_manager : public download_manager
   /** If \b true, don't actually invoke the package manager. */
   bool download_only;
 
+  /** If \b true, attempt to correct for packages which fail
+      to download or are unavailable. */
+  bool fix_missing;
+
   /** The package manager object used when installing packages */
   pkgPackageManager *pm;
 
@@ -112,6 +116,7 @@ public:
    *  \param _run_dpkg_in_terminal  how to set up the terminal for dpkg.
    */
   download_install_manager(bool _download_only,
+                           bool _fix_missing,
 			   const run_dpkg_in_terminal_func &_run_dpkg_in_terminal);
   ~download_install_manager();
 

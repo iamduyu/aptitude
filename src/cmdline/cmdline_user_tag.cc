@@ -93,84 +93,50 @@ namespace aptitude
 	action = action_remove;
       else
 	{
-	  fprintf(stderr, "Internal error: cmdline_user_tag encountered an unknown command name \"%s\"\n",
-		  argv[0]);
-	  return -1;
+          _error->Error("Internal error: cmdline_user_tag encountered an"
+                        " unknown command name \"%s\"\n",
+                        argv[0]);
+	  return 100;
 	}
 
       if(argc < 3)
 	{
-	  fprintf(stderr,
-		  _("%s: too few arguments; expected at least a tag name and a package.\n"),
-		  argv[0]);
-	  return -1;
+          _error->Error(_("%s: too few arguments; expected at least a tag"
+                          " name and a package.\n"),
+                        argv[0]);
+	  return 100;
 	}
 
-      _error->DumpErrors();
+      consume_errors();
 
       OpProgress progress;
 
       apt_init(&progress, true);
       if(_error->PendingError())
-	{
-	  _error->DumpErrors();
-	  return -1;
-	}
+        return 100;
 
       std::string tag(argv[1]);
 
-      bool all_ok = true;
+      pkgset pkgset;
       for(int i = 2; i < argc; ++i)
-	{
-	  if(!aptitude::matching::is_pattern(argv[i]))
-	    {
-	      pkgCache::PkgIterator pkg = (*apt_cache_file)->FindPkg(argv[i]);
-	      if(pkg.end())
-		{
-		  if(quiet == 0)
-                    std::cerr << ssprintf(_("No such package \"%s\""), argv[i])
-                              << std::endl;
-		  all_ok = false;
-		}
-	      else
-		do_user_tag(action, tag, pkg, verbose);
-	    }
-	  else
-	    {
-	      using namespace aptitude::matching;
-	      using cwidget::util::ref_ptr;
+        pkgset_from_string(&pkgset, argv[i]);
 
-	      ref_ptr<pattern> p(parse(argv[i]));
+      if(pkgset.empty() == true)
+        {
+          _error->Error(_("No packages found"));
+          return 100;
+        }
 
-	      if(!p.valid())
-		{
-		  _error->DumpErrors();
-		  all_ok = false;
-		}
-	      else
-		{
-		  std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > > matches;
-		  ref_ptr<search_cache> search_info(search_cache::create());
-		  search(p, search_info,
-			 matches,
-			 *apt_cache_file,
-			 *apt_package_records);
-
-		  for(std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > >::const_iterator
-			it = matches.begin(); it != matches.end(); ++it)
-		    do_user_tag(action, tag, it->first, verbose);
-		}
-	    }
-	}
+      for(pkgset::const_iterator it = pkgset.begin();
+          it != pkgset.end();
+          ++it)
+        do_user_tag(action, tag, *it, verbose);
 
       shared_ptr<OpProgress> text_progress = make_text_progress(false, term, term, term);
       if(!(*apt_cache_file)->save_selection_list(*text_progress))
-	return 1;
+	return 100;
 
-      if(!all_ok)
-	return 2;
-
-      return 0;
+      return _error->PendingError() == true ? 100 : 0;
     }
   }
 }

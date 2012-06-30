@@ -1257,7 +1257,9 @@ namespace
 void install_or_remove_packages()
 {
   boost::shared_ptr<download_install_manager> m =
-    boost::make_shared<download_install_manager>(false, sigc::ptr_fun(&run_dpkg_with_cwidget_suspended));
+    boost::make_shared<download_install_manager>(false,
+                                                 true,
+                                                 sigc::ptr_fun(&run_dpkg_with_cwidget_suspended));
 
   m->post_forget_new_hook.connect(package_states_changed.make_slot());
 

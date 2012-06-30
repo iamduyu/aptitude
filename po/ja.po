@@ -186,7 +186,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-03 11:30+0800\n"
+"POT-Creation-Date: 2012-06-30 22:50+0800\n"
 "PO-Revision-Date: 2012-06-03 12:26+0800\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
@@ -542,24 +542,10 @@ msgstr ""
 "ケージファイルを、すべてパッケージキャッシュから削除するようになります。"
 
 #: src/apt_options.cc:293
-msgid "URL to use to download changelogs"
-msgstr "変更履歴のダウンロードに用いる URL"
-
-#: src/apt_options.cc:294
-msgid ""
-"This option controls the template that's used to download changelogs from "
-"the Debian Web site.  You should only need to change this if the changelogs "
-"move to a different URL."
-msgstr ""
-"このオプションを用いると、Debian のウェブサイトから変更履歴をダウンロードする"
-"のに用いられるテンプレートを調整できます。設定の変更が必要になるのは、変更履"
-"歴 (changelog) ファイルの URL が変更になったときのみでしょう。"
-
-#: src/apt_options.cc:300
 msgid "Display a preview of what will be done before doing it"
 msgstr "実行内容のプレビューを事前に表示する"
 
-#: src/apt_options.cc:301
+#: src/apt_options.cc:294
 msgid ""
 "If this option is enabled, then when you ask aptitude to perform an install "
 "run, it will first display a summary of the actions it is going to perform."
@@ -568,14 +554,14 @@ msgstr ""
 "ときに、aptitude はまず、実行しようとしているアクションの要約を表示するように"
 "なります。"
 
-#: src/apt_options.cc:307
+#: src/apt_options.cc:300
 msgid ""
 "Forget which packages are \"new\" whenever the package lists are updated"
 msgstr ""
 "パッケージ一覧を更新したときには常に、どのパッケージが「新規」かの情報を消去"
 "する"
 
-#: src/apt_options.cc:308
+#: src/apt_options.cc:301
 msgid ""
 "If this option is enabled, then aptitude will clear the list of new packages "
 "after you update the package lists (e.g., by pressing 'u')."
@@ -583,14 +569,14 @@ msgstr ""
 "このオプションを有効にすると、(例えば 'u' を押して) パッケージ一覧を更新した"
 "後に、aptitude が新規パッケージの一覧を消去するようになります。"
 
-#: src/apt_options.cc:313
+#: src/apt_options.cc:306
 msgid ""
 "Forget which packages are \"new\" whenever packages are installed or removed"
 msgstr ""
 "パッケージのインストールまたは削除を行ったときには常に、どのパッケージが「新"
 "規」かの情報を消去する"
 
-#: src/apt_options.cc:314
+#: src/apt_options.cc:307
 msgid ""
 "If this option is enabled, then aptitude will clear the list of new packages "
 "after you perform an install run or install or remove packages from the "
@@ -600,12 +586,12 @@ msgstr ""
 "行」やコマンドラインからのパッケージのインストール・削除の実行の後に、"
 "aptitude が新規パッケージの一覧を消去するようになります。"
 
-#: src/apt_options.cc:320
+#: src/apt_options.cc:313
 msgid ""
 "Do not display a warning when the first change is made in read-only mode"
 msgstr "読み取り専用モードで最初に変更がなされたときに警告を表示する"
 
-#: src/apt_options.cc:321
+#: src/apt_options.cc:314
 msgid ""
 "If this option is %Bnot%b enabled, aptitude will display a warning when you "
 "modify the state of a package if you do not have permissions to apply the "
@@ -614,11 +600,11 @@ msgstr ""
 "このオプションを有効に%Bしない%bと、システムに変更を加える権限がない場合に、"
 "パッケージの状態を変更したときに aptitude が警告を発します。"
 
-#: src/apt_options.cc:327
+#: src/apt_options.cc:320
 msgid "Warn when attempting to perform a privileged action as a non-root user"
 msgstr "root 以外のユーザが特権の必要なアクションを行おうとしたときに警告する"
 
-#: src/apt_options.cc:328
+#: src/apt_options.cc:321
 msgid ""
 "If this option is enabled, aptitude will warn you when you attempt to "
 "perform an action which you do not have permission to do: for instance, "
@@ -630,11 +616,11 @@ msgstr ""
 "するようになります。そして、root としてログインして root 権限でアクションを実"
 "行するか、選択可能になります。"
 
-#: src/apt_options.cc:337
+#: src/apt_options.cc:330
 msgid "File to log actions into"
 msgstr "アクション記録用のファイル"
 
-#: src/apt_options.cc:338
+#: src/apt_options.cc:331
 msgid ""
 "When you install or remove packages, a summary of what aptitude does will be "
 "written to this file.  If the first character of the file name is a pipe "
@@ -646,11 +632,11 @@ msgstr ""
 "合、その後の部分は、ログを標準入力から受け取るシェルコマンドとして解釈されま"
 "す。"
 
-#: src/apt_options.cc:350
+#: src/apt_options.cc:343
 msgid "Automatically resolve dependencies of a package when it is selected"
 msgstr "パッケージ選択時に自動的に依存関係を解決する"
 
-#: src/apt_options.cc:351
+#: src/apt_options.cc:344
 msgid ""
 "If this option is enabled, aptitude will use a simple heuristic to "
 "immediately resolve the dependencies of each package you flag for "
@@ -662,11 +648,11 @@ msgstr ""
 "す。こちらのほうが組み込みの依存関係解決器よりも遥かに高速ですが、場合によっ"
 "ては最適でない結果となったり、完全に失敗したりする可能性もあります。"
 
-#: src/apt_options.cc:359
+#: src/apt_options.cc:352
 msgid "Automatically fix broken packages before installing or removing"
 msgstr "インストールや削除の前に、依存関係の壊れたパッケージを自動的に修復する"
 
-#: src/apt_options.cc:360
+#: src/apt_options.cc:353
 msgid ""
 "If this option is enabled, and you perform an install run while some "
 "packages are broken, aptitude will automatically apply the current "
@@ -678,13 +664,13 @@ msgstr ""
 "ち選択中のものを自動的に適用するようになります。無効にすると、aptitude は、壊"
 "れた依存関係の解決用のプロンプトを表示します。"
 
-#: src/apt_options.cc:367
+#: src/apt_options.cc:360
 msgid "Install recommended packages automatically"
 msgstr "推奨パッケージを自動的にインストールする"
 
 # It would be better to insert "automatically resolve dependncies" and
 # "Remove unused packages automatically" as variables.
-#: src/apt_options.cc:368
+#: src/apt_options.cc:361
 msgid ""
 "If this option is enabled and \"automatically resolve dependencies\" is also "
 "enabled, aptitude will attempt to install the recommendations of newly "
@@ -703,13 +689,13 @@ msgstr ""
 "すると、何らかのインストール済みパッケージに推奨されている場合、パッケージは"
 "自動的には削除されません。"
 
-#: src/apt_options.cc:380
+#: src/apt_options.cc:373
 msgid "Remove unused packages automatically"
 msgstr "使われていないパッケージを自動的に削除する"
 
 # It would be better to insert "Install recommended packages automatically"
 # as a variable.
-#: src/apt_options.cc:381
+#: src/apt_options.cc:374
 msgid ""
 "If this option is enabled, packages that are automatically installed and "
 "that no manually installed package depends on will be removed from the "
@@ -727,11 +713,11 @@ msgstr ""
 "ると、自動的にインストールされたパッケージであっても、何らかのインストール済"
 "みパッケージに推奨されている場合は、パッケージは自動的には削除されません。"
 
-#: src/apt_options.cc:392
+#: src/apt_options.cc:385
 msgid "Packages that should never be automatically removed"
 msgstr "絶対に自動的には削除すべきでないパッケージ"
 
-#: src/apt_options.cc:393
+#: src/apt_options.cc:386
 msgid ""
 "Packages matching this search pattern will always be treated as if an "
 "installed package depends on them: they will never be targeted for removal "
@@ -742,11 +728,11 @@ msgstr ""
 "パッケージが、使用されていないパッケージとして削除対象になることはありませ"
 "ん。"
 
-#: src/apt_options.cc:398
+#: src/apt_options.cc:391
 msgid "Allow dependency resolutions that break holds or forbids"
 msgstr "固定や禁止が壊れるような依存関係の解決方法でも許可する"
 
-#: src/apt_options.cc:399
+#: src/apt_options.cc:392
 msgid ""
 "If this option is enabled, then whenever aptitude solves a dependency "
 "problem, it will consider modifying held packages, or installing forbidden "
@@ -768,15 +754,15 @@ msgstr ""
 "ケージの依存関係に含まれるパッケージを自動的にインストールする場合は、固定を"
 "無視してしまいます。"
 
-#: src/apt_options.cc:525
+#: src/apt_options.cc:518
 msgid "UI options"
 msgstr "UI オプション"
 
-#: src/apt_options.cc:527
+#: src/apt_options.cc:520
 msgid "Dependency handling"
 msgstr "依存関係の処理"
 
-#: src/apt_options.cc:529 src/pkg_grouppolicy.cc:1064
+#: src/apt_options.cc:522 src/pkg_grouppolicy.cc:1064
 msgid "Miscellaneous"
 msgstr "その他"
 
@@ -875,7 +861,7 @@ msgstr "\"%s\" のソースパッケージが見つかりません。\n"
 msgid "Unable to satisfy the build-depends: %s.\n"
 msgstr "依存関係を満たすことができません: %s\n"
 
-#: src/cmdline/cmdline_action.cc:249
+#: src/cmdline/cmdline_action.cc:253
 #, c-format
 msgid ""
 "Note: \"%s\", providing the virtual package\n"
@@ -884,7 +870,7 @@ msgstr ""
 "注意: 仮想パッケージ \"%2$s\" を提供する\n"
 "      \"%1$s\" は既にインストールされています。\n"
 
-#: src/cmdline/cmdline_action.cc:256
+#: src/cmdline/cmdline_action.cc:262
 #, c-format
 msgid ""
 "Note: \"%s\", providing the virtual package\n"
@@ -894,7 +880,7 @@ msgstr ""
 "      \"%1$s\" は既にインストール予定です。\n"
 "\n"
 
-#: src/cmdline/cmdline_action.cc:278
+#: src/cmdline/cmdline_action.cc:290
 #, c-format
 msgid ""
 "\"%s\" exists in the package database, but it is not a\n"
@@ -903,17 +889,22 @@ msgstr ""
 "\"%s\" はパッケージデータベースには存在します。\n"
 "しかし実在するパッケージではなく、どのパッケージからも提供されていません。\n"
 
-#: src/cmdline/cmdline_action.cc:286
+#: src/cmdline/cmdline_action.cc:299
 #, c-format
 msgid "\"%s\" is a virtual package provided by:\n"
 msgstr "\"%s\" は、以下のパッケージから提供されている仮想パッケージです:\n"
 
-#: src/cmdline/cmdline_action.cc:289
+#: src/cmdline/cmdline_action.cc:302
 #, c-format
 msgid "You must choose one to install.\n"
 msgstr "インストールするものを一つ選んでください。\n"
 
-#: src/cmdline/cmdline_action.cc:297
+#: src/cmdline/cmdline_action.cc:304
+#, c-format
+msgid "Package '%s' has no installation candidate"
+msgstr "パッケージ '%s' にはインストール候補がありません"
+
+#: src/cmdline/cmdline_action.cc:313
 #, c-format
 msgid ""
 "Note: selecting \"%s\" instead of the\n"
@@ -922,62 +913,55 @@ msgstr ""
 "注意: 仮想パッケージ \"%2$s\" の代わりに\n"
 "      \"%1$s\" を選択します\n"
 
-#: src/cmdline/cmdline_action.cc:318
+#: src/cmdline/cmdline_action.cc:338
 #, c-format
 msgid "%s is already installed at the requested version (%s)\n"
 msgstr "%s は、要求されたバージョン (%s) で既にインストールされています\n"
 
-#: src/cmdline/cmdline_action.cc:328
+#: src/cmdline/cmdline_action.cc:348
 #, c-format
 msgid "%s is not currently installed, so it will not be upgraded.\n"
 msgstr "%s は現在インストールされていないので更新されません。\n"
 
-#: src/cmdline/cmdline_action.cc:332
+#: src/cmdline/cmdline_action.cc:352
 #, fuzzy, c-format
 msgid ""
 "%s is already installed at the latest version, so it will not be upgraded.\n"
 msgstr "%s は最新バージョンなので更新されません。"
 
-#: src/cmdline/cmdline_action.cc:338
+#: src/cmdline/cmdline_action.cc:358
 #, c-format
 msgid "%s is not currently installed, so it will not be reinstalled.\n"
 msgstr "%s は現在インストールされていないので再インストールされません。\n"
 
-#: src/cmdline/cmdline_action.cc:346 src/cmdline/cmdline_action.cc:353
+#: src/cmdline/cmdline_action.cc:366 src/cmdline/cmdline_action.cc:373
 #, c-format
 msgid "Package %s is not installed, so it will not be removed\n"
 msgstr "%s パッケージはインストールされていないので削除されません\n"
 
-#: src/cmdline/cmdline_action.cc:372
+#: src/cmdline/cmdline_action.cc:392
 #, c-format
 msgid "Package %s is not installed, cannot forbid an upgrade\n"
 msgstr "%s パッケージはインストールされていないので更新を禁止できません\n"
 
-#: src/cmdline/cmdline_action.cc:375
+#: src/cmdline/cmdline_action.cc:395
 #, c-format
 msgid "Package %s is not upgradable, cannot forbid an upgrade\n"
 msgstr "%s パッケージは更新可能ではないので更新を禁止できません\n"
 
-#: src/cmdline/cmdline_action.cc:480
-#, c-format
-msgid "Note: selecting the task \"%s: %s\" for installation\n"
-msgstr "注意: タスク \"%s: %s\" をインストールするよう選択します\n"
-
-#: src/cmdline/cmdline_action.cc:510
-#, c-format
+#: src/cmdline/cmdline_action.cc:501
 msgid ""
 "You can only specify a package version with an 'install' command or a "
-"'forbid-version' command.\n"
+"'forbid-version' command"
 msgstr ""
 "'install' コマンドや 'forbid-version' コマンドで指定できるのはパッケージの"
-"バージョンだけです。\n"
+"バージョンだけです"
 
-#: src/cmdline/cmdline_action.cc:519
-#, c-format
-msgid "You can only specify a package archive with an 'install' command.\n"
-msgstr "'install' コマンドで指定できるのはパッケージのアーカイブだけです。\n"
+#: src/cmdline/cmdline_action.cc:508
+msgid "You can only specify a package archive with an 'install' command"
+msgstr "'install' コマンドで指定できるのはパッケージのアーカイブだけです"
 
-#: src/cmdline/cmdline_action.cc:557
+#: src/cmdline/cmdline_action.cc:550
 #, c-format
 msgid ""
 "Couldn't find package \"%s\", and more than 40\n"
@@ -986,7 +970,7 @@ msgstr ""
 "\"%s\" パッケージは見つかりませんでした。\n"
 "パッケージ名に \"%s\" を含むものは 40 以上あります。\n"
 
-#: src/cmdline/cmdline_action.cc:560
+#: src/cmdline/cmdline_action.cc:555
 #, c-format
 msgid ""
 "Couldn't find package \"%s\".  However, the following\n"
@@ -995,12 +979,12 @@ msgstr ""
 "\"%s\" パッケージは見つかりませんでした。\n"
 "しかし、以下のパッケージ名に \"%s\" が含まれています:\n"
 
-#: src/cmdline/cmdline_action.cc:582
+#: src/cmdline/cmdline_action.cc:579
 #, c-format
 msgid "Couldn't find any package whose name or description matched \"%s\"\n"
 msgstr "名前か説明が \"%s\" にマッチするパッケージは見つかりませんでした\n"
 
-#: src/cmdline/cmdline_action.cc:584
+#: src/cmdline/cmdline_action.cc:582
 #, c-format
 msgid ""
 "Couldn't find any package matching \"%s\", and more than 40\n"
@@ -1018,7 +1002,7 @@ msgstr ""
 "\"%s\" にマッチするパッケージは見つかりませんでした。\n"
 "しかし、以下のパッケージ説明に \"%s\" が含まれています:\n"
 
-#: src/cmdline/cmdline_action.cc:729
+#: src/cmdline/cmdline_action.cc:705
 #, c-format
 msgid "Bad action character '%c'\n"
 msgstr "不正なアクション文字です: '%c'\n"
@@ -1041,7 +1025,7 @@ msgstr "エラー "
 msgid "Changelog download failed: %s"
 msgstr "ダウンロードしたファイルを削除しています"
 
-#: src/cmdline/cmdline_changelog.cc:283
+#: src/cmdline/cmdline_changelog.cc:282
 msgid "Can't execute sensible-pager, is this a working Debian system?"
 msgstr ""
 "sensible-pager が実行できません。これは正常に機能している Debian システムです"
@@ -1049,96 +1033,80 @@ msgstr ""
 
 #: src/cmdline/cmdline_changelog.cc:341
 #, c-format
-msgid "%s is not an official Debian package, cannot display its changelog."
-msgstr "%s は公式の Debian パッケージではないので、変更履歴を表示できません。"
-
-#: src/cmdline/cmdline_changelog.cc:425
-#, c-format
 msgid "Couldn't find a changelog for %s"
 msgstr "%s の変更履歴が見つかりません"
 
-#: src/cmdline/cmdline_changelog.cc:429
+#: src/cmdline/cmdline_changelog.cc:345
 #, fuzzy, c-format
 msgid "Couldn't run pager %s"
 msgstr "%s の変更履歴が見つかりません"
 
 #: src/cmdline/cmdline_clean.cc:60
-#, c-format
-msgid "E: The clean command takes no arguments\n"
-msgstr "エラー: clean コマンドは引数をとりません\n"
+msgid "The clean command takes no arguments"
+msgstr "clean コマンドは引数をとりません"
 
 #: src/cmdline/cmdline_clean.cc:66
 #, c-format
 msgid "Del %s* %spartial/*\n"
 msgstr "削除 %s* %spartial/*\n"
 
-#: src/cmdline/cmdline_clean.cc:76 src/cmdline/cmdline_clean.cc:146
-#: src/ui.cc:1787 src/ui.cc:1875
+#: src/cmdline/cmdline_clean.cc:76 src/cmdline/cmdline_clean.cc:139
+#: src/ui.cc:1789 src/ui.cc:1877
 #, fuzzy
 msgid "Unable to lock the download directory"
 msgstr ""
 "ホームディレクトリが調べられないので、/tmp/function_pkgs に保存しています!"
 
-#: src/cmdline/cmdline_clean.cc:106
+#: src/cmdline/cmdline_clean.cc:99
 #, c-format
 msgid "Del %s %s [%sB]\n"
 msgstr "削除 %s %s [%sB]\n"
 
-#: src/cmdline/cmdline_clean.cc:134
-#, c-format
-msgid "E: The autoclean command takes no arguments\n"
-msgstr "エラー: autoclean コマンドは引数をとりません\n"
+#: src/cmdline/cmdline_clean.cc:127
+msgid "The autoclean command takes no arguments"
+msgstr "autoclean コマンドは引数をとりません"
 
-#: src/cmdline/cmdline_clean.cc:172
+#: src/cmdline/cmdline_clean.cc:159
 #, c-format
 msgid "Would free %sB of disk space\n"
 msgstr "%sB のディスク領域を解放します\n"
 
-#: src/cmdline/cmdline_clean.cc:175
+#: src/cmdline/cmdline_clean.cc:162
 #, c-format
 msgid "Freed %sB of disk space\n"
 msgstr "%sB のディスク領域を解放しました\n"
 
 #  Should never happen.
-#: src/cmdline/cmdline_do_action.cc:159
+#: src/cmdline/cmdline_do_action.cc:160
 #, c-format
 msgid "Invalid operation %s"
 msgstr "不正な操作です: %s"
 
-#: src/cmdline/cmdline_do_action.cc:233
+#: src/cmdline/cmdline_do_action.cc:227
 msgid "Unexpected pattern argument following \"keep-all\""
 msgstr "\"keep-all\" の後に想定外のパターン引数があります"
 
-#: src/cmdline/cmdline_do_action.cc:345
-#, c-format
-msgid ""
-"Unable to safely resolve dependencies, try running with --full-resolver.\n"
+#: src/cmdline/cmdline_do_action.cc:342
+msgid "Unable to safely resolve dependencies, try running with --full-resolver"
 msgstr ""
-"依存関係を安全に解決できません。--full-resolver をつけて実行してみてくださ"
-"い。\n"
+"依存関係を安全に解決できません。--full-resolver をつけて実行してみてください"
 
-#: src/cmdline/cmdline_do_action.cc:385 src/cmdline/cmdline_simulate.cc:60
-#: src/main.cc:1223
+#: src/cmdline/cmdline_do_action.cc:380 src/cmdline/cmdline_simulate.cc:60
+#: src/main.cc:992
 #, c-format
 msgid "Abort.\n"
 msgstr "中断。\n"
 
 #: src/cmdline/cmdline_download.cc:45
-#, c-format
-msgid "download: you must specify at least one package to download\n"
-msgstr "download: ダウンロードするパッケージを少なくとも一つ指定してください\n"
+msgid "download: you must specify at least one package to download"
+msgstr "download: ダウンロードするパッケージを少なくとも一つ指定してください"
 
-#: src/cmdline/cmdline_download.cc:63
-#: src/generic/apt/download_install_manager.cc:83
+#: src/cmdline/cmdline_download.cc:60
+#: src/generic/apt/download_install_manager.cc:87
 msgid "Couldn't read source list"
 msgstr "パッケージ入手先一覧を読み込めませんでした"
 
-#: src/cmdline/cmdline_download.cc:97
-#, c-format
-msgid "Can't find a package named \"%s\""
-msgstr "\"%s\" という名前のパッケージは見つかりません"
-
-#: src/cmdline/cmdline_download.cc:141
+#: src/cmdline/cmdline_download.cc:94
 #, c-format
 msgid ""
 "No downloadable files for %s version %s; perhaps it is a local or obsolete "
@@ -1179,33 +1147,24 @@ msgid "[Working]"
 msgstr " [作業中]"
 
 #: src/cmdline/cmdline_extract_cache_subset.cc:57
-#, c-format
 msgid ""
-"extract-cache-entries: at least one argument is required (the directory\n"
-"to which to write files).\n"
+"extract-cache-entries: at least one argument is required (the directory to "
+"which to write files)"
 msgstr ""
 "extract-cache-entries: 少なくとも 1 つの引数 (ファイルを書き込むディレクト"
-"リ) が必要です。\n"
+"リ) が必要です"
 
-#: src/cmdline/cmdline_extract_cache_subset.cc:93
-#: src/cmdline/cmdline_resolver.cc:361 src/cmdline/cmdline_user_tag.cc:131
-#: src/cmdline/cmdline_versions.cc:295
-#, c-format
-msgid "No such package \"%s\""
-msgstr "そのようなパッケージはありません: \"%s\""
-
-#: src/cmdline/cmdline_extract_cache_subset.cc:133
+#: src/cmdline/cmdline_extract_cache_subset.cc:90
 #, c-format
 msgid "No packages were selected by the given search pattern; nothing to do.\n"
 msgstr ""
 "指定された検索パターンで選択されたパッケージはないので、何もしません。\n"
 
 #: src/cmdline/cmdline_forget_new.cc:56
-#, c-format
-msgid "E: The forget-new command takes no arguments\n"
-msgstr "エラー: forget-new コマンドは引数をとりません\n"
+msgid "The forget-new command takes no arguments"
+msgstr "forget-new コマンドは引数をとりません"
 
-#: src/cmdline/cmdline_forget_new.cc:83
+#: src/cmdline/cmdline_forget_new.cc:77
 #, c-format
 msgid "Would forget what packages are new\n"
 msgstr "どのパッケージが新規かの情報を消去します\n"
@@ -1314,17 +1273,17 @@ msgstr "以下のパッケージが更新されます:"
 msgid "The following partially installed packages will be configured:"
 msgstr "以下の、インストールが完了していないパッケージが設定されます:"
 
-#: src/cmdline/cmdline_prompt.cc:459 src/ui.cc:1574
+#: src/cmdline/cmdline_prompt.cc:459 src/ui.cc:1576
 #, c-format
 msgid "The following ESSENTIAL packages will be REMOVED!\n"
 msgstr "以下の必須パッケージが削除されます!\n"
 
-#: src/cmdline/cmdline_prompt.cc:468 src/ui.cc:1589
+#: src/cmdline/cmdline_prompt.cc:468 src/ui.cc:1591
 #, c-format
 msgid "The following ESSENTIAL packages will be BROKEN by this action:\n"
 msgstr "このアクションによって以下の必須パッケージの依存関係が壊れます:\n"
 
-#: src/cmdline/cmdline_prompt.cc:478 src/ui.cc:1602
+#: src/cmdline/cmdline_prompt.cc:478 src/ui.cc:1604
 #, c-format
 msgid ""
 "WARNING: Performing this action will probably cause your system to break!\n"
@@ -1334,16 +1293,16 @@ msgstr ""
 "      何をしようとしているか本当に理解していない場合は先に進んではいけませ"
 "ん!\n"
 
-#: src/cmdline/cmdline_prompt.cc:480
+#: src/cmdline/cmdline_prompt.cc:483
 msgid "I am aware that this is a very bad idea"
 msgstr "I am aware that this is a very bad idea"
 
-#: src/cmdline/cmdline_prompt.cc:484 src/ui.cc:1603
+#: src/cmdline/cmdline_prompt.cc:487 src/ui.cc:1605
 #, c-format
 msgid "To continue, type the phrase \"%s\":\n"
 msgstr "先に進む場合は '%s' というフレーズを入力してください:\n"
 
-#: src/cmdline/cmdline_prompt.cc:526
+#: src/cmdline/cmdline_prompt.cc:529
 #, c-format
 msgid ""
 "WARNING: untrusted versions of the following packages will be installed!\n"
@@ -1362,7 +1321,7 @@ msgstr ""
 "てください。\n"
 "\n"
 
-#: src/cmdline/cmdline_prompt.cc:538
+#: src/cmdline/cmdline_prompt.cc:541
 #, c-format
 msgid ""
 "*** WARNING ***   Ignoring these trust violations because\n"
@@ -1371,7 +1330,7 @@ msgstr ""
 "*** 警告***   %s::Cmdline::Ignore-Trust-Violations が 'true' と\n"
 "              なっているので、これらの信頼侵害を無視しています!\n"
 
-#: src/cmdline/cmdline_prompt.cc:547
+#: src/cmdline/cmdline_prompt.cc:550
 msgid ""
 "*** WARNING ***   Ignoring these trust violations because\n"
 "                  Apt::Get::AllowUnauthenticated is 'true'!\n"
@@ -1384,7 +1343,7 @@ msgstr ""
 #. input methods.  Please include nothing but ASCII characters.
 #. The text preceding the pipe character (|) will be ignored and
 #. can be removed from your translation.
-#: src/cmdline/cmdline_prompt.cc:558
+#: src/cmdline/cmdline_prompt.cc:561
 msgid "Go ahead and ignore the warning|Yes"
 msgstr "Go ahead and ignore the warning|Yes"
 
@@ -1393,100 +1352,100 @@ msgstr "Go ahead and ignore the warning|Yes"
 #. input methods.  Please include nothing but ASCII characters.
 #. The text preceding the pipe character (|) will be ignored and
 #. can be removed from your translation.
-#: src/cmdline/cmdline_prompt.cc:564
+#: src/cmdline/cmdline_prompt.cc:567
 msgid "Abort instead of overriding the warning|No"
 msgstr "Abort instead of overriding the warning|No"
 
-#: src/cmdline/cmdline_prompt.cc:575
+#: src/cmdline/cmdline_prompt.cc:578
 #, c-format
 msgid "Do you want to ignore this warning and proceed anyway?\n"
 msgstr "この警告を無視して意地でも先に進みますか?\n"
 
-#: src/cmdline/cmdline_prompt.cc:576
+#: src/cmdline/cmdline_prompt.cc:579
 #, c-format
 msgid "To continue, enter \"%s\"; to abort, enter \"%s\": "
 msgstr "先に進む場合は \"%s\" を、中断する場合は \"%s\" を、入力してください:"
 
-#: src/cmdline/cmdline_prompt.cc:593
+#: src/cmdline/cmdline_prompt.cc:596
 #, c-format
 msgid "Unrecognized input.  Enter either \"%s\" or \"%s\".\n"
 msgstr "入力を認識できません。\"%s\" か \"%s\" を入力してください。\n"
 
-#: src/cmdline/cmdline_prompt.cc:707
+#: src/cmdline/cmdline_prompt.cc:710
 #, c-format
 msgid "The following packages are RECOMMENDED but will NOT be installed:\n"
 msgstr "以下のパッケージが推奨されていますがインストールされません:\n"
 
-#: src/cmdline/cmdline_prompt.cc:713
+#: src/cmdline/cmdline_prompt.cc:716
 #, c-format
 msgid "The following packages are SUGGESTED but will NOT be installed:\n"
 msgstr "以下のパッケージが提案されていますがインストールされません:\n"
 
-#: src/cmdline/cmdline_prompt.cc:719
+#: src/cmdline/cmdline_prompt.cc:722
 #, c-format
 msgid "No packages will be installed, upgraded, or removed.\n"
 msgstr "インストール・削除・更新されるパッケージがありません。\n"
 
-#: src/cmdline/cmdline_prompt.cc:721
+#: src/cmdline/cmdline_prompt.cc:724
 #, c-format
 msgid "%lu packages upgraded, %lu newly installed, "
 msgstr "更新: %lu 個、新規インストール: %lu 個、"
 
-#: src/cmdline/cmdline_prompt.cc:725
+#: src/cmdline/cmdline_prompt.cc:728
 #, c-format
 msgid "%lu reinstalled, "
 msgstr "再インストール: %lu 個、"
 
-#: src/cmdline/cmdline_prompt.cc:727
+#: src/cmdline/cmdline_prompt.cc:730
 #, c-format
 msgid "%lu downgraded, "
 msgstr "ダウングレード: %lu 個、"
 
-#: src/cmdline/cmdline_prompt.cc:729
+#: src/cmdline/cmdline_prompt.cc:732
 #, c-format
 msgid "%lu to remove and %lu not upgraded.\n"
 msgstr "削除: %lu 個、保留: %lu 個。\n"
 
-#: src/cmdline/cmdline_prompt.cc:736
+#: src/cmdline/cmdline_prompt.cc:739
 #, c-format
 msgid "Need to get %sB/%sB of archives. "
 msgstr "アーカイブ %2$s バイト中 %1$s バイトを取得する必要があります。"
 
-#: src/cmdline/cmdline_prompt.cc:739
+#: src/cmdline/cmdline_prompt.cc:742
 #, c-format
 msgid "Need to get %sB of archives. "
 msgstr "%s バイトのアーカイブを取得する必要があります。"
 
-#: src/cmdline/cmdline_prompt.cc:746
+#: src/cmdline/cmdline_prompt.cc:749
 #, c-format
 msgid "After unpacking %sB will be used.\n"
 msgstr "展開後に %s バイトのディスク領域が新たに消費されます。\n"
 
-#: src/cmdline/cmdline_prompt.cc:749
+#: src/cmdline/cmdline_prompt.cc:752
 #, c-format
 msgid "After unpacking %sB will be freed.\n"
 msgstr "展開後に %s バイトのディスク領域が解放されます。\n"
 
-#: src/cmdline/cmdline_prompt.cc:771
+#: src/cmdline/cmdline_prompt.cc:774
 #, c-format
 msgid "No packages to show -- enter the package names on the line after 'i'.\n"
 msgstr ""
 "表示するパッケージがありません -- 'i' に続けてパッケージ名を入力してくださ"
 "い。\n"
 
-#: src/cmdline/cmdline_prompt.cc:777 src/cmdline/cmdline_prompt.cc:792
+#: src/cmdline/cmdline_prompt.cc:780 src/cmdline/cmdline_prompt.cc:795
 #: src/pkg_item.cc:410 src/ui.cc:1219
 msgid "Press Return to continue."
 msgstr "先に進むには Return を押してください。"
 
-#: src/cmdline/cmdline_prompt.cc:788
+#: src/cmdline/cmdline_prompt.cc:791
 #, c-format
 msgid "No packages found -- enter the package names on the line after 'c'.\n"
 msgstr ""
 "パッケージが見つかりません -- 'c' に続けてパッケージ名を入力してください。\n"
 
 # TRANSLATION-FIXME: こんな感じ?
-#: src/cmdline/cmdline_prompt.cc:803
+#: src/cmdline/cmdline_prompt.cc:806
 #, c-format
 msgid ""
 "No packages found -- enter zero or more roots of the search followed by the "
@@ -1495,33 +1454,33 @@ msgstr ""
 "パッケージが見つかりません -- 検索の根拠とするパッケージを必要に応じて入力"
 "し、それに続けて、説明したいパッケージを入力してください。\n"
 
-#: src/cmdline/cmdline_prompt.cc:836
+#: src/cmdline/cmdline_prompt.cc:839
 #, c-format
 msgid "y: %F"
 msgstr "y: %F"
 
 # * Description of a command.
-#: src/cmdline/cmdline_prompt.cc:838
+#: src/cmdline/cmdline_prompt.cc:841
 msgid "continue with the installation"
 msgstr "インストールへと進みます"
 
-#: src/cmdline/cmdline_prompt.cc:840
+#: src/cmdline/cmdline_prompt.cc:843
 #, c-format
 msgid "n: %F"
 msgstr "n: %F"
 
 # * Description of a command.
-#: src/cmdline/cmdline_prompt.cc:842
+#: src/cmdline/cmdline_prompt.cc:845
 msgid "abort and quit"
 msgstr "中断して終了します"
 
-#: src/cmdline/cmdline_prompt.cc:844
+#: src/cmdline/cmdline_prompt.cc:847
 #, c-format
 msgid "i: %F"
 msgstr "i: %F"
 
 # * Description of a command.
-#: src/cmdline/cmdline_prompt.cc:846
+#: src/cmdline/cmdline_prompt.cc:849
 msgid ""
 "show information about one or more packages; the package names should follow "
 "the 'i'"
@@ -1529,13 +1488,13 @@ msgstr ""
 "1 つ以上のパッケージに関する情報を表示します。'i' に続けてパッケージ名を入力"
 "してください"
 
-#: src/cmdline/cmdline_prompt.cc:848
+#: src/cmdline/cmdline_prompt.cc:851
 #, c-format
 msgid "c: %F"
 msgstr "c: %F"
 
 # * Description of a command.
-#: src/cmdline/cmdline_prompt.cc:850
+#: src/cmdline/cmdline_prompt.cc:853
 msgid ""
 "show the Debian changelogs of one or more packages; the package names should "
 "follow the 'c'"
@@ -1543,43 +1502,43 @@ msgstr ""
 "1 つ以上のパッケージに関する Debian の変更履歴を表示します。'c' に続けてパッ"
 "ケージ名を入力してください"
 
-#: src/cmdline/cmdline_prompt.cc:852
+#: src/cmdline/cmdline_prompt.cc:855
 #, c-format
 msgid "d: %F"
 msgstr "d: %F"
 
 # * Description of a command.
-#: src/cmdline/cmdline_prompt.cc:854
+#: src/cmdline/cmdline_prompt.cc:857
 msgid "toggle the display of dependency information"
 msgstr "依存関係情報を表示する・しないを切り替えます"
 
-#: src/cmdline/cmdline_prompt.cc:856
+#: src/cmdline/cmdline_prompt.cc:859
 #, c-format
 msgid "s: %F"
 msgstr "s: %F"
 
 # * Description of a command.
-#: src/cmdline/cmdline_prompt.cc:858
+#: src/cmdline/cmdline_prompt.cc:861
 msgid "toggle the display of changes in package sizes"
 msgstr "パッケージサイズ変更を表示する・しないを切り替えます"
 
-#: src/cmdline/cmdline_prompt.cc:860
+#: src/cmdline/cmdline_prompt.cc:863
 #, c-format
 msgid "v: %F"
 msgstr "v: %F"
 
 # * Description of a command.
-#: src/cmdline/cmdline_prompt.cc:862
+#: src/cmdline/cmdline_prompt.cc:865
 msgid "toggle the display of version numbers"
 msgstr "バージョン番号を表示する・しないを切り替えます"
 
-#: src/cmdline/cmdline_prompt.cc:864
+#: src/cmdline/cmdline_prompt.cc:867
 #, c-format
 msgid "w: %F"
 msgstr "w: %F"
 
 # * Description of a command.
-#: src/cmdline/cmdline_prompt.cc:866
+#: src/cmdline/cmdline_prompt.cc:869
 msgid ""
 "try to find a reason for installing a single package, or explain why "
 "installing one package should lead to installing another package."
@@ -1588,27 +1547,27 @@ msgstr ""
 "ンストールが何故別のパッケージのインストールに繋がるのかを説明しようとしたり"
 "します。"
 
-#: src/cmdline/cmdline_prompt.cc:869
+#: src/cmdline/cmdline_prompt.cc:872
 #, c-format
 msgid "r: %F"
 msgstr "r: %F"
 
 # * Description of a command.
-#: src/cmdline/cmdline_prompt.cc:871
+#: src/cmdline/cmdline_prompt.cc:874
 msgid "run the automatic dependency resolver to fix the broken dependencies."
 msgstr "依存関係解決器を用いて、壊れた依存関係を修正します。"
 
-#: src/cmdline/cmdline_prompt.cc:873
+#: src/cmdline/cmdline_prompt.cc:876
 #, c-format
 msgid "e: %F"
 msgstr "e: %F"
 
 # * Description of a command.
-#: src/cmdline/cmdline_prompt.cc:875
+#: src/cmdline/cmdline_prompt.cc:878
 msgid "enter the full visual interface"
 msgstr "ビジュアルインタフェースに移行します"
 
-#: src/cmdline/cmdline_prompt.cc:878
+#: src/cmdline/cmdline_prompt.cc:881
 msgid ""
 "You may also specify modification to the actions which will be taken.  To do "
 "so, type an action character followed by one or more package names (or "
@@ -1620,47 +1579,47 @@ msgstr ""
 "さい。そのアクションが、引数に指定したパッケージすべてに適用されます。以下の"
 "アクションが利用可能です:"
 
-#: src/cmdline/cmdline_prompt.cc:885 src/cmdline/cmdline_resolver.cc:267
+#: src/cmdline/cmdline_prompt.cc:888 src/cmdline/cmdline_resolver.cc:267
 msgid "'+' to install packages"
 msgstr "'+': パッケージをインストール"
 
-#: src/cmdline/cmdline_prompt.cc:888 src/cmdline/cmdline_resolver.cc:269
+#: src/cmdline/cmdline_prompt.cc:891 src/cmdline/cmdline_resolver.cc:269
 msgid ""
 "'+M' to install packages and immediately flag them as automatically installed"
 msgstr ""
 "'+M': パッケージをインストールし、「自動的にインストールされた」フラグを直ち"
 "に添付"
 
-#: src/cmdline/cmdline_prompt.cc:890 src/cmdline/cmdline_resolver.cc:271
+#: src/cmdline/cmdline_prompt.cc:893 src/cmdline/cmdline_resolver.cc:271
 msgid "'-' to remove packages"
 msgstr "'-': パッケージを削除"
 
-#: src/cmdline/cmdline_prompt.cc:892 src/cmdline/cmdline_resolver.cc:273
+#: src/cmdline/cmdline_prompt.cc:895 src/cmdline/cmdline_resolver.cc:273
 msgid "'_' to purge packages"
 msgstr "'_': パッケージを完全削除"
 
-#: src/cmdline/cmdline_prompt.cc:894 src/cmdline/cmdline_resolver.cc:275
+#: src/cmdline/cmdline_prompt.cc:897 src/cmdline/cmdline_resolver.cc:275
 msgid "'=' to place packages on hold"
 msgstr "'=': パッケージを固定"
 
-#: src/cmdline/cmdline_prompt.cc:896 src/cmdline/cmdline_resolver.cc:277
+#: src/cmdline/cmdline_prompt.cc:899 src/cmdline/cmdline_resolver.cc:277
 msgid ""
 "':' to keep packages in their current state without placing them on hold"
 msgstr "':': パッケージを完全に固定することなく現在の状態に一時的に固定"
 
-#: src/cmdline/cmdline_prompt.cc:898 src/cmdline/cmdline_resolver.cc:279
+#: src/cmdline/cmdline_prompt.cc:901 src/cmdline/cmdline_resolver.cc:279
 msgid "'&M' to mark packages as automatically installed"
 msgstr "'&M': 自動的にインストールされたという印をパッケージに添付"
 
-#: src/cmdline/cmdline_prompt.cc:900 src/cmdline/cmdline_resolver.cc:281
+#: src/cmdline/cmdline_prompt.cc:903 src/cmdline/cmdline_resolver.cc:281
 msgid "'&m' to mark packages as manually installed"
 msgstr "'&m': 手動でインストールされたという印をパッケージに添付"
 
-#: src/cmdline/cmdline_prompt.cc:902
+#: src/cmdline/cmdline_prompt.cc:905
 msgid "'&BD' to install the build-dependencies of a package."
 msgstr "'&BD': パッケージが構築時依存しているパッケージをインストール"
 
-#: src/cmdline/cmdline_prompt.cc:905
+#: src/cmdline/cmdline_prompt.cc:908
 msgid ""
 "In the list of actions to be performed, some packages will be followed by "
 "one or more characters enclosed in braces; for instance: \"aptitude{u}\".  "
@@ -1668,29 +1627,29 @@ msgid ""
 "can include any combination of the following:"
 msgstr ""
 
-#: src/cmdline/cmdline_prompt.cc:909
+#: src/cmdline/cmdline_prompt.cc:912
 #, fuzzy
 msgid "'a': the package was automatically installed or removed."
 msgstr "パッケージが自動でインストールされたかどうかを示します。"
 
-#: src/cmdline/cmdline_prompt.cc:911
+#: src/cmdline/cmdline_prompt.cc:914
 msgid ""
 "'b': some of the package's dependencies are violated by the proposed changes."
 msgstr ""
 
-#: src/cmdline/cmdline_prompt.cc:913
+#: src/cmdline/cmdline_prompt.cc:916
 msgid "'p': the package will be purged in addition to being removed."
 msgstr ""
 
-#: src/cmdline/cmdline_prompt.cc:915
+#: src/cmdline/cmdline_prompt.cc:918
 msgid "'u': the package is being removed because it is unused."
 msgstr ""
 
-#: src/cmdline/cmdline_prompt.cc:920
+#: src/cmdline/cmdline_prompt.cc:923
 msgid "Commands:"
 msgstr "コマンド:"
 
-#: src/cmdline/cmdline_prompt.cc:1036
+#: src/cmdline/cmdline_prompt.cc:1039
 msgid ""
 "aptitude failed to find a solution to these dependencies.  You can solve "
 "them yourself by hand or type 'n' to quit."
@@ -1699,20 +1658,20 @@ msgstr ""
 "係を自分の力で手動で解決してもかまいませんし、'n' を入力して終了してもかまい"
 "ません。"
 
-#: src/cmdline/cmdline_prompt.cc:1055
+#: src/cmdline/cmdline_prompt.cc:1058
 msgid "Do you want to continue? [Y/n/?] "
 msgstr "先に進みますか? [Y/n/?] "
 
-#: src/cmdline/cmdline_prompt.cc:1056
+#: src/cmdline/cmdline_prompt.cc:1059
 msgid "Resolve these dependencies by hand? [N/+/-/_/:/?] "
 msgstr "これらの依存関係を手動で解決しますか? [N/+/-/_/:/?] "
 
-#: src/cmdline/cmdline_prompt.cc:1074
+#: src/cmdline/cmdline_prompt.cc:1077
 msgid "Invalid response.  Please enter a valid command or '?' for help.\n"
 msgstr ""
 "応答が不正です。有効なコマンドを入力するか '?' でヘルプを参照してください。\n"
 
-#: src/cmdline/cmdline_prompt.cc:1080
+#: src/cmdline/cmdline_prompt.cc:1083
 msgid ""
 "Enter a package management command (such as '+ package' to install a "
 "package), 'R' to attempt automatic dependency resolution or 'N' to abort."
@@ -1721,7 +1680,7 @@ msgstr ""
 ">') を入力してください。または、依存関係自動解決ツールを使ってみる場合は 'R' "
 "を、中断する場合は 'N' を、入力してください。"
 
-#: src/cmdline/cmdline_prompt.cc:1112
+#: src/cmdline/cmdline_prompt.cc:1115
 #, c-format
 msgid ""
 "\n"
@@ -1732,7 +1691,7 @@ msgstr ""
 "依存関係の情報を表示します。\n"
 "\n"
 
-#: src/cmdline/cmdline_prompt.cc:1114
+#: src/cmdline/cmdline_prompt.cc:1117
 #, c-format
 msgid ""
 "\n"
@@ -1743,7 +1702,7 @@ msgstr ""
 "依存関係の情報を表示しません。\n"
 "\n"
 
-#: src/cmdline/cmdline_prompt.cc:1120
+#: src/cmdline/cmdline_prompt.cc:1123
 #, c-format
 msgid ""
 "\n"
@@ -1754,7 +1713,7 @@ msgstr ""
 "バージョンを表示します。\n"
 "\n"
 
-#: src/cmdline/cmdline_prompt.cc:1122
+#: src/cmdline/cmdline_prompt.cc:1125
 #, c-format
 msgid ""
 "\n"
@@ -1765,7 +1724,7 @@ msgstr ""
 "バージョンを表示しません。\n"
 "\n"
 
-#: src/cmdline/cmdline_prompt.cc:1127
+#: src/cmdline/cmdline_prompt.cc:1130
 #, c-format
 msgid ""
 "\n"
@@ -1776,7 +1735,7 @@ msgstr ""
 "サイズの変化を表示します。\n"
 "\n"
 
-#: src/cmdline/cmdline_prompt.cc:1129
+#: src/cmdline/cmdline_prompt.cc:1132
 #, c-format
 msgid ""
 "\n"
@@ -1923,6 +1882,11 @@ msgstr ""
 #, c-format
 msgid "Expected a version or \"%s\" after \"%s\""
 msgstr "\"%2$s\" の後にバージョンまたは \"%1$s\" を入力してください"
+
+#: src/cmdline/cmdline_resolver.cc:361
+#, c-format
+msgid "No such package \"%s\""
+msgstr "そのようなパッケージはありません: \"%s\""
 
 #: src/cmdline/cmdline_resolver.cc:377
 #, c-format
@@ -2075,7 +2039,7 @@ msgstr ""
 msgid "I want to resolve dependencies, but no dependency resolver was created."
 msgstr "依存関係を解決したいのですが、依存関係解決器が作成されていません。"
 
-#: src/cmdline/cmdline_resolver.cc:837 src/cmdline/cmdline_resolver.cc:1180
+#: src/cmdline/cmdline_resolver.cc:837 src/cmdline/cmdline_resolver.cc:1181
 #: src/gtk/resolver.cc:2058 src/solution_dialog.cc:127
 #: src/solution_screen.cc:546
 msgid "Resolving dependencies..."
@@ -2103,7 +2067,7 @@ msgstr "依存関係の自動解決を放棄し、手動での解決に戻しま
 msgid "The following commands are available:"
 msgstr "以下のコマンドが利用可能です:"
 
-#: src/cmdline/cmdline_resolver.cc:999 src/ui.cc:2316
+#: src/cmdline/cmdline_resolver.cc:999 src/ui.cc:2318
 msgid "File to write resolver state to: "
 msgstr "依存関係解決器の状態を書き込む出力ファイル: "
 
@@ -2136,7 +2100,7 @@ msgstr ""
 "*** エラー: 致命的な例外が発生して検索が中断しました。検索を続行する\n"
 "            ことは可能ですが、一部の解決方法には到達できません。"
 
-#: src/cmdline/cmdline_resolver.cc:1191
+#: src/cmdline/cmdline_resolver.cc:1192
 #, c-format
 msgid ""
 "Unable to resolve dependencies for the upgrade because the resolver timed "
@@ -2145,26 +2109,25 @@ msgid ""
 "  Aptitude::ProblemResolver::StepLimit (currently %d)."
 msgstr ""
 
-#: src/cmdline/cmdline_resolver.cc:1201
+#: src/cmdline/cmdline_resolver.cc:1202
 #, fuzzy
 msgid "Unable to resolve dependencies for the upgrade: no solution found."
 msgstr ""
 "更新のための依存関係の解決ができません (解決方法が見つかりませんでした)。"
 
-#: src/cmdline/cmdline_resolver.cc:1207
+#: src/cmdline/cmdline_resolver.cc:1208
 #, fuzzy, c-format
 msgid "Unable to resolve dependencies for the upgrade: %s"
 msgstr "更新のための依存関係の解決ができません (%s)。"
 
-#: src/cmdline/cmdline_search.cc:198 src/cmdline/cmdline_versions.cc:567
+#: src/cmdline/cmdline_search.cc:189 src/cmdline/cmdline_versions.cc:564
 #, c-format
-msgid "iconv of %s failed.\n"
-msgstr "%s の iconv に失敗しました。\n"
+msgid "iconv of %s failed"
+msgstr "%s の iconv に失敗しました"
 
-#: src/cmdline/cmdline_search.cc:215
-#, c-format
-msgid "search: You must provide at least one search term\n"
-msgstr "search: 検索語を少なくとも一つ与えなければなりません\n"
+#: src/cmdline/cmdline_search.cc:203
+msgid "search: You must provide at least one search term"
+msgstr "search: 検索語を少なくとも一つ与えなければなりません"
 
 #: src/cmdline/cmdline_show_broken.cc:81
 #, c-format
@@ -2208,7 +2171,7 @@ msgid "The following packages have unmet dependencies:\n"
 msgstr "以下のパッケージには満たされていない依存関係があります:\n"
 
 #: src/cmdline/cmdline_show.cc:198 src/cmdline/cmdline_show.cc:448
-#: src/cmdline/cmdline_versions.cc:208 src/gtk/resolver.cc:1192
+#: src/cmdline/cmdline_versions.cc:209 src/gtk/resolver.cc:1192
 #: src/solution_fragment.cc:68
 msgid "<NULL>"
 msgstr "<NULL>"
@@ -2432,7 +2395,7 @@ msgid "Enhances"
 msgstr ""
 
 #: src/cmdline/cmdline_show.cc:471 src/cmdline/cmdline_why.cc:230
-#: src/cmdline/cmdline_why.cc:1632 src/gtk/dependency_chains_tab.cc:205
+#: src/cmdline/cmdline_why.cc:1622 src/gtk/dependency_chains_tab.cc:205
 msgid "Provides"
 msgstr "提供"
 
@@ -2446,15 +2409,9 @@ msgstr "説明: "
 msgid "Homepage: "
 msgstr "ホームページ: "
 
-#: src/cmdline/cmdline_show.cc:582
-#, c-format
-msgid "Unable to locate package %s"
-msgstr "パッケージの場所が見つかりません: %s"
-
-#: src/cmdline/cmdline_show.cc:603
-#, c-format
-msgid "Unable to parse pattern %s"
-msgstr "パターンをパースできません: %s"
+#: src/cmdline/cmdline_show.cc:610 src/cmdline/cmdline_user_tag.cc:126
+msgid "No packages found"
+msgstr "パッケージが見つかりません"
 
 #: src/cmdline/cmdline_simulate.cc:66
 #, c-format
@@ -2465,14 +2422,13 @@ msgstr "パッケージのダウンロード・インストール・削除を行
 msgid "Internal Error, Ordering didn't finish"
 msgstr "内部エラーです。並び換えが終わりませんでした"
 
-#: src/cmdline/cmdline_update.cc:44 src/ui.cc:1711 src/ui.cc:1880
+#: src/cmdline/cmdline_update.cc:44 src/ui.cc:1713 src/ui.cc:1882
 msgid "Deleting obsolete downloaded files"
 msgstr "ダウンロードされた廃止済みのファイルを削除しています"
 
 #: src/cmdline/cmdline_update.cc:55
-#, c-format
-msgid "E: The update command takes no arguments\n"
-msgstr "エラー: update コマンドは引数をとりません\n"
+msgid "The update command takes no arguments"
+msgstr "update コマンドは引数をとりません"
 
 #: src/cmdline/cmdline_user_tag.cc:65
 #, c-format
@@ -2491,128 +2447,149 @@ msgstr ""
 "%s: 引数が少なすぎます。少なくともタグの名前とパッケージを指定してくださ"
 "い。\n"
 
-#: src/cmdline/cmdline_util.cc:167
+#: src/cmdline/cmdline_util.cc:172
 #, c-format
-msgid "No candidate version found for %s\n"
-msgstr "%s のインストール候補のバージョンが見つかりません\n"
+msgid "No candidate version found for %s"
+msgstr "%s のインストール候補のバージョンが見つかりません"
 
-#: src/cmdline/cmdline_util.cc:169
+#: src/cmdline/cmdline_util.cc:176
 #, c-format
-msgid "No current or candidate version found for %s\n"
-msgstr ""
-"%s は、現在のバージョンもインストール候補のバージョンも見つかりません\n"
+msgid "No current or candidate version found for %s"
+msgstr "%s は、現在のバージョンもインストール候補のバージョンも見つかりません"
 
-#: src/cmdline/cmdline_util.cc:193
+#: src/cmdline/cmdline_util.cc:202
 #, c-format
-msgid "Unable to find an archive \"%s\" for the package \"%s\"\n"
-msgstr " \"%2$s\" パッケージのアーカイブ \"%1$s\" が見つかりません\n"
+msgid "Unable to find an archive \"%s\" for the package \"%s\""
+msgstr " \"%2$s\" パッケージのアーカイブ \"%1$s\" が見つかりません"
 
-#: src/cmdline/cmdline_util.cc:203
+#: src/cmdline/cmdline_util.cc:213
 #, c-format
-msgid "Unable to find a version \"%s\" for the package \"%s\"\n"
-msgstr "パッケージ \"%2$s\" のバージョン \"%1$s\" が見つかりません\n"
+msgid "Unable to find a version \"%s\" for the package \"%s\""
+msgstr "パッケージ \"%2$s\" のバージョン \"%1$s\" が見つかりません"
 
-#: src/cmdline/cmdline_util.cc:209
+#: src/cmdline/cmdline_util.cc:219
 #, c-format
-msgid "Internal error: invalid value %i passed to cmdline_find_ver!\n"
-msgstr "内部エラー: 不正な値 %i が cmdline_find_ver に渡されました!\n"
+msgid "Internal error: invalid value %i passed to cmdline_find_ver!"
+msgstr "内部エラー: 不正な値 %i が cmdline_find_ver に渡されました!"
 
-#: src/cmdline/cmdline_util.cc:239
-#, c-format
-msgid "You cannot specify both an archive and a version for a package\n"
-msgstr "パッケージのアーカイブとバージョンを同時には指定できません\n"
+#: src/cmdline/cmdline_util.cc:248
+msgid "You cannot specify both an archive and a version for a package"
+msgstr "パッケージのアーカイブとバージョンを同時には指定できません"
 
-#: src/cmdline/cmdline_util.cc:273
-#, fuzzy, c-format
-msgid "Couldn't find task '%s'"
-msgstr "%s の変更履歴が見つかりません"
-
-#: src/cmdline/cmdline_util.cc:361
+#: src/cmdline/cmdline_util.cc:345
 #, c-format
 msgid "%d broken [%+d]"
 msgid_plural "%d broken [%+d]"
 msgstr[0] "依存関係破損が %d 個 [%+d]"
 
-#: src/cmdline/cmdline_util.cc:375
+#: src/cmdline/cmdline_util.cc:359
 #, c-format
 msgid "%d update [%+d]"
 msgid_plural "%d updates [%+d]"
 msgstr[0] "更新が %d 個 [%+d]"
 
-#: src/cmdline/cmdline_util.cc:389
+#: src/cmdline/cmdline_util.cc:373
 #, c-format
 msgid "%d new [%+d]"
 msgid_plural "%d new [%+d]"
 msgstr[0] "新規が %d 個 [%+d]"
 
-#: src/cmdline/cmdline_util.cc:400
+#: src/cmdline/cmdline_util.cc:384
 #, c-format
 msgid "Current status: %F."
 msgstr "現在の状態: %F。"
 
-#: src/cmdline/cmdline_util.cc:411
+#: src/cmdline/cmdline_util.cc:395
 #, c-format
 msgid "There is %d newly obsolete package."
 msgid_plural "There are %d newly obsolete packages."
 msgstr[0] "新たに廃止されたパッケージが %d 個あります。"
 
-#: src/cmdline/cmdline_util.cc:423
+#: src/cmdline/cmdline_util.cc:407
 #, c-format
 msgid "There is %d newly obsolete package: "
 msgid_plural "There are %d newly obsolete packages: "
 msgstr[0] "新たに廃止されたパッケージが %d 個あります:"
 
-#: src/cmdline/cmdline_versions.cc:125
+#: src/cmdline/cmdline_util.cc:752
+#, c-format
+msgid "No comma following tag name \"%s\""
+msgstr "タグ名 \"%s\" の後にコンマがありません"
+
+#: src/cmdline/cmdline_util.cc:864 src/cmdline/cmdline_util.cc:915
+#: src/cmdline/cmdline_versions.cc:296 src/cmdline/cmdline_versions.cc:618
+#: src/cmdline/cmdline_why.cc:1300 src/cmdline/cmdline_why.cc:1385
+#, c-format
+msgid "Unable to locate package %s"
+msgstr "パッケージの場所が見つかりません: %s"
+
+#: src/cmdline/cmdline_util.cc:937
+#, fuzzy, c-format
+msgid "Couldn't find task '%s'"
+msgstr "%s の変更履歴が見つかりません"
+
+#: src/cmdline/cmdline_util.cc:939
+#, c-format
+msgid "Note: selecting the task \"%s: %s\" for installation\n"
+msgstr "注意: タスク \"%s: %s\" をインストールするよう選択します\n"
+
+#: src/cmdline/cmdline_util.cc:966
+#, fuzzy, c-format
+#| msgid "Couldn't find a changelog for %s"
+msgid "Couldn't find any package for pattern '%s'"
+msgstr "%s の変更履歴が見つかりません"
+
+#: src/cmdline/cmdline_versions.cc:126
 #, fuzzy, c-format
 msgid "Package %s:"
 msgstr "パッケージ: "
 
-#: src/cmdline/cmdline_versions.cc:152 src/cmdline/cmdline_versions.cc:191
+#: src/cmdline/cmdline_versions.cc:153 src/cmdline/cmdline_versions.cc:192
 #, fuzzy, c-format
 msgid "Source package %s:"
 msgstr "ソースパッケージ: "
 
-#: src/cmdline/cmdline_versions.cc:213
+#: src/cmdline/cmdline_versions.cc:214
 #, fuzzy, c-format
 msgid "Archive %s:"
 msgstr "アーカイブ"
 
-#: src/cmdline/cmdline_versions.cc:502
+#: src/cmdline/cmdline_versions.cc:503
 msgid "--group-by|archive"
 msgstr ""
 
-#: src/cmdline/cmdline_versions.cc:506
+#: src/cmdline/cmdline_versions.cc:507
 msgid "--group-by|auto"
 msgstr ""
 
-#: src/cmdline/cmdline_versions.cc:510
+#: src/cmdline/cmdline_versions.cc:511
 msgid "--group-by|none"
 msgstr ""
 
-#: src/cmdline/cmdline_versions.cc:514
+#: src/cmdline/cmdline_versions.cc:515
 msgid "--group-by|package"
 msgstr ""
 
-#: src/cmdline/cmdline_versions.cc:518
+#: src/cmdline/cmdline_versions.cc:519
 msgid "--group-by|source-package"
 msgstr ""
 
-#: src/cmdline/cmdline_versions.cc:522
+#: src/cmdline/cmdline_versions.cc:523
 msgid "--group-by|source-version"
 msgstr ""
 
 #. ForTranslators: --group-by is the argument name and shouldn't
 #. be translated.
-#: src/cmdline/cmdline_versions.cc:528
+#: src/cmdline/cmdline_versions.cc:529
 #, c-format
 msgid ""
 "Invalid package grouping mode \"%s\" (should be \"auto\", \"none\", \"package"
 "\", or \"source-package\")"
 msgstr ""
 
-#: src/cmdline/cmdline_versions.cc:584
-#, fuzzy, c-format
-msgid "versions: You must provide at least one package selector\n"
+#: src/cmdline/cmdline_versions.cc:578
+#, fuzzy
+msgid "versions: You must provide at least one package selector"
 msgstr "search: 検索語を少なくとも一つ与えなければなりません\n"
 
 #: src/cmdline/cmdline_why.cc:290
@@ -2635,7 +2612,7 @@ msgstr "現在"
 msgid "Candidate"
 msgstr "候補"
 
-#: src/cmdline/cmdline_why.cc:321 src/gtk/gui.cc:91 src/gtk/gui.cc:1417
+#: src/cmdline/cmdline_why.cc:321 src/gtk/gui.cc:91 src/gtk/gui.cc:1409
 msgid "Install"
 msgstr "インストール"
 
@@ -2738,23 +2715,21 @@ msgstr "%s をインストールする理由が見つかりません。\n"
 msgid "Packages requiring %s:"
 msgstr "%s を必須とするパッケージ:"
 
-#: src/cmdline/cmdline_why.cc:1299 src/cmdline/cmdline_why.cc:1327
-#: src/cmdline/cmdline_why.cc:1391
+#: src/cmdline/cmdline_why.cc:1323
 #, c-format
 msgid "No package named \"%s\" exists."
 msgstr "\"%s\" という名前のパッケージは存在しません。"
 
-#: src/cmdline/cmdline_why.cc:1331
+#: src/cmdline/cmdline_why.cc:1327
 msgid "Unable to parse some match patterns."
 msgstr "一部のマッチパターンをパースできません。"
 
-#: src/cmdline/cmdline_why.cc:1366
+#: src/cmdline/cmdline_why.cc:1362
 #, c-format
-msgid ""
-"%s: this command requires at least one argument (the package to query).\n"
+msgid "%s: this command requires at least one argument (the package to query)"
 msgstr ""
 "%s: このコマンドには少なくとも 1 つの引数 (問い合わせの対象とするパッケージ) "
-"を指定する必要があります。\n"
+"を指定する必要があります"
 
 #: src/cmdline/cmdline_why.h:212
 msgid "Unknown version selection, something is very wrong."
@@ -2780,11 +2755,11 @@ msgstr "依存関係未解決"
 msgid "UNAVAILABLE"
 msgstr "入手不可能"
 
-#: src/desc_render.cc:134 src/gtk/aptitude.glade:1051
+#: src/desc_render.cc:123 src/gtk/aptitude.glade:1051
 msgid "Tags"
 msgstr "タグ"
 
-#: src/desc_render.cc:149
+#: src/desc_render.cc:138
 msgid "User Tags"
 msgstr "ユーザタグ"
 
@@ -2995,32 +2970,32 @@ msgstr ""
 "ルが既にパッケージをインストール中だという意味です。読み取り専用モードで開い"
 "ています。パッケージの状態を変更してもそれは保存されません!"
 
-#: src/generic/apt/apt.cc:1272
+#: src/generic/apt/apt.cc:1268
 msgid "foreign"
 msgstr ""
 
-#: src/generic/apt/apt.cc:1274
+#: src/generic/apt/apt.cc:1270
 msgid "same"
 msgstr ""
 
-#: src/generic/apt/apt.cc:1277
+#: src/generic/apt/apt.cc:1273
 #, fuzzy
 msgid "allowed"
 msgstr "選択してよいか"
 
-#: src/generic/apt/apt.cc:1366
+#: src/generic/apt/apt.cc:1362
 msgid "main"
 msgstr "メイン"
 
-#: src/generic/apt/apt.cc:1366
+#: src/generic/apt/apt.cc:1362
 msgid "contrib"
 msgstr ""
 
-#: src/generic/apt/apt.cc:1366
+#: src/generic/apt/apt.cc:1362
 msgid "non-free"
 msgstr ""
 
-#: src/generic/apt/apt.cc:1366
+#: src/generic/apt/apt.cc:1362
 msgid "non-US"
 msgstr ""
 
@@ -3094,36 +3069,44 @@ msgstr ""
 "検察層 \"%s\" は不正です (\"conflict\"、\"minimum\"、整数のいずれでもありませ"
 "ん)。"
 
-#: src/generic/apt/download_install_manager.cc:60
+#: src/generic/apt/download_install_manager.cc:64
 msgid ""
 "The package cache is not available; unable to download and install packages."
 msgstr ""
 "パッケージのキャッシュが利用不可能です。パッケージのダウンロードやインストー"
 "ルができません。"
 
-#: src/generic/apt/download_install_manager.cc:93
+#: src/generic/apt/download_install_manager.cc:97
 msgid "Internal error: couldn't generate list of packages to download"
 msgstr "内部エラー: ダウンロードするパッケージの一覧を作成できません"
 
-#: src/generic/apt/download_install_manager.cc:120
+#: src/generic/apt/download_install_manager.cc:127
 #: src/generic/apt/download_update_manager.cc:130
 #, c-format
 msgid "Failed to fetch %s: %s"
 msgstr "%s を取得できませんでした: %s"
 
-#: src/generic/apt/download_install_manager.cc:129
+#: src/generic/apt/download_install_manager.cc:136
 msgid "Some files failed to download"
 msgstr ""
 
-#: src/generic/apt/download_install_manager.cc:140
+#: src/generic/apt/download_install_manager.cc:147
+msgid ""
+"Unable to fetch some archives, maybe run aptitude update or try with --fix-"
+"missing?"
+msgstr ""
+"いくつかのアーカイブが取得できません。aptitude update を実行するか --fix-"
+"missing オプションを付けて試してみてください。"
+
+#: src/generic/apt/download_install_manager.cc:154
 msgid "Unable to correct for unavailable packages"
 msgstr "入手不可能なパッケージは修正できません"
 
-#: src/generic/apt/download_install_manager.cc:175
+#: src/generic/apt/download_install_manager.cc:196
 msgid "A package failed to install.  Trying to recover:"
 msgstr "パッケージをインストールできませんでした。復旧を試みています:"
 
-#: src/generic/apt/download_install_manager.cc:219
+#: src/generic/apt/download_install_manager.cc:246
 msgid ""
 "Could not regain the system lock!  (Perhaps another apt or dpkg is running?)"
 msgstr ""
@@ -3297,14 +3280,14 @@ msgstr ""
 "\n"
 "ログ完了。\n"
 
-#: src/generic/apt/matching/match.cc:3093
-#: src/generic/apt/matching/match.cc:3210
+#: src/generic/apt/matching/match.cc:3051
+#: src/generic/apt/matching/match.cc:3168
 msgid "Accessing index"
 msgstr ""
 
 # * Message used as 'title' for the ui_download_manager.
-#: src/generic/apt/matching/match.cc:3103
-#: src/generic/apt/matching/match.cc:3217
+#: src/generic/apt/matching/match.cc:3061
+#: src/generic/apt/matching/match.cc:3175
 #, fuzzy
 msgid "Filtering packages"
 msgstr "パッケージをダウンロード中"
@@ -3417,18 +3400,18 @@ msgstr ""
 "パッケージインデックスファイルが壊されています。%s パッケージにファイル名 "
 "(Filename:) フィールドがありません。"
 
-#: src/generic/apt/pkg_changelog.cc:441 src/generic/apt/pkg_changelog.cc:589
+#: src/generic/apt/pkg_changelog.cc:527 src/generic/apt/pkg_changelog.cc:652
 #: src/view_changelog.cc:272
 #, c-format
 msgid "Changelog of %s"
 msgstr "%s の変更履歴"
 
-#: src/generic/apt/pkg_changelog.cc:565 src/generic/apt/pkg_changelog.cc:570
+#: src/generic/apt/pkg_changelog.cc:628 src/generic/apt/pkg_changelog.cc:633
 #, fuzzy, c-format
 msgid "Failed to download changelogs: %s"
 msgstr "変更履歴のダウンロードに失敗しました: %s"
 
-#: src/generic/apt/pkg_changelog.cc:575
+#: src/generic/apt/pkg_changelog.cc:638
 #, fuzzy
 msgid "Failed to download changelogs: unexpected exception."
 msgstr "変更履歴のダウンロードに失敗しました: %s"
@@ -3479,25 +3462,26 @@ msgstr ""
 msgid "Failed to parse the cost settings string: %s"
 msgstr "変更履歴のダウンロードに失敗しました: %s"
 
-#: src/generic/apt/tags.cc:218 src/generic/apt/tags.cc:225
+#: src/generic/apt/tags.cc:218 src/generic/apt/tags.cc:226
+#: src/generic/apt/tags.cc:289 src/generic/apt/tags.cc:298
 msgid "Building tag database"
 msgstr "タグのデータベースを構築しています"
 
-#: src/generic/apt/tags.cc:400
-msgid "legacy"
-msgstr ""
-
-#: src/generic/apt/tags.cc:430 src/generic/apt/tags.cc:445
-#: src/generic/apt/tags.cc:476 src/generic/apt/tags.cc:491
+#: src/generic/apt/tags.cc:486 src/generic/apt/tags.cc:501
+#: src/generic/apt/tags.cc:520 src/generic/apt/tags.cc:535
 #, fuzzy
 msgid "No tag descriptions are available."
 msgstr "利用可能な更新はありません"
 
-#: src/generic/apt/tags.cc:436 src/generic/apt/tags.cc:451
-#: src/generic/apt/tags.cc:482 src/generic/apt/tags.cc:497
+#: src/generic/apt/tags.cc:492 src/generic/apt/tags.cc:507
+#: src/generic/apt/tags.cc:526 src/generic/apt/tags.cc:541
 #, fuzzy, c-format
 msgid "No description available for %s."
 msgstr "利用可能な更新はありません"
+
+#: src/generic/apt/tags.cc:563
+msgid "legacy"
+msgstr ""
 
 #: src/generic/apt/tasks.cc:123
 #, c-format
@@ -3647,47 +3631,47 @@ msgid "_File"
 msgstr "ファイル(_F)"
 
 # * Description of an item.
-#: src/gtk/aptitude.glade:28 src/gtk/aptitude.glade:2274 src/ui.cc:2347
+#: src/gtk/aptitude.glade:28 src/gtk/aptitude.glade:2274 src/ui.cc:2349
 msgid "Perform all pending installs and removals"
 msgstr "実行されていないインストールや削除を実行します"
 
 # * Description of an item.
-#: src/gtk/aptitude.glade:38 src/gtk/aptitude.glade:2285 src/ui.cc:2350
+#: src/gtk/aptitude.glade:38 src/gtk/aptitude.glade:2285 src/ui.cc:2352
 msgid "Check for new versions of packages"
 msgstr "パッケージの新しいバージョンがないか確認します"
 
 # * Description of an item.
-#: src/gtk/aptitude.glade:53 src/gtk/aptitude.glade:2301 src/ui.cc:2355
+#: src/gtk/aptitude.glade:53 src/gtk/aptitude.glade:2301 src/ui.cc:2357
 msgid "Mark all upgradable packages which are not held for upgrade"
 msgstr "更新時に固定されない更新可能パッケージすべてに印をつけます"
 
 # * Description of an item.
-#: src/gtk/aptitude.glade:63 src/gtk/aptitude.glade:2312 src/ui.cc:2360
+#: src/gtk/aptitude.glade:63 src/gtk/aptitude.glade:2312 src/ui.cc:2362
 msgid "Forget which packages are \"new\""
 msgstr "どのパッケージが「新規」かの情報を消去します"
 
 # * Description of an item.
-#: src/gtk/aptitude.glade:72 src/gtk/aptitude.glade:2322 src/ui.cc:2364
+#: src/gtk/aptitude.glade:72 src/gtk/aptitude.glade:2322 src/ui.cc:2366
 msgid "Cancel all pending installations, removals, holds, and upgrades."
 msgstr "実行されていないインストール・削除・固定・更新を取り消します"
 
 # * Description of an item.
-#: src/gtk/aptitude.glade:81 src/gtk/aptitude.glade:2332 src/ui.cc:2368
+#: src/gtk/aptitude.glade:81 src/gtk/aptitude.glade:2332 src/ui.cc:2370
 msgid "Delete package files which were previously downloaded"
 msgstr "以前ダウンロードしたパッケージファイルを削除します"
 
 # * Description of an item.
-#: src/gtk/aptitude.glade:90 src/gtk/aptitude.glade:2342 src/ui.cc:2372
+#: src/gtk/aptitude.glade:90 src/gtk/aptitude.glade:2342 src/ui.cc:2374
 msgid "Delete package files which can no longer be downloaded"
 msgstr "もはやダウンロードできないパッケージファイルを削除します"
 
 # * Description of an item.
-#: src/gtk/aptitude.glade:104 src/gtk/aptitude.glade:2357 src/ui.cc:2379
+#: src/gtk/aptitude.glade:104 src/gtk/aptitude.glade:2357 src/ui.cc:2381
 msgid "Reload the package cache"
 msgstr "パッケージのキャッシュを再度読み込みます"
 
 # * Description of an item.
-#: src/gtk/aptitude.glade:118 src/gtk/aptitude.glade:2372 src/ui.cc:2389
+#: src/gtk/aptitude.glade:118 src/gtk/aptitude.glade:2372 src/ui.cc:2391
 #, fuzzy
 #| msgid ""
 #| "Run 'su' to become root; this will restart the program, but your settings "
@@ -3698,7 +3682,7 @@ msgstr ""
 "が、現在の設定は保持されます"
 
 # * Description of an item.
-#: src/gtk/aptitude.glade:127 src/gtk/aptitude.glade:2382 src/ui.cc:2392
+#: src/gtk/aptitude.glade:127 src/gtk/aptitude.glade:2382 src/ui.cc:2394
 msgid "Exit the program"
 msgstr "プログラムを終了します"
 
@@ -3707,7 +3691,7 @@ msgid "E_dit"
 msgstr "編集(_E)"
 
 # * Description of an item.
-#: src/gtk/aptitude.glade:148 src/gtk/aptitude.glade:2404 src/ui.cc:2399
+#: src/gtk/aptitude.glade:148 src/gtk/aptitude.glade:2404 src/ui.cc:2401
 msgid "Undo the last package operation or group of operations"
 msgstr "最後に行ったパッケージ管理操作、または一連の操作を取り消します"
 
@@ -3739,7 +3723,7 @@ msgid "_Help"
 msgstr "ヘルプ(_H)"
 
 #: src/gtk/aptitude.glade:317 src/gtk/aptitude.glade:2576
-#: src/gtk/dashboardtab.cc:740 src/gtk/gui.cc:1603 src/gtk/gui.cc:1801
+#: src/gtk/dashboardtab.cc:740 src/gtk/gui.cc:1595 src/gtk/gui.cc:1793
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
@@ -3748,20 +3732,20 @@ msgstr "ダッシュボード"
 msgid "Update"
 msgstr "更新"
 
-#: src/gtk/aptitude.glade:347 src/gtk/aptitude.glade:2606 src/gtk/gui.cc:1323
+#: src/gtk/aptitude.glade:347 src/gtk/aptitude.glade:2606 src/gtk/gui.cc:1315
 #: src/qt/tabs_manager.cc:241 src/ui.cc:854 src/ui.cc:856 src/ui.cc:901
 #: src/ui.cc:903 src/ui.cc:929 src/ui.cc:931 src/ui.cc:952 src/ui.cc:954
 msgid "Packages"
 msgstr "パッケージ"
 
-#: src/gtk/aptitude.glade:358 src/gtk/aptitude.glade:2617 src/gtk/gui.cc:1033
-#: src/gtk/previewtab.cc:118 src/qt/tabs_manager.cc:220 src/ui.cc:1395
+#: src/gtk/aptitude.glade:358 src/gtk/aptitude.glade:2617 src/gtk/gui.cc:1034
+#: src/gtk/previewtab.cc:118 src/qt/tabs_manager.cc:220 src/ui.cc:1397
 msgid "Preview"
 msgstr "プレビュー"
 
 # * Menu item on the first line.
-#: src/gtk/aptitude.glade:369 src/gtk/aptitude.glade:2628 src/gtk/gui.cc:1028
-#: src/qt/tabs_manager.cc:263 src/ui.cc:2783
+#: src/gtk/aptitude.glade:369 src/gtk/aptitude.glade:2628 src/gtk/gui.cc:1029
+#: src/qt/tabs_manager.cc:263 src/ui.cc:2785
 msgid "Resolver"
 msgstr "問題解決"
 
@@ -3944,7 +3928,7 @@ msgid "Fix Manually"
 msgstr "手動で修正"
 
 #: src/gtk/aptitude.glade:1656 src/gtk/areas.cc:72 src/gtk/gui.cc:93
-#: src/gtk/gui.cc:1408
+#: src/gtk/gui.cc:1400
 msgid "Upgrade"
 msgstr "更新"
 
@@ -4475,11 +4459,11 @@ msgstr "インストール済み"
 msgid "Reinstall"
 msgstr "再インストール"
 
-#: src/gtk/gui.cc:94 src/gtk/gui.cc:1414
+#: src/gtk/gui.cc:94 src/gtk/gui.cc:1406
 msgid "Downgrade"
 msgstr "ダウングレード"
 
-#: src/gtk/gui.cc:95 src/gtk/gui.cc:1424
+#: src/gtk/gui.cc:95 src/gtk/gui.cc:1416
 msgid "Remove"
 msgstr "削除"
 
@@ -4512,7 +4496,7 @@ msgstr "パッケージ一覧を更新するには root である必要があり
 msgid "Download already running."
 msgstr "ダウンロードは既に実行中です。"
 
-#: src/gtk/gui.cc:300 src/gtk/gui.cc:948 src/ui.cc:1526 src/ui.cc:1765
+#: src/gtk/gui.cc:300 src/gtk/gui.cc:948 src/ui.cc:1528 src/ui.cc:1767
 msgid "A package-list update or install run is already taking place."
 msgstr "パッケージ一覧の更新またはインストールの実行が現在行われています。"
 
@@ -4581,40 +4565,40 @@ msgid "Asking whether to replace the configuration file %s"
 msgstr "設定ファイル %s を置き換えるかどうかを尋ねます"
 
 # * Message used as 'title' for the ui_download_manager.
-#: src/gtk/gui.cc:962 src/ui.cc:1266
+#: src/gtk/gui.cc:963 src/ui.cc:1268
 msgid "Downloading packages"
 msgstr "パッケージをダウンロード中"
 
-#: src/gtk/gui.cc:1038
+#: src/gtk/gui.cc:1039
 msgid "Broken packages"
 msgstr "壊れているパッケージ"
 
-#: src/gtk/gui.cc:1071
+#: src/gtk/gui.cc:1072
 msgid "Show broken packages"
 msgstr "壊れているパッケージを表示"
 
-#: src/gtk/gui.cc:1075
+#: src/gtk/gui.cc:1076
 msgid "Resolve dependencies"
 msgstr "依存関係を解決する"
 
-#: src/gtk/gui.cc:1103
+#: src/gtk/gui.cc:1104
 #, c-format
 msgid "%d package is broken"
 msgid_plural "%d packages are broken."
 msgstr[0] "%d 個のパッケージが壊れています。"
 
-#: src/gtk/gui.cc:1147
+#: src/gtk/gui.cc:1148
 msgid "View changes"
 msgstr "変更を表示"
 
-#: src/gtk/gui.cc:1151
+#: src/gtk/gui.cc:1152
 msgid "Apply changes"
 msgstr "変更の適用"
 
 #. ForTranslators: any numbers in this
 #. string will be displayed in a larger
 #. font.
-#: src/gtk/gui.cc:1192
+#: src/gtk/gui.cc:1193
 #, c-format
 msgid "%d package to install"
 msgid_plural "%d packages to install"
@@ -4623,60 +4607,60 @@ msgstr[0] "%d 個のパッケージのインストール"
 #. ForTranslators: any numbers in this
 #. string will be displayed in a larger
 #. font.
-#: src/gtk/gui.cc:1207
+#: src/gtk/gui.cc:1208
 #, c-format
 msgid "%d package to remove"
 msgid_plural "%d packages to remove"
 msgstr[0] "%d 個のパッケージの削除"
 
-#: src/gtk/gui.cc:1246
+#: src/gtk/gui.cc:1247
 #, c-format
 msgid "Download size: %sB."
 msgstr "ダウンロードサイズ: %sバイト。"
 
-#: src/gtk/gui.cc:1289
+#: src/gtk/gui.cc:1285
 #, c-format
 msgid "Tags of %s:\n"
 msgstr "%s のタグ:\n"
 
-#: src/gtk/gui.cc:1345
+#: src/gtk/gui.cc:1337
 msgid "This feature is not implemented, yet."
 msgstr "この機能はまだ実装されていません。"
 
-#: src/gtk/gui.cc:1351
+#: src/gtk/gui.cc:1343
 msgid "Not implemented"
 msgstr "実装されていません"
 
-#: src/gtk/gui.cc:1403 src/gtk/gui.cc:1422
+#: src/gtk/gui.cc:1395 src/gtk/gui.cc:1414
 msgid "Install/Upgrade"
 msgstr "インストール/更新"
 
 # * Item.
-#: src/gtk/gui.cc:1429
+#: src/gtk/gui.cc:1421
 msgid "Purge"
 msgstr "完全削除"
 
-#: src/gtk/gui.cc:1434
+#: src/gtk/gui.cc:1426
 msgid "Keep"
 msgstr "一時固定"
 
-#: src/gtk/gui.cc:1439
+#: src/gtk/gui.cc:1431
 msgid "Hold"
 msgstr "固定"
 
-#: src/gtk/gui.cc:1445
+#: src/gtk/gui.cc:1437
 msgid "Set as automatic"
 msgstr "自動で設定"
 
-#: src/gtk/gui.cc:1450
+#: src/gtk/gui.cc:1442
 msgid "Set as manual"
 msgstr "手動で設定"
 
-#: src/gtk/gui.cc:1455
+#: src/gtk/gui.cc:1447
 msgid "Toggle automatic status"
 msgstr "自動状態を切り替え"
 
-#: src/gtk/gui.cc:1780 src/gtk/init.cc:144
+#: src/gtk/gui.cc:1772 src/gtk/init.cc:144
 #, c-format
 msgid "Unable to load the user interface definition file %s/aptitude.glade."
 msgstr "ユーザインタフェース定義ファイル %s/aptitude.glade を読み込めません。"
@@ -4712,7 +4696,7 @@ msgstr "情報"
 
 #: src/gtk/packageinformation.cc:104 src/gtk/packageinformation.cc:106
 #: src/pkg_columnizer.cc:354 src/pkg_columnizer.cc:375
-#: src/pkg_columnizer.cc:382 src/pkg_grouppolicy.cc:275
+#: src/pkg_columnizer.cc:382 src/pkg_grouppolicy.cc:270
 #: src/pkg_info_screen.cc:134 src/pkg_info_screen.cc:135
 #: src/pkg_ver_item.cc:345 src/pkg_ver_item.cc:379 src/qt/package.cc:224
 #: src/qt/version.cc:114
@@ -4759,15 +4743,15 @@ msgid "Cache reloading, please wait..."
 msgstr "キャッシュを再読み込みしています。お待ちください..."
 
 # * Menu item on the first line.
-#: src/gtk/pkgview.cc:607
+#: src/gtk/pkgview.cc:608
 msgid "Searching..."
 msgstr "検索しています..."
 
-#: src/gtk/pkgview.cc:718
+#: src/gtk/pkgview.cc:719
 msgid "Finalizing view"
 msgstr "画面を調整しています"
 
-#: src/gtk/pkgview.cc:718 src/pkg_tree.cc:204 src/pkg_tree.cc:215
+#: src/gtk/pkgview.cc:719 src/pkg_tree.cc:204 src/pkg_tree.cc:215
 #: src/pkg_tree.cc:226 src/pkg_tree.cc:238
 msgid "Building view"
 msgstr "画面を構築しています"
@@ -5460,108 +5444,109 @@ msgstr "整列の種類が不明です: '%s'"
 
 #: src/load_sortpolicy.cc:51 src/load_sortpolicy.cc:64
 #: src/load_sortpolicy.cc:77 src/load_sortpolicy.cc:90
+#: src/load_sortpolicy.cc:104
 #, fuzzy, c-format
 msgid "Sorting policy '%s' takes no arguments"
 msgstr "名前を用いた並べ替え規則に引数は不要です"
 
-#: src/load_sortpolicy.cc:148
+#: src/load_sortpolicy.cc:164
 msgid "Invalid zero-length sorting policy name"
 msgstr "長さがゼロの文字列は並び替え規則の名前として無効です"
 
-#: src/load_sortpolicy.cc:166
+#: src/load_sortpolicy.cc:182
 msgid "Unmatched '(' in sorting policy description"
 msgstr "並び替え規則の記述内で '(' が対応していません"
 
-#: src/load_sortpolicy.cc:193
+#: src/load_sortpolicy.cc:209
 #, c-format
 msgid "Invalid sorting policy type '%s'"
 msgstr "並び替え規則の種類が不正です: '%s'"
 
-#: src/main.cc:134
+#: src/main.cc:131
 #, c-format
 msgid "Can't decode multibyte string after \"%ls\""
 msgstr "\"%ls\" の後のマルチバイト文字列をデコードできません"
 
-#: src/main.cc:143
+#: src/main.cc:140
 #, c-format
 msgid "Can't decode wide-character string after \"%s\""
 msgstr "\"%s\" の後のワイドキャラクタをデコードできません"
 
-#: src/main.cc:151
+#: src/main.cc:148
 #, c-format
 msgid "%s %s compiled at %s %s\n"
 msgstr "%s %s (コンパイル日時: %s %s)\n"
 
-#: src/main.cc:154
+#: src/main.cc:151
 #, c-format
 msgid "Compiler: g++ %s\n"
 msgstr "コンパイラ: g++ %s\n"
 
-#: src/main.cc:156
+#: src/main.cc:153
 msgid "Compiled against:\n"
 msgstr "コンパイル環境:\n"
 
-#: src/main.cc:157
+#: src/main.cc:154
 #, c-format
 msgid "  apt version %d.%d.%d\n"
 msgstr "  apt のバージョン: %d.%d.%d\n"
 
-#: src/main.cc:160
+#: src/main.cc:157
 #, c-format
 msgid "  NCurses version: Unknown\n"
 msgstr "  NCurses のバージョン: 不明\n"
 
-#: src/main.cc:162
+#: src/main.cc:159
 #, c-format
 msgid "  NCurses version %s\n"
 msgstr "  NCurses のバージョン: %s\n"
 
-#: src/main.cc:164
+#: src/main.cc:161
 #, c-format
 msgid "  libsigc++ version: %s\n"
 msgstr "  libsigc++ のバージョン: %s\n"
 
-#: src/main.cc:166
+#: src/main.cc:163
 #, c-format
 msgid "  Ept support enabled.\n"
 msgstr "  Ept サポート: 有効\n"
 
-#: src/main.cc:168
+#: src/main.cc:165
 #, c-format
 msgid "  Ept support disabled.\n"
 msgstr "  Ept サポート: 無効\n"
 
-#: src/main.cc:171
+#: src/main.cc:168
 #, fuzzy, c-format
 msgid "  Gtk+ version %d.%d.%d\n"
 msgstr "  apt のバージョン: %d.%d.%d\n"
 
-#: src/main.cc:173
+#: src/main.cc:170
 #, fuzzy, c-format
 msgid "  Gtk-- version %d.%d.%d\n"
 msgstr "  apt のバージョン: %d.%d.%d\n"
 
-#: src/main.cc:176
+#: src/main.cc:173
 #, fuzzy, c-format
 msgid "  Gtk+ support disabled.\n"
 msgstr "  Ept サポート: 無効\n"
 
-#: src/main.cc:179
+#: src/main.cc:176
 #, fuzzy, c-format
 msgid "  Compiled with Qt %s\n"
 msgstr "%s %s (コンパイル日時: %s %s)\n"
 
-#: src/main.cc:180
+#: src/main.cc:177
 #, c-format
 msgid "  Running on Qt %s\n"
 msgstr ""
 
-#: src/main.cc:182
+#: src/main.cc:179
 #, fuzzy, c-format
 msgid "  Qt support disabled.\n"
 msgstr "  Ept サポート: 無効\n"
 
-#: src/main.cc:184
+#: src/main.cc:181
 msgid ""
 "\n"
 "Current library versions:\n"
@@ -5569,35 +5554,35 @@ msgstr ""
 "\n"
 "現在の各ライブラリのバージョン:\n"
 
-#: src/main.cc:185
+#: src/main.cc:182
 #, c-format
 msgid "  NCurses version: %s\n"
 msgstr "  NCurses のバージョン: %s\n"
 
-#: src/main.cc:186
+#: src/main.cc:183
 #, c-format
 msgid "  cwidget version: %s\n"
 msgstr "  cwidget のバージョン: %s\n"
 
-#: src/main.cc:187
+#: src/main.cc:184
 #, c-format
 msgid "  Apt version: %s\n"
 msgstr "  apt のバージョン: %s\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:193
+#: src/main.cc:190
 #, c-format
 msgid "Usage: aptitude [-S fname] [-u|-i]"
 msgstr "使用方法: aptitude [-S ファイル名] [-u|-i]"
 
 # * Description of action in the commandline help.
-#: src/main.cc:195
+#: src/main.cc:192
 #, c-format
 msgid "       aptitude [options] <action> ..."
 msgstr "          aptitude [オプション] <アクション> ..."
 
 # * Description of action in the commandline help.
-#: src/main.cc:197
+#: src/main.cc:194
 #, c-format
 msgid ""
 "  Actions (if none is specified, aptitude will enter interactive mode):\n"
@@ -5608,44 +5593,44 @@ msgstr ""
 "\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:198
+#: src/main.cc:195
 #, c-format
 msgid " install      - Install/upgrade packages.\n"
 msgstr " install      - パッケージをインストール・更新します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:199
+#: src/main.cc:196
 #, c-format
 msgid " remove       - Remove packages.\n"
 msgstr " remove       - パッケージを削除します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:200
+#: src/main.cc:197
 #, c-format
 msgid " purge        - Remove packages and their configuration files.\n"
 msgstr " purge        - パッケージと設定ファイルを削除します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:201
+#: src/main.cc:198
 #, c-format
 msgid " hold         - Place packages on hold.\n"
 msgstr " hold         - パッケージを固定します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:202
+#: src/main.cc:199
 #, c-format
 msgid " unhold       - Cancel a hold command for a package.\n"
 msgstr " unhold       - パッケージの固定を解除します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:203
+#: src/main.cc:200
 #, c-format
 msgid " markauto     - Mark packages as having been automatically installed.\n"
 msgstr ""
 " markauto     - 自動的にインストールされたという印をパッケージにつけます。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:204
+#: src/main.cc:201
 #, c-format
 msgid " unmarkauto   - Mark packages as having been manually installed.\n"
 msgstr ""
@@ -5653,7 +5638,7 @@ msgstr ""
 
 # * Description of action in the commandline help.
 # TRANSLATION-FIXME: 原文の文末のピリオドは不要
-#: src/main.cc:205
+#: src/main.cc:202
 #, c-format
 msgid ""
 " forbid-version - Forbid aptitude from upgrading to a specific package "
@@ -5663,20 +5648,20 @@ msgstr ""
 "す。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:206
+#: src/main.cc:203
 #, c-format
 msgid " update       - Download lists of new/upgradable packages.\n"
 msgstr ""
 " update       - 新規および更新可能なパッケージの一覧をダウンロードします。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:207
+#: src/main.cc:204
 #, c-format
 msgid " safe-upgrade - Perform a safe upgrade.\n"
 msgstr " safe-upgrade - 安全な更新を行います。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:208
+#: src/main.cc:205
 #, c-format
 msgid ""
 " full-upgrade - Perform an upgrade, possibly installing and removing "
@@ -5685,62 +5670,62 @@ msgstr ""
 " full-upgrade - パッケージのインストールや削除を伴う可能性のある更新を行いま"
 "す。\n"
 
-#: src/main.cc:209
+#: src/main.cc:206
 #, c-format
 msgid " build-dep    - Install the build-dependencies of packages.\n"
 msgstr " build-dep    - パッケージの構築依存関係をインストールします。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:210
+#: src/main.cc:207
 #, c-format
 msgid " forget-new   - Forget what packages are \"new\".\n"
 msgstr " forget-new   - どのパッケージが「新規」かの情報を消去します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:211
+#: src/main.cc:208
 #, c-format
 msgid " search       - Search for a package by name and/or expression.\n"
 msgstr " search       - 名前や正規表現でパッケージを検索します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:212
+#: src/main.cc:209
 #, c-format
 msgid " show         - Display detailed information about a package.\n"
 msgstr " show         - パッケージについての詳細な情報を表示します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:213
+#: src/main.cc:210
 #, fuzzy, c-format
 msgid " versions     - Displays the versions of specified packages.\n"
 msgstr " show         - パッケージについての詳細な情報を表示します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:214
+#: src/main.cc:211
 #, c-format
 msgid " clean        - Erase downloaded package files.\n"
 msgstr " clean        - ダウンロード済みのパッケージファイルを消去します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:215
+#: src/main.cc:212
 #, c-format
 msgid " autoclean    - Erase old downloaded package files.\n"
 msgstr ""
 " autoclean    - 古い、ダウンロード済みのパッケージファイルを消去します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:216
+#: src/main.cc:213
 #, c-format
 msgid " changelog    - View a package's changelog.\n"
 msgstr " changelog    - パッケージの変更履歴を表示します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:217
+#: src/main.cc:214
 #, c-format
 msgid " download     - Download the .deb file for a package.\n"
 msgstr " download     - パッケージの .deb ファイルをダウンロードします。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:218
+#: src/main.cc:215
 #, c-format
 msgid ""
 " reinstall    - Download and (possibly) reinstall a currently installed "
@@ -5751,7 +5736,7 @@ msgstr ""
 "                ては) 再インストールします。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:219
+#: src/main.cc:216
 #, fuzzy, c-format
 msgid ""
 " why          - Show the manually installed packages that require a package, "
@@ -5767,7 +5752,7 @@ msgstr ""
 "                といった説明を表示します\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:221
+#: src/main.cc:218
 #, c-format
 msgid ""
 " why-not      - Show the manually installed packages that lead to a "
@@ -5784,49 +5769,49 @@ msgstr ""
 "                いった説明を表示します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:225
+#: src/main.cc:222
 #, c-format
 msgid "  Options:\n"
 msgstr "  オプション: \n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:226
+#: src/main.cc:223
 #, c-format
 msgid " -h             This help text.\n"
 msgstr " -h                このヘルプの文章です。\n"
 
-#: src/main.cc:228
+#: src/main.cc:225
 #, c-format
 msgid ""
 " --gui          Use the GTK GUI even if disabled in the configuration.\n"
 msgstr " --gui          設定で無効にされていても GTK GUIを使用します。\n"
 
-#: src/main.cc:230
+#: src/main.cc:227
 #, c-format
 msgid " --no-gui       Do not use the GTK GUI even if available.\n"
 msgstr " --no-gui       利用可能だとしても GTK GUI を使いません。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:232
+#: src/main.cc:229
 #, fuzzy, c-format
 msgid " --qt           Use the Qt GUI.\n"
 msgstr " -h                このヘルプの文章です。\n"
 
-#: src/main.cc:233
+#: src/main.cc:230
 #, fuzzy, c-format
 msgid ""
 " --no-qt        Do not use the Qt GUI even if enabled in the configuration.\n"
 msgstr " --gui          設定で無効にされていても GTK GUIを使用します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:235
+#: src/main.cc:232
 #, c-format
 msgid " -s             Simulate actions, but do not actually perform them.\n"
 msgstr ""
 " -s             アクションのシミュレートのみ行い、実際には実行しません。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:236
+#: src/main.cc:233
 #, c-format
 msgid ""
 " -d             Only download packages, do not install or remove anything.\n"
@@ -5835,14 +5820,14 @@ msgstr ""
 "                ません。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:237
+#: src/main.cc:234
 #, fuzzy, c-format
 msgid " -P             Always prompt for confirmation of actions.\n"
 msgstr ""
 " -P                確認やアクションのために常にプロンプトを出します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:238
+#: src/main.cc:235
 #, c-format
 msgid ""
 " -y             Assume that the answer to simple yes/no questions is 'yes'.\n"
@@ -5851,7 +5836,7 @@ msgstr ""
 "す。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:239
+#: src/main.cc:236
 #, c-format
 msgid ""
 " -F format      Specify a format for displaying search results; see the "
@@ -5862,7 +5847,7 @@ msgstr ""
 "                   てください。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:240
+#: src/main.cc:237
 #, c-format
 msgid ""
 " -O order       Specify how search results should be sorted; see the "
@@ -5873,21 +5858,21 @@ msgstr ""
 "                   い。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:241
+#: src/main.cc:238
 #, c-format
 msgid ""
 " -w width       Specify the display width for formatting search results.\n"
 msgstr " -w <幅>           検索結果の表示フォーマットの幅を指定します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:242
+#: src/main.cc:239
 #, c-format
 msgid " -f             Aggressively try to fix broken packages.\n"
 msgstr ""
 " -f             依存関係が壊れたパッケージを積極的に修復しようとします。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:243
+#: src/main.cc:240
 #, c-format
 msgid " -V             Show which versions of packages are to be installed.\n"
 msgstr ""
@@ -5895,20 +5880,20 @@ msgstr ""
 "す。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:244
+#: src/main.cc:241
 #, c-format
 msgid ""
 " -D             Show the dependencies of automatically changed packages.\n"
 msgstr " -D             自動的に変更されたパッケージの依存関係を表示します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:245
+#: src/main.cc:242
 #, c-format
 msgid " -Z             Show the change in installed size of each package.\n"
 msgstr " -Z             各パッケージのインストールサイズの変更を表示します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:246
+#: src/main.cc:243
 #, c-format
 msgid ""
 " -v             Display extra information. (may be supplied multiple "
@@ -5917,7 +5902,7 @@ msgstr ""
 " -v                付加的な情報を表示します (何倍もの情報が提供されます)。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:247
+#: src/main.cc:244
 #, c-format
 msgid ""
 " -t [release]   Set the release from which packages should be installed.\n"
@@ -5925,7 +5910,7 @@ msgstr ""
 " -t [<リリース>]   インストールするパッケージが基づくリリースを設定します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:248
+#: src/main.cc:245
 #, fuzzy, c-format
 msgid ""
 " -q             In command-line mode, suppress the incremental progress\n"
@@ -5934,14 +5919,14 @@ msgstr ""
 " -q                コマンドラインモードで進行状況を逐一表示しません。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:250
+#: src/main.cc:247
 #, c-format
 msgid " -o key=val     Directly set the configuration option named 'key'.\n"
 msgstr ""
 " -o <キー>=<値>    名前「<キー>」を持つ設定オプションを直接設定します。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:251
+#: src/main.cc:248
 #, fuzzy, c-format
 msgid ""
 " --with(out)-recommends\tSpecify whether or not to treat recommends as\n"
@@ -5952,7 +5937,7 @@ msgstr ""
 "                   ます。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:253
+#: src/main.cc:250
 #, c-format
 msgid " -S fname       Read the aptitude extended status info from fname.\n"
 msgstr ""
@@ -5960,25 +5945,25 @@ msgstr ""
 "す。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:254
+#: src/main.cc:251
 #, c-format
 msgid " -u             Download new package lists on startup.\n"
 msgstr ""
 " -u              : 起動時に新しいパッケージ一覧をダウンロードします。\n"
 
-#: src/main.cc:255 src/main.cc:257
+#: src/main.cc:252 src/main.cc:254
 #, fuzzy, c-format
 msgid "                  (terminal interface only)\n"
 msgstr "                  (端末インタフェースのみ)"
 
 # * Description of action in the commandline help.
-#: src/main.cc:256
+#: src/main.cc:253
 #, c-format
 msgid " -i             Perform an install run on startup.\n"
 msgstr " -i             : 起動時にインストールを行います。\n"
 
 # * Description of action in the commandline help.
-#: src/main.cc:259
+#: src/main.cc:256
 #, c-format
 msgid "                  This aptitude does not have Super Cow Powers.\n"
 msgstr ""
@@ -5986,49 +5971,49 @@ msgstr ""
 
 #. ForTranslators: This is a log level that the user can pass on
 #. the command-line or set in the configuration file.
-#: src/main.cc:393
+#: src/main.cc:359
 msgid "trace"
 msgstr "trace"
 
 #. ForTranslators: This is a log level that the user can pass on
 #. the command-line or set in the configuration file.
-#: src/main.cc:396
+#: src/main.cc:362
 msgid "debug"
 msgstr "debug"
 
 #. ForTranslators: This is a log level that the user can pass on
 #. the command-line or set in the configuration file.
-#: src/main.cc:399
+#: src/main.cc:365
 msgid "info"
 msgstr "info"
 
 #. ForTranslators: This is a log level that the user can pass on
 #. the command-line or set in the configuration file.
-#: src/main.cc:402
+#: src/main.cc:368
 msgid "warn"
 msgstr "warn"
 
 #. ForTranslators: This is a log level that the user can pass on
 #. the command-line or set in the configuration file.
-#: src/main.cc:405
+#: src/main.cc:371
 msgid "error"
 msgstr "error"
 
 #. ForTranslators: This is a log level that the user can pass on
 #. the command-line or set in the configuration file.
-#: src/main.cc:408
+#: src/main.cc:374
 msgid "fatal"
 msgstr "fatal"
 
 #. ForTranslators: This is a log level that the user can pass on
 #. the command-line or set in the configuration file.
-#: src/main.cc:411
+#: src/main.cc:377
 msgid "off"
 msgstr "off"
 
 #. ForTranslators: both the translated and the untranslated
 #. log level names are accepted here.
-#: src/main.cc:479
+#: src/main.cc:445
 #, c-format
 msgid ""
 "Unknown log level name \"%s\" (expected \"trace\", \"debug\", \"info\", "
@@ -6038,77 +6023,57 @@ msgstr ""
 "\"、\"error\"、\"fatal\"、\"off\" のいずれかが期待されます)。"
 
 #  Should never happen.
-#: src/main.cc:488
+#: src/main.cc:456
 #, c-format
-msgid "Invalid logger name \"%s\"."
-msgstr "ロガー名 \"%s\" は不正です。"
+msgid "Invalid logger name \"%s\""
+msgstr "ロガー名 \"%s\" は不正です"
+
+#: src/main.cc:729
+msgid "Conflicting command line options --safe-resolver and --full-resolver"
+msgstr ""
 
 #: src/main.cc:765
-#, c-format
-msgid "Expected a number after -q=\n"
-msgstr "-q= の後に番号が期待されます\n"
-
-#: src/main.cc:774
-#, c-format
-msgid "Expected a number after -q=, got %s\n"
-msgstr "-q= の後に番号が期待されますが、%s が与えられました\n"
-
-#: src/main.cc:798
-#, c-format
-msgid "-o requires an argument of the form key=value, got %s\n"
-msgstr "-o には <キー>=<値> の形式の引数が必要ですが、%s が与えられました\n"
-
-#: src/main.cc:888
-#, c-format
-msgid "No comma following tag name \"%s\".\n"
-msgstr "タグ名 \"%s\" の後にコンマがありません。\n"
-
-#: src/main.cc:980 src/main.cc:990
-msgid "WEIRDNESS: unknown option code received\n"
-msgstr "不可思議: 未知のオプションコードを受け取りました\n"
-
-#: src/main.cc:1008
 msgid "--show-package-names|never"
 msgstr ""
 
-#: src/main.cc:1011
+#: src/main.cc:768
 msgid "--show-package-names|auto"
 msgstr ""
 
-#: src/main.cc:1014
+#: src/main.cc:771
 msgid "--show-package-names|always"
 msgstr ""
 
-#: src/main.cc:1019
+#: src/main.cc:774
 #, c-format
 msgid ""
 "Invalid package names display mode \"%s\" (should be \"never\", \"auto\", or "
 "\"always\")."
 msgstr ""
 
-#: src/main.cc:1025
+#: src/main.cc:779
 msgid "no-summary"
 msgstr "no-summary"
 
-#: src/main.cc:1027
+#: src/main.cc:781
 msgid "first-package"
 msgstr "first-package"
 
-#: src/main.cc:1029
+#: src/main.cc:783
 msgid "first-package-and-type"
 msgstr "first-package-and-type"
 
-#: src/main.cc:1031
+#: src/main.cc:785
 msgid "all-packages"
 msgstr "all-packages"
 
-#: src/main.cc:1033
+#: src/main.cc:787
 msgid "all-packages-with-dep-versions"
 msgstr "依存バージョン付きのすべてのパッケージ"
 
 #. ForTranslators: "why" here is the aptitude command name and
 #. should not be translated.
-#: src/main.cc:1039
+#: src/main.cc:792
 #, c-format
 msgid ""
 "Invalid \"why\" summary mode \"%s\": expected \"no-summary\", \"first-package"
@@ -6119,37 +6084,41 @@ msgstr ""
 "\"、\"first-package-and-type\"、\"all-packages\"、\"all-packages-with-dep-"
 "versions\" が期待されます。"
 
-#: src/main.cc:1079
+#: src/main.cc:831
+#, fuzzy
+#| msgid ""
+#| "Only one of --auto-clean-on-startup, --clean-on-startup, -i, and -u may "
+#| "be specified\n"
 msgid ""
 "Only one of --auto-clean-on-startup, --clean-on-startup, -i, and -u may be "
-"specified\n"
+"specified"
 msgstr ""
 "--auto-clean-on-startup、--clean-on-startup、-i、-u のいずれか 1 つのみを指定"
 "可能です\n"
 
-#: src/main.cc:1088
+#: src/main.cc:837
+#, fuzzy
+#| msgid ""
+#| "-u, -i, and --clean-on-startup may not be specified in command-line mode "
+#| "(eg, with 'install')"
 msgid ""
-"-u, -i, and --clean-on-startup may not be specified in command-line mode "
-"(eg, with 'install')"
+"-u, -i, --clean-on-startup, and --autoclean-on-startup may not be specified "
+"in command-line mode (eg, with 'install')"
 msgstr ""
 "-u、-i、--clean-on-startup はコマンドラインモードで指定することは ('install' "
 "とともになど) できません"
 
-#: src/main.cc:1105
-msgid "-u, -i, and --clean-on-startup may not be specified with a command"
-msgstr "-u、-i、--clean-on-startup はコマンドとともに指定することはできません"
-
-#: src/main.cc:1216
+#: src/main.cc:969
 #, c-format
-msgid "Unknown command \"%s\"\n"
-msgstr "不明なコマンド \"%s\"\n"
+msgid "Unknown command \"%s\""
+msgstr "不明なコマンド \"%s\""
 
-#: src/main.cc:1228 src/main.cc:1313
+#: src/main.cc:997 src/main.cc:1082
 #, c-format
 msgid "Uncaught exception: %s\n"
 msgstr "捕捉できなかった例外: %s\n"
 
-#: src/main.cc:1232 src/main.cc:1317
+#: src/main.cc:1001 src/main.cc:1086
 #, c-format
 msgid ""
 "Backtrace:\n"
@@ -6167,7 +6136,7 @@ msgstr "検索: "
 msgid "Search backwards for: "
 msgstr "後方を検索: "
 
-#: src/mine/cmine.cc:115 src/mine/cmine.cc:154 src/ui.cc:1770
+#: src/mine/cmine.cc:115 src/mine/cmine.cc:154 src/ui.cc:1772
 msgid "Minesweeper"
 msgstr "マインスイーパ"
 
@@ -6382,7 +6351,7 @@ msgstr "Encoding of mine-help-ja.txt|UTF-8"
 msgid "30 8 8 1 1 40 14 14 11 10 35 9 10 2 1 1 10 9 12 30 17 15"
 msgstr "30 6 6 1 1 40 14 14 11 10 35 9 10 2 1 1 10 12 30 15 15"
 
-#: src/pkg_columnizer.cc:89 src/ui.cc:2782
+#: src/pkg_columnizer.cc:89 src/ui.cc:2784
 msgid "Package"
 msgstr "パッケージ"
 
@@ -6463,8 +6432,8 @@ msgstr "<N/A>"
 msgid "<none>"
 msgstr "<なし>"
 
-#: src/pkg_columnizer.cc:238 src/pkg_grouppolicy.cc:269
-#: src/pkg_grouppolicy.cc:1815 src/qt/package.cc:234
+#: src/pkg_columnizer.cc:238 src/pkg_grouppolicy.cc:264
+#: src/pkg_grouppolicy.cc:1750 src/qt/package.cc:234
 #: src/qt/widgets/packages_tab.cc:73
 msgid "virtual"
 msgstr "仮想"
@@ -6598,7 +6567,7 @@ msgstr "\"%ls\" の後のパッケージ表示フォーマットをコード変�
 msgid "Internal error: Default column string is unparsable"
 msgstr "内部エラー: デフォルトの行文字列が解析不可能です"
 
-#: src/pkg_grouppolicy.cc:264 src/pkg_grouppolicy.cc:1127
+#: src/pkg_grouppolicy.cc:275 src/pkg_grouppolicy.cc:1127
 msgid "Tasks"
 msgstr "タスク"
 
@@ -6755,11 +6724,11 @@ msgstr "match の添字は 1 以上でなくてはいけないので、\"%s\" �
 msgid "Match index %ls is too large; available groups are (%s)"
 msgstr "match の添字 %ls は大きすぎます。利用可能なグループは (%s) です"
 
-#: src/pkg_grouppolicy.cc:1560
+#: src/pkg_grouppolicy.cc:1523
 msgid "TAGLESS PACKAGES"
 msgstr "タグのないパッケージ"
 
-#: src/pkg_grouppolicy.cc:1561
+#: src/pkg_grouppolicy.cc:1524
 msgid ""
 "\n"
 " These packages have not yet been classified in debtags, or the debtags "
@@ -6769,10 +6738,6 @@ msgstr ""
 " これらのパッケージがまだ debtags において分類されていないか、あるいは "
 "debtags データベースがありません (debtags データベースがない場合は、debtags "
 "をインストールすると問題が解決されるでしょう)。"
-
-#: src/pkg_grouppolicy.cc:1601
-msgid "MISSING TAG"
-msgstr "タグがありません"
 
 #: src/pkg_info_screen.cc:140
 msgid "Source Package: "
@@ -7413,7 +7378,7 @@ msgstr "キャッシュを読み込んでいます"
 msgid "Really quit Aptitude?"
 msgstr "本当に Aptitude を終了しますか?"
 
-#: src/ui.cc:714 src/ui.cc:2545
+#: src/ui.cc:714 src/ui.cc:2547
 msgid "Change the behavior of aptitude"
 msgstr "aptitude の振舞いを変更します"
 
@@ -7493,7 +7458,7 @@ msgstr ""
 msgid "License"
 msgstr "ライセンス"
 
-#: src/ui.cc:1086 src/ui.cc:2637
+#: src/ui.cc:1086 src/ui.cc:2639
 msgid "View the terms under which you may copy and distribute aptitude"
 msgstr "aptitude のコピーや配布を行う際に従うべき条件を表示します"
 
@@ -7514,7 +7479,7 @@ msgstr "オンラインヘルプ"
 msgid "View a brief introduction to aptitude"
 msgstr "aptitude の使い方に関する簡単な手引きを表示します"
 
-#: src/ui.cc:1116 src/ui.cc:2787
+#: src/ui.cc:1116 src/ui.cc:2789
 msgid "Help"
 msgstr "ヘルプ"
 
@@ -7545,7 +7510,7 @@ msgstr "マニュアル"
 msgid "FAQ"
 msgstr "FAQ"
 
-#: src/ui.cc:1147 src/ui.cc:2629
+#: src/ui.cc:1147 src/ui.cc:2631
 msgid "View a list of frequently asked questions"
 msgstr "よくある質問の一覧を表示します"
 
@@ -7584,16 +7549,16 @@ msgstr ""
 "いですか? \"No\" を選んだ場合にはこのメッセージは二度と表示されなくなります。"
 
 # * Message used as 'longtitle' for the ui_download_manager.
-#: src/ui.cc:1267
+#: src/ui.cc:1269
 msgid "View the progress of the package download"
 msgstr "パッケージダウンロードの進行状況を表示します"
 
 # * Message used as 'tablabel' for the ui_download_manager.
-#: src/ui.cc:1268
+#: src/ui.cc:1270
 msgid "Package Download"
 msgstr "パッケージのダウンロード"
 
-#: src/ui.cc:1315
+#: src/ui.cc:1317
 msgid ""
 "%BWARNING%b: untrusted versions of the following packages will be installed!"
 "%n%nUntrusted packages could %Bcompromise your system's security%b.  You "
@@ -7605,35 +7570,35 @@ msgstr ""
 "す。それが自分がしようとしていることだとわかっている場合にのみ、インストール"
 "を続けるべきでしょう。%n%n"
 
-#: src/ui.cc:1321
+#: src/ui.cc:1323
 msgid "  %S*%N %s [version %s]%n"
 msgstr "  %S*%N %s [バージョン %s]%n"
 
-#: src/ui.cc:1327
+#: src/ui.cc:1329
 msgid "Really Continue"
 msgstr "本当に先に進む"
 
-#: src/ui.cc:1329
+#: src/ui.cc:1331
 msgid "Abort Installation"
 msgstr "インストールを中断する"
 
-#: src/ui.cc:1393
+#: src/ui.cc:1395
 msgid "Preview of package installation"
 msgstr "インストールするパッケージをプレビューします"
 
-#: src/ui.cc:1394
+#: src/ui.cc:1396
 msgid "View and/or adjust the actions that will be performed"
 msgstr "実行するアクションの表示・調整を行います"
 
-#: src/ui.cc:1456
+#: src/ui.cc:1458
 msgid "Some packages were broken and have been fixed:"
 msgstr "一部のパッケージは依存関係が壊れていたので修復されました:"
 
-#: src/ui.cc:1464
+#: src/ui.cc:1466
 msgid "No solution to these dependency problems exists!"
 msgstr "これらの依存関係の問題を解決する方法は存在しません!"
 
-#: src/ui.cc:1470
+#: src/ui.cc:1472
 #, c-format
 msgid ""
 "Ran out of time while trying to resolve dependencies (press \"%s\" to try "
@@ -7642,7 +7607,7 @@ msgstr ""
 "依存関係の解決を試みましたがタイムアウトになりました (再試行するには \"%s\" "
 "と入力してください)"
 
-#: src/ui.cc:1516
+#: src/ui.cc:1518
 msgid ""
 "Installing/removing packages requires administrative privileges, which you "
 "currently do not have.  Would you like to change to the root account?"
@@ -7650,19 +7615,19 @@ msgstr ""
 "パッケージのインストールや削除に必要な管理者権限が現在ありません。root になり"
 "ますか?"
 
-#: src/ui.cc:1519 src/ui.cc:1758 src/ui.cc:1819 src/ui.cc:1914
+#: src/ui.cc:1521 src/ui.cc:1760 src/ui.cc:1821 src/ui.cc:1916
 msgid "Become root"
 msgstr "root になる"
 
-#: src/ui.cc:1521 src/ui.cc:1760 src/ui.cc:1821 src/ui.cc:1916
+#: src/ui.cc:1523 src/ui.cc:1762 src/ui.cc:1823 src/ui.cc:1918
 msgid "Don't become root"
 msgstr "root にならない"
 
-#: src/ui.cc:1642
+#: src/ui.cc:1644
 msgid "No packages are scheduled to be installed, removed, or upgraded."
 msgstr "インストール・削除・更新予定のパッケージがありません。"
 
-#: src/ui.cc:1648
+#: src/ui.cc:1650
 msgid ""
 "No packages will be installed, removed or upgraded.  Some packages could be "
 "upgraded, but you have not chosen to upgrade them.  Type \"U\" to prepare an "
@@ -7673,44 +7638,44 @@ msgstr ""
 "力して更新の準備をしてください。"
 
 # * Message used as 'title' for the ui_download_manager.
-#: src/ui.cc:1728
+#: src/ui.cc:1730
 msgid "Updating package lists"
 msgstr "パッケージ一覧を更新中"
 
 # * Message used as 'longtitle' for the ui_download_manager.
-#: src/ui.cc:1729
+#: src/ui.cc:1731
 msgid "View the progress of the package list update"
 msgstr "パッケージ一覧更新の進行状況を表示します"
 
 # * Message used as 'tablabel' for the ui_download_manager.
-#: src/ui.cc:1730
+#: src/ui.cc:1732
 msgid "List Update"
 msgstr "一覧の更新"
 
-#: src/ui.cc:1755
+#: src/ui.cc:1757
 msgid ""
 "Updating the package lists requires administrative privileges, which you "
 "currently do not have.  Would you like to change to the root account?"
 msgstr ""
 "パッケージ一覧の更新に必要な管理者権限が現在ありません。root になりますか?"
 
-#: src/ui.cc:1770 src/ui.cc:2384
+#: src/ui.cc:1772 src/ui.cc:2386
 msgid "Waste time trying to find mines"
 msgstr "地雷探しにかまけます"
 
-#: src/ui.cc:1777 src/ui.cc:1865
+#: src/ui.cc:1779 src/ui.cc:1867
 msgid "Cleaning while a download is in progress is not allowed"
 msgstr "ダウンロードが進行している間は廃止されたファイルの消去はできません"
 
-#: src/ui.cc:1792
+#: src/ui.cc:1794
 msgid "Deleting downloaded files"
 msgstr "ダウンロードしたファイルを削除しています"
 
-#: src/ui.cc:1806
+#: src/ui.cc:1808
 msgid "Downloaded package files have been deleted"
 msgstr "ダウンロードしたパッケージファイルは既に削除されています"
 
-#: src/ui.cc:1816
+#: src/ui.cc:1818
 msgid ""
 "Cleaning the package cache requires administrative privileges, which you "
 "currently do not have.  Would you like to change to the root account?"
@@ -7718,11 +7683,11 @@ msgstr ""
 "パッケージキャッシュの消去には管理者権限が必要ですが、あなたはまだそれを得て"
 "いません。root になりますか?"
 
-#: src/ui.cc:1862
+#: src/ui.cc:1864
 msgid "The apt cache file is not available; cannot auto-clean."
 msgstr "apt のキャッシュファイルが入手不可能です。autoclean できません。"
 
-#: src/ui.cc:1900
+#: src/ui.cc:1902
 #, c-format
 msgid ""
 "Obsolete downloaded package files have been deleted, freeing %sB of disk "
@@ -7731,7 +7696,7 @@ msgstr ""
 "ダウンロードされた廃止済みのパッケージファイルを削除し、%s バイトのディスク領"
 "域を解放しました。"
 
-#: src/ui.cc:1911
+#: src/ui.cc:1913
 msgid ""
 "Deleting obsolete files requires administrative privileges, which you "
 "currently do not have.  Would you like to change to the root account?"
@@ -7739,143 +7704,143 @@ msgstr ""
 "廃止済みのファイルの削除には管理者権限が必要ですが、あなたはまだそれを得てい"
 "ません。root になりますか?"
 
-#: src/ui.cc:2013
+#: src/ui.cc:2015
 msgid "No more solutions."
 msgstr "解決方法はこれ以上ありません。"
 
-#: src/ui.cc:2221
+#: src/ui.cc:2223
 msgid "Unable to find a solution to apply."
 msgstr "適用する解決方法が見つかりません。"
 
-#: src/ui.cc:2227
+#: src/ui.cc:2229
 msgid "Ran out of time while trying to find a solution."
 msgstr "解決方法を探そうとしましたがタイムアウトになりました。"
 
-#: src/ui.cc:2287 src/ui.cc:2289
+#: src/ui.cc:2289 src/ui.cc:2291
 msgid "Resolve Dependencies"
 msgstr "依存関係を解決する"
 
-#: src/ui.cc:2288
+#: src/ui.cc:2290
 msgid "Search for solutions to unsatisfied dependencies"
 msgstr "解決されていない依存関係の解決方法を探す"
 
-#: src/ui.cc:2300
+#: src/ui.cc:2302
 #, c-format
 msgid "Unable to open %ls"
 msgstr "%ls を開けません"
 
-#: src/ui.cc:2306
+#: src/ui.cc:2308
 msgid "Error while dumping resolver state"
 msgstr "依存関係解決器の状態のダンプ中にエラーが生じました"
 
 # * Item.
-#: src/ui.cc:2346
+#: src/ui.cc:2348
 msgid "^Install/remove packages"
 msgstr "パッケージのインストール・削除 (^I)"
 
 # * Item.
-#: src/ui.cc:2349
+#: src/ui.cc:2351
 msgid "^Update package list"
 msgstr "パッケージ一覧の更新 (^U)"
 
 # * Item.
-#: src/ui.cc:2354
+#: src/ui.cc:2356
 msgid "Mark Up^gradable"
 msgstr "更新可能パッケージという印を添付 (^G)"
 
 # * Item.
-#: src/ui.cc:2359
+#: src/ui.cc:2361
 msgid "^Forget new packages"
 msgstr "新規パッケージ一覧の消去 (^F)"
 
-#: src/ui.cc:2363
+#: src/ui.cc:2365
 msgid "Canc^el pending actions"
 msgstr "未実行アクションの取り消し (^E)"
 
 # * Item.
-#: src/ui.cc:2367
+#: src/ui.cc:2369
 msgid "^Clean package cache"
 msgstr "パッケージのキャッシュの消去 (^C)"
 
 # * Item.
-#: src/ui.cc:2371
+#: src/ui.cc:2373
 msgid "Clean ^obsolete files"
 msgstr "廃止されたファイルを一掃する (^O)"
 
 # * Item.
-#: src/ui.cc:2378
+#: src/ui.cc:2380
 msgid "^Reload package cache"
 msgstr "パッケージのキャッシュの再読み込み (^R)"
 
 # * Item.
-#: src/ui.cc:2383
+#: src/ui.cc:2385
 msgid "^Play Minesweeper"
 msgstr "マインスイーパで遊ぶ (^P)"
 
 # * Item.
-#: src/ui.cc:2388
+#: src/ui.cc:2390
 msgid "^Become root"
 msgstr "root になる (^B)"
 
 # * Item.
-#: src/ui.cc:2391
+#: src/ui.cc:2393
 msgid "^Quit"
 msgstr "終了 (^Q)"
 
 # * Menu item on the first line.
 # * Item.
-#: src/ui.cc:2398 src/ui.cc:2781
+#: src/ui.cc:2400 src/ui.cc:2783
 msgid "Undo"
 msgstr "取り消し"
 
 # * Item.
-#: src/ui.cc:2407
+#: src/ui.cc:2409
 msgid "^Install"
 msgstr "インストール (^I)"
 
 # * Description of an item.
-#: src/ui.cc:2408
+#: src/ui.cc:2410
 msgid "Flag the currently selected package for installation or upgrade"
 msgstr "現在選択中のパッケージに、インストールまたは更新用の印をつけます"
 
 # * Item.
-#: src/ui.cc:2411
+#: src/ui.cc:2413
 msgid "^Remove"
 msgstr "削除 (^R)"
 
 # * Description of an item.
-#: src/ui.cc:2412
+#: src/ui.cc:2414
 msgid "Flag the currently selected package for removal"
 msgstr "現在選択中のパッケージに削除用の印をつけます"
 
 # * Item.
-#: src/ui.cc:2415
+#: src/ui.cc:2417
 msgid "^Purge"
 msgstr "完全削除 (^P)"
 
 # * Description of an item.
-#: src/ui.cc:2416
+#: src/ui.cc:2418
 msgid ""
 "Flag the currently selected package and its configuration files for removal"
 msgstr "現在選択中のパッケージとその設定ファイルに、削除用の印をつけます"
 
 # * Item.
-#: src/ui.cc:2419
+#: src/ui.cc:2421
 msgid "^Keep"
 msgstr "一時固定 (^K)"
 
 # * Description of an item.
-#: src/ui.cc:2420
+#: src/ui.cc:2422
 msgid "Cancel any action on the selected package"
 msgstr "選択中のパッケージへのあらゆるアクションを取り消します"
 
 # * Item.
-#: src/ui.cc:2423
+#: src/ui.cc:2425
 msgid "^Hold"
 msgstr "固定 (^H)"
 
 # * Description of an item.
-#: src/ui.cc:2424
+#: src/ui.cc:2426
 msgid ""
 "Cancel any action on the selected package, and protect it from future "
 "upgrades"
@@ -7883,12 +7848,12 @@ msgstr ""
 "選択中のパッケージへのあらゆるアクションを取り消し、今後の更新からも防ぎます"
 
 # * Item.
-#: src/ui.cc:2427
+#: src/ui.cc:2429
 msgid "Mark ^Auto"
 msgstr "自動的にインストールされたという印を添付 (^A)"
 
 # * Description of an item.
-#: src/ui.cc:2428
+#: src/ui.cc:2430
 msgid ""
 "Mark the selected package as having been automatically installed; it will "
 "automatically be removed if no other packages depend on it"
@@ -7898,12 +7863,12 @@ msgstr ""
 "なります"
 
 # * Item.
-#: src/ui.cc:2431
+#: src/ui.cc:2433
 msgid "Mark ^Manual"
 msgstr "手動でインストールしたという印を添付 (^M)"
 
 # * Description of an item.
-#: src/ui.cc:2432
+#: src/ui.cc:2434
 msgid ""
 "Mark the selected package as having been manually installed; it will not be "
 "removed unless you manually remove it"
@@ -7912,12 +7877,12 @@ msgstr ""
 "動で削除しない限りパッケージは削除されないようになります"
 
 # * Item.
-#: src/ui.cc:2435
+#: src/ui.cc:2437
 msgid "^Forbid Version"
 msgstr "バージョンの禁止 (^F)"
 
 # * Description of an item.
-#: src/ui.cc:2436
+#: src/ui.cc:2438
 msgid ""
 "Forbid the candidate version of the selected package from being installed; "
 "newer versions of the package will be installed as usual"
@@ -7927,22 +7892,22 @@ msgstr ""
 "ストールされます"
 
 # * Item.
-#: src/ui.cc:2440
+#: src/ui.cc:2442
 msgid "I^nformation"
 msgstr "情報 (^N)"
 
 # * Description of an item.
-#: src/ui.cc:2441
+#: src/ui.cc:2443
 msgid "Display more information about the selected package"
 msgstr "選択中のパッケージに関する、より詳細な情報を表示します"
 
 # * Item.
-#: src/ui.cc:2444
+#: src/ui.cc:2446
 msgid "C^ycle Package Information"
 msgstr "パッケージ情報の切り替え (^Y)"
 
 # * Description of an item.
-#: src/ui.cc:2445
+#: src/ui.cc:2447
 msgid ""
 "Cycle through the modes of the package information area: it can show the "
 "package's long description, a summary of its dependency status, or an "
@@ -7953,72 +7918,72 @@ msgstr ""
 "示できます"
 
 # * Item.
-#: src/ui.cc:2448
+#: src/ui.cc:2450
 msgid "^Changelog"
 msgstr "変更履歴 (^C)"
 
 # * Description of an item.
-#: src/ui.cc:2449
+#: src/ui.cc:2451
 msgid "Display the Debian changelog of the selected package"
 msgstr "選択中のパッケージの更新履歴を表示します"
 
 # * Item.
-#: src/ui.cc:2456
+#: src/ui.cc:2458
 msgid "^Examine Solution"
 msgstr "解決方法の検討 (^E)"
 
 # * Description of an item.
-#: src/ui.cc:2457
+#: src/ui.cc:2459
 msgid "Examine the currently selected solution to the dependency problems."
 msgstr "依存関係の問題に対して、現在選択中の解決方法を試します。"
 
 # * Item.
-#: src/ui.cc:2460
+#: src/ui.cc:2462
 msgid "Apply ^Solution"
 msgstr "解決方法の適用 (^S)"
 
 # * Description of an item.
-#: src/ui.cc:2461
+#: src/ui.cc:2463
 msgid "Perform the actions contained in the currently selected solution."
 msgstr "現在選択中の解決方法に含まれるアクションを実行します。"
 
 # * Item.
-#: src/ui.cc:2464
+#: src/ui.cc:2466
 msgid "^Next Solution"
 msgstr "次の解決方法 (^N)"
 
 # * Description of an item.
-#: src/ui.cc:2465
+#: src/ui.cc:2467
 msgid "Select the next solution to the dependency problems."
 msgstr "依存関係の問題に対して、次の解決方法を選択します。"
 
 # * Item.
-#: src/ui.cc:2468
+#: src/ui.cc:2470
 msgid "^Previous Solution"
 msgstr "前の解決方法 (^P)"
 
 # * Description of an item.
-#: src/ui.cc:2469
+#: src/ui.cc:2471
 msgid "Select the previous solution to the dependency problems."
 msgstr "依存関係の問題に対して、前の解決方法を選択します。"
 
 # * Item.
-#: src/ui.cc:2472
+#: src/ui.cc:2474
 msgid "^First Solution"
 msgstr "最初の解決方法 (^F)"
 
 # * Description of an item.
-#: src/ui.cc:2473
+#: src/ui.cc:2475
 msgid "Select the first solution to the dependency problems."
 msgstr "依存関係の問題に対して、最初の解決方法を選択します。"
 
 # * Item.
-#: src/ui.cc:2476
+#: src/ui.cc:2478
 msgid "^Last Solution"
 msgstr "最後の解決方法 (^L)"
 
 # * Description of an item.
-#: src/ui.cc:2477
+#: src/ui.cc:2479
 msgid ""
 "Select the last solution to the dependency problems that has been generated "
 "so far."
@@ -8026,42 +7991,42 @@ msgstr ""
 "発生した依存関係の問題に対して、今のところ最後となる解決方法を選択します。"
 
 # * Item.
-#: src/ui.cc:2483
+#: src/ui.cc:2485
 msgid "Toggle ^Rejected"
 msgstr "拒否する・しないを切り替え (^R)"
 
 # * Description of an item.
-#: src/ui.cc:2484
+#: src/ui.cc:2486
 msgid "Toggle whether the currently selected action is rejected."
 msgstr "現在選択中のアクションを拒否する・しないを切り替えます。"
 
 # * Item.
-#: src/ui.cc:2488
+#: src/ui.cc:2490
 msgid "Toggle ^Approved"
 msgstr "承認する・しないを切り替え (^A)"
 
 # * Description of an item.
-#: src/ui.cc:2489
+#: src/ui.cc:2491
 msgid "Toggle whether the currently selected action is approved."
 msgstr "現在選択中のアクションを承認する・しないを切り替えます。"
 
 # * Item.
-#: src/ui.cc:2493
+#: src/ui.cc:2495
 msgid "^View Target"
 msgstr "対象を表示 (^V)"
 
 # * Description of an item.
-#: src/ui.cc:2494
+#: src/ui.cc:2496
 msgid "View the package which will be affected by the selected action"
 msgstr "選択中のアクションによって影響を受けるパッケージを表示します"
 
 # * Item.
-#: src/ui.cc:2500
+#: src/ui.cc:2502
 msgid "Reject Breaking ^Holds"
 msgstr "破損につながる固定を拒否 (^H)"
 
 # * Description of an item.
-#: src/ui.cc:2502
+#: src/ui.cc:2504
 msgid ""
 "Reject all actions that would change the state of held packages or install "
 "forbidden versions"
@@ -8070,167 +8035,167 @@ msgstr ""
 "ルしたりするアクションをすべて拒否します"
 
 # * Item.
-#: src/ui.cc:2510
+#: src/ui.cc:2512
 msgid "^Find"
 msgstr "下を検索 (^F)"
 
 # * Description of an item.
-#: src/ui.cc:2511
+#: src/ui.cc:2513
 msgid "Search forwards"
 msgstr "下方を検索します"
 
 # * Item.
-#: src/ui.cc:2514
+#: src/ui.cc:2516
 msgid "^Find Backwards"
 msgstr "上を検索 (^F)"
 
 # * Description of an item.
-#: src/ui.cc:2515
+#: src/ui.cc:2517
 msgid "Search backwards"
 msgstr "上方を検索します"
 
 # * Item.
-#: src/ui.cc:2518
+#: src/ui.cc:2520
 msgid "Find ^Again"
 msgstr "前の検索を繰り返す (^A)"
 
 # * Description of an item.
-#: src/ui.cc:2519
+#: src/ui.cc:2521
 msgid "Repeat the last search"
 msgstr "最後に行った検索を繰り返します"
 
 # * Item.
-#: src/ui.cc:2522
+#: src/ui.cc:2524
 msgid "Find Again ^Backwards"
 msgstr "前の検索を逆方向に繰り返す (^B)"
 
 # * Description of an item.
-#: src/ui.cc:2523
+#: src/ui.cc:2525
 msgid "Repeat the last search in the opposite direction"
 msgstr "最後に行った検索を逆方向に繰り返します"
 
 # * Item.
-#: src/ui.cc:2527
+#: src/ui.cc:2529
 msgid "^Limit Display"
 msgstr "表示を制限 (^L)"
 
 # * Description of an item.
-#: src/ui.cc:2528
+#: src/ui.cc:2530
 msgid "Apply a filter to the package list"
 msgstr "パッケージ一覧にフィルタをかけます"
 
 # * Item.
-#: src/ui.cc:2531
+#: src/ui.cc:2533
 msgid "^Un-Limit Display"
 msgstr "表示制限を解除 (^U)"
 
 # * Description of an item.
-#: src/ui.cc:2532
+#: src/ui.cc:2534
 msgid "Remove the filter from the package list"
 msgstr "パッケージ一覧のフィルタを解除します"
 
 # * Item.
-#: src/ui.cc:2536
+#: src/ui.cc:2538
 msgid "Find ^Broken"
 msgstr "壊れた依存関係を検索 (^B)"
 
 # * Description of an item.
-#: src/ui.cc:2537
+#: src/ui.cc:2539
 msgid "Find the next package with unsatisfied dependencies"
 msgstr "解決できない依存関係がある、次のパッケージを探します"
 
 # * Item.
-#: src/ui.cc:2544
+#: src/ui.cc:2546
 msgid "^Preferences"
 msgstr "設定 (^P)"
 
 # * Item.
-#: src/ui.cc:2549
+#: src/ui.cc:2551
 msgid "^UI options"
 msgstr "UI オプション (^U)"
 
 # * Description of an item.
-#: src/ui.cc:2550
+#: src/ui.cc:2552
 msgid "Change the settings which affect the user interface"
 msgstr "ユーザインターフェースに影響する設定を変更します"
 
 # * Item.
-#: src/ui.cc:2553
+#: src/ui.cc:2555
 msgid "^Dependency handling"
 msgstr "依存関係の処理 (^D)"
 
 # * Description of an item.
-#: src/ui.cc:2554
+#: src/ui.cc:2556
 msgid "Change the settings which affect how package dependencies are handled"
 msgstr "パッケージ依存関係の処理方法に関する設定を変更します"
 
 # * Item.
-#: src/ui.cc:2557
+#: src/ui.cc:2559
 msgid "^Miscellaneous"
 msgstr "その他 (^M)"
 
 # * Description of an item.
-#: src/ui.cc:2558
+#: src/ui.cc:2560
 msgid "Change miscellaneous program settings"
 msgstr "その他の設定を変更します"
 
 # * Item.
-#: src/ui.cc:2564
+#: src/ui.cc:2566
 msgid "^Revert options"
 msgstr "オプションを元に戻す (^R)"
 
 # * Description of an item.
-#: src/ui.cc:2565
+#: src/ui.cc:2567
 msgid "Reset all settings to the system defaults"
 msgstr "すべての設定をシステムのデフォルトに戻します"
 
 # * Item.
-#: src/ui.cc:2576
+#: src/ui.cc:2578
 msgid "^Next"
 msgstr "次 (^N)"
 
 # * Description of an item.
-#: src/ui.cc:2577
+#: src/ui.cc:2579
 msgid "View next display"
 msgstr "次の画面を表示します"
 
 # * Item.
-#: src/ui.cc:2580
+#: src/ui.cc:2582
 msgid "^Prev"
 msgstr "前 (^P)"
 
 # * Description of an item.
-#: src/ui.cc:2581
+#: src/ui.cc:2583
 msgid "View previous display"
 msgstr "前の画面を表示します"
 
 # * Item.
-#: src/ui.cc:2584
+#: src/ui.cc:2586
 msgid "^Close"
 msgstr "閉じる (^C)"
 
 # * Description of an item.
-#: src/ui.cc:2585
+#: src/ui.cc:2587
 msgid "Close this display"
 msgstr "この画面を閉じます"
 
 # * Item.
-#: src/ui.cc:2590
+#: src/ui.cc:2592
 msgid "New Package ^View"
 msgstr "新規パッケージ画面 (^V)"
 
 # * Description of an item.
-#: src/ui.cc:2591
+#: src/ui.cc:2593
 msgid "Create a new default package view"
 msgstr "デフォルトのパッケージ画面を新規に作成します"
 
 # * Item
-#: src/ui.cc:2594
+#: src/ui.cc:2596
 msgid "Audit ^Recommendations"
 msgstr "推奨を監査 (^R)"
 
 # * Description of an item
-#: src/ui.cc:2595
+#: src/ui.cc:2597
 msgid ""
 "View packages which it is recommended that you install, but which are not "
 "currently installed."
@@ -8239,106 +8204,106 @@ msgstr ""
 "を表示します"
 
 # * Item.
-#: src/ui.cc:2598
+#: src/ui.cc:2600
 msgid "New ^Flat Package List"
 msgstr "平坦なパッケージ一覧を新規に作成 (^F)"
 
 # * Description of an item.
-#: src/ui.cc:2599
+#: src/ui.cc:2601
 msgid "View all the packages on the system in a single uncategorized list"
 msgstr "システムの全パッケージをカテゴリ分けせず、単一の一覧表で表示します"
 
 # * Item.
-#: src/ui.cc:2602
+#: src/ui.cc:2604
 msgid "New ^Debtags Browser"
 msgstr "Debtags 表示を新規に作成 (^D)"
 
 # * Description of an item.
-#: src/ui.cc:2604
+#: src/ui.cc:2606
 msgid "Browse packages using Debtags data"
 msgstr "Debtags のデータを用いてパッケージを表示します"
 
 # * Item.
-#: src/ui.cc:2607
+#: src/ui.cc:2609
 msgid "New Categorical ^Browser"
 msgstr "カテゴリ別表示を新規に作成 (^B)"
 
 # * Description of an item.
-#: src/ui.cc:2609
+#: src/ui.cc:2611
 msgid "Browse packages by category"
 msgstr "カテゴリ別にパッケージを表示します"
 
 # * Item.
-#: src/ui.cc:2617
+#: src/ui.cc:2619
 msgid "^About"
 msgstr "このプログラムについて (^A)"
 
 # * Description of an item.
-#: src/ui.cc:2618
+#: src/ui.cc:2620
 msgid "View information about this program"
 msgstr "このプログラムについての情報を表示します"
 
 # * Item.
-#: src/ui.cc:2621
+#: src/ui.cc:2623
 msgid "^Help"
 msgstr "ヘルプ (^H)"
 
 # * Description of an item.
-#: src/ui.cc:2622
+#: src/ui.cc:2624
 msgid "View the on-line help"
 msgstr "オンラインヘルプを表示します"
 
 # * Item.
-#: src/ui.cc:2624
+#: src/ui.cc:2626
 msgid "User's ^Manual"
 msgstr "ユーザマニュアル (^M)"
 
 # * Description of an item.
-#: src/ui.cc:2625
+#: src/ui.cc:2627
 msgid "View the detailed program manual"
 msgstr "プログラムの詳細なマニュアルを表示します"
 
 # * Item.
-#: src/ui.cc:2628
+#: src/ui.cc:2630
 msgid "^FAQ"
 msgstr "FAQ (^F)"
 
-#: src/ui.cc:2632
+#: src/ui.cc:2634
 msgid "^News"
 msgstr "お知らせ (^N)"
 
 # TRANSLATION-FIXME: The original message should be fixed, but...
-#: src/ui.cc:2633
+#: src/ui.cc:2635
 msgid "View the important changes made in each version of "
 msgstr " の各バージョンにおける重要な変更点を表示します"
 
 # * Item.
-#: src/ui.cc:2636
+#: src/ui.cc:2638
 msgid "^License"
 msgstr "ライセンス (^L)"
 
 # * Menu item on the first line.
-#: src/ui.cc:2780
+#: src/ui.cc:2782
 msgid "Actions"
 msgstr "アクション"
 
 # * Menu item on the first line.
-#: src/ui.cc:2784
+#: src/ui.cc:2786
 msgid "Search"
 msgstr "検索"
 
 # * Menu item on the first line.
-#: src/ui.cc:2785
+#: src/ui.cc:2787
 msgid "Options"
 msgstr "オプション"
 
 # * Menu item on the first line.
-#: src/ui.cc:2786
+#: src/ui.cc:2788
 msgid "Views"
 msgstr "表示"
 
 # * Menu item on the second line.
-#: src/ui.cc:2852
+#: src/ui.cc:2854
 #, c-format
 msgid ""
 "%ls: Menu  %ls: Help  %ls: Quit  %ls: Update  %ls: Download/Install/Remove "
@@ -8347,11 +8312,11 @@ msgstr ""
 "%ls: メニュー  %ls: ヘルプ  %ls: 終了  %ls: 更新  %ls: パッケージの 取得/導"
 "入/削除 "
 
-#: src/ui.cc:3211
+#: src/ui.cc:3213
 msgid "yes_key"
 msgstr "y"
 
-#: src/ui.cc:3212
+#: src/ui.cc:3214
 msgid "no_key"
 msgstr "n"
 
@@ -8379,9 +8344,49 @@ msgstr "変更履歴のダウンロードに失敗しました: %s"
 msgid "Downloading the changelog of %s"
 msgstr "変更履歴をダウンロードしています"
 
-#: src/view_changelog.cc:415
-msgid "You can only view changelogs of official Debian packages."
-msgstr "公式の Debian パッケージのみ変更履歴を閲覧できます。"
+#~ msgid "MISSING TAG"
+#~ msgstr "タグがありません"
+
+#~ msgid "URL to use to download changelogs"
+#~ msgstr "変更履歴のダウンロードに用いる URL"
+
+#~ msgid ""
+#~ "This option controls the template that's used to download changelogs from "
+#~ "the Debian Web site.  You should only need to change this if the "
+#~ "changelogs move to a different URL."
+#~ msgstr ""
+#~ "このオプションを用いると、Debian のウェブサイトから変更履歴をダウンロード"
+#~ "するのに用いられるテンプレートを調整できます。設定の変更が必要になるのは、"
+#~ "変更履歴 (changelog) ファイルの URL が変更になったときのみでしょう。"
+
+#~ msgid "%s is not an official Debian package, cannot display its changelog."
+#~ msgstr ""
+#~ "%s は公式の Debian パッケージではないので、変更履歴を表示できません。"
+
+#~ msgid "Can't find a package named \"%s\""
+#~ msgstr "\"%s\" という名前のパッケージは見つかりません"
+
+#~ msgid "Unable to parse pattern %s"
+#~ msgstr "パターンをパースできません: %s"
+
+#~ msgid "Expected a number after -q=\n"
+#~ msgstr "-q= の後に番号が期待されます\n"
+
+#~ msgid "Expected a number after -q=, got %s\n"
+#~ msgstr "-q= の後に番号が期待されますが、%s が与えられました\n"
+
+#~ msgid "-o requires an argument of the form key=value, got %s\n"
+#~ msgstr "-o には <キー>=<値> の形式の引数が必要ですが、%s が与えられました\n"
+
+#~ msgid "WEIRDNESS: unknown option code received\n"
+#~ msgstr "不可思議: 未知のオプションコードを受け取りました\n"
+
+#~ msgid "-u, -i, and --clean-on-startup may not be specified with a command"
+#~ msgstr ""
+#~ "-u、-i、--clean-on-startup はコマンドとともに指定することはできません"
+
+#~ msgid "You can only view changelogs of official Debian packages."
+#~ msgstr "公式の Debian パッケージのみ変更履歴を閲覧できます。"
 
 #~ msgid "Err "
 #~ msgstr "エラー "

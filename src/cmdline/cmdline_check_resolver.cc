@@ -157,17 +157,14 @@ namespace
 int cmdline_check_resolver(int argc, char *argv[],
 			  const char *status_fname)
 {
-  _error->DumpErrors();
+  consume_errors();
 
   OpProgress progress;
 
   apt_init(&progress, true, status_fname);
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   aptitude_universe u(*apt_cache_file);
 

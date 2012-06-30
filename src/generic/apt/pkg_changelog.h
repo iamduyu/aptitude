@@ -56,7 +56,7 @@ namespace aptitude
     {
       const std::string source_package;
       const std::string source_version;
-      const std::string section;
+      const std::vector<std::string> uri_list;
       const std::string display_name;
 
     public:
@@ -66,11 +66,11 @@ namespace aptitude
        */
       changelog_info(const std::string &_source_package,
 		     const std::string &_source_version,
-		     const std::string &_section,
+                     const std::vector<std::string> &_uri_list,
 		     const std::string &_display_name)
 	: source_package(_source_package),
 	  source_version(_source_version),
-	  section(_section),
+          uri_list(_uri_list),
 	  display_name(_display_name)
       {
       }
@@ -78,8 +78,14 @@ namespace aptitude
       static boost::shared_ptr<changelog_info>
       create(const std::string &source_package,
 	     const std::string &source_version,
-	     const std::string &section,
+             const std::vector<std::string> &uri_list,
 	     const std::string &display_name);
+
+      static boost::shared_ptr<changelog_info>
+      guess(const std::string &source_package,
+	    const std::string &source_version,
+            const std::string &section,
+	    const std::string &display_name);
 
       /** \brief Create a changelog_info structure that describes the
        *  changelog of the given package version.
@@ -94,8 +100,8 @@ namespace aptitude
       const std::string &get_source_package() const { return source_package; }
       /** \brief Retrieve the name of the changelog's source version. */
       const std::string &get_source_version() const { return source_version; }
-      /** \brief Retrieve the section that the package is in. */
-      const std::string &get_section() const { return section; }
+      /** \brief Retrieve the list of URIs to try, in order. */
+      const std::vector<std::string> &get_uri_list() const { return uri_list; }
       /** \brief Retrieve the display name of the changelog's package.
        *
        *  This is the name that should be displayed to the user when,

@@ -38,8 +38,12 @@
 using namespace std;
 
 download_install_manager::download_install_manager(bool _download_only,
+                                                   bool _fix_missing,
 						   const run_dpkg_in_terminal_func &_run_dpkg_in_terminal)
-  : log(NULL), download_only(_download_only), pm(new pkgDPkgPM(*apt_cache_file)),
+  : log(NULL),
+    download_only(_download_only),
+    fix_missing(_fix_missing),
+    pm(new pkgDPkgPM(*apt_cache_file)),
     run_dpkg_in_terminal(_run_dpkg_in_terminal)
 {
 }
@@ -102,7 +106,7 @@ bool download_install_manager::prepare(OpProgress &progress,
 
 download_manager::result download_install_manager::finish_pre_dpkg(pkgAcquire::RunResult res)
 {
-  if(res != pkgAcquire::Continue)
+  if(res == pkgAcquire::Failed)
     return failure;
 
   bool failed=false;
@@ -110,15 +114,18 @@ download_manager::result download_install_manager::finish_pre_dpkg(pkgAcquire::R
       i != fetcher->ItemsEnd(); ++i)
     {
       if((*i)->Status == pkgAcquire::Item::StatDone &&
-	 (*i)->Complete)
+	 (*i)->Complete == true)
 	continue;
 
       if((*i)->Status == pkgAcquire::Item::StatIdle)
-	continue;
+        {
+          // Transient = true;
+          continue;
+        }
 
       failed=true;
-      _error->Error(_("Failed to fetch %s: %s"), (*i)->DescURI().c_str(), (*i)->ErrorText.c_str());
-      break;
+      _error->Warning(_("Failed to fetch %s: %s"),
+                      (*i)->DescURI().c_str(), (*i)->ErrorText.c_str());
     }
 
   if(download_only)
@@ -135,6 +142,13 @@ download_manager::result download_install_manager::finish_pre_dpkg(pkgAcquire::R
 	}
     }
 
+  if(failed == true && fix_missing == false)
+    {
+      _error->Error(_("Unable to fetch some archives, maybe run aptitude"
+                      " update or try with --fix-missing?"));
+      return failure;
+    }
+
   if(failed && !pm->FixMissing())
     {
       _error->Error(_("Unable to correct for unavailable packages"));
@@ -148,13 +162,20 @@ download_manager::result download_install_manager::finish_pre_dpkg(pkgAcquire::R
   // control the code at dpkg's end), them's the breaks.
   apt_cache_file->ReleaseLock();
 
-  result rval = success;
+  download_manager::result rval;
 
   const pkgPackageManager::OrderResult pre_fork_result =
     pm->DoInstallPreFork();
 
-  if(pre_fork_result == pkgPackageManager::Failed)
-    rval = failure;
+  switch(pre_fork_result)
+    {
+    case pkgPackageManager::Completed:  rval = success; break;
+    case pkgPackageManager::Failed:     rval = failure; break;
+    case pkgPackageManager::Incomplete: rval = do_again; break;
+    default:
+      rval = failure;
+      _error->Error("Unexpected result from pkgPackageManager::DoInstallPreFork");
+    }
 
   return rval;
 }
@@ -171,7 +192,7 @@ pkgPackageManager::OrderResult download_install_manager::run_dpkg(int status_fd)
   switch(pmres)
     {
     case pkgPackageManager::Failed:
-      _error->DumpErrors();
+      _error->DumpErrors(std::cerr, GlobalError::WARNING, false);
       cerr << _("A package failed to install.  Trying to recover:") << endl;
       if(system("DPKG_NO_TSTP=1 dpkg --configure -a") != 0) { /* ignore */ }
       break;
@@ -191,16 +212,15 @@ void download_install_manager::finish_post_dpkg(pkgPackageManager::OrderResult d
 						OpProgress *progress,
 						const sigc::slot1<void, result> &k)
 {
-  result rval = success;
-
+  result rval;
   switch(dpkg_result)
     {
     case pkgPackageManager::Failed:
       rval = failure;
       break;
     case pkgPackageManager::Completed:
+      rval = success;
       break;
-
     case pkgPackageManager::Incomplete:
       rval = do_again;
       break;
@@ -208,15 +228,23 @@ void download_install_manager::finish_post_dpkg(pkgPackageManager::OrderResult d
 
   fetcher->Shutdown();
 
+  if(_error->PendingError() == true)
+    rval = failure;
+
   // Get the archives again.  This was necessary for multi-CD
   // installs, according to my comments in an old commit log in the
   // Subversion repository.
-  if(!pm->GetArchives(fetcher, &src_list, apt_package_records))
-    rval = failure;
-  else if(!apt_cache_file->GainLock())
+  if(rval == do_again)
+    {
+      if(!pm->GetArchives(fetcher, &src_list, apt_package_records))
+        rval = failure;
+    }
+
+  if(!apt_cache_file->GainLock())
     // This really shouldn't happen.
     {
-      _error->Error(_("Could not regain the system lock!  (Perhaps another apt or dpkg is running?)"));
+      _error->Error(_("Could not regain the system lock!  (Perhaps another"
+                      " apt or dpkg is running?)"));
       rval = failure;
     }
 
@@ -257,7 +285,7 @@ void download_install_manager::finish(pkgAcquire::RunResult result,
 {
   const download_manager::result pre_res = finish_pre_dpkg(result);
 
-  if(pre_res == success && !download_only)
+  if(pre_res != failure && !download_only)
     {
       run_dpkg_in_terminal(sigc::mem_fun(*this, &download_install_manager::run_dpkg),
 			   sigc::bind(sigc::mem_fun(*this, &download_install_manager::finish_post_dpkg),
@@ -268,7 +296,6 @@ void download_install_manager::finish(pkgAcquire::RunResult result,
   else
     {
       pkgPackageManager::OrderResult res;
-
       switch(pre_res)
 	{
 	case success:
@@ -278,9 +305,11 @@ void download_install_manager::finish(pkgAcquire::RunResult result,
 	  res = pkgPackageManager::Incomplete;
 	  break;
 	case failure:
-	default:
 	  res = pkgPackageManager::Failed;
 	  break;
+        default:
+          res = pkgPackageManager::Failed;
+          _error->Error("Unexpected result from download_install_manager::finish_pre_dpkg");
 	}
 
       finish_post_dpkg(res,

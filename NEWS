@@ -1,3 +1,203 @@
+[6/8/2012]
+Version 0.6.9                               "All in a days work"
+
+Error conditions are much stricter, detecting errors is more
+reliable, and the exit status of all command-line actions is
+well-defined.
+
+All commands will return one of these values as their exit
+status:
+
+      0 – success
+      1 – user aborted (install, remove, …); or
+          no matches (search, versions, why, why-not)
+    100 – failure
+
+Most commands will now fail *without* proceeding if any
+package arguments are not available, or are not available in
+the requested version or archive.  Specifying a virtual
+package which does not have exactly one provider will also
+result in failure.
+
+Finally, install actions will not proceed if any package
+fails to download correctly.  The option --fix-missing is
+added to override this and the old behaviour can be restored
+by setting Aptitude::CmdLine::Fix-Missing in apt.conf.
+
+This is a major change from previous versions where the
+program would have proceeded and possibly exited with a
+status indicating success (0) despite some requested actions
+being either invalid or ineffective.  The new, stricter
+behaviour is desirable for two reasons:
+
+ i. to prevent the situation where a request to replace one
+    set of packages with another set proceeds when (some of)
+    the replacements are not found or unavailable could
+    cause the undesired removal of arbitrary other packages;
+
+ii. to make the program more atomic and reliable when used
+    for automated tasks – by considering the entire request
+    as being essential to success another program can rely
+    on an exit status of 0 to mean that the request was
+    completely carried out.
+
+- Crashes and serious errors:
+
+  * [cmdline]: install and similar actions have much
+               stronger error checking and will exit more
+               reliably with non-zero status on failures
+
+               Failures which result in no action and a
+               non-zero exit status (100):
+               - a package argument does not exactly name
+                 an available package;
+                 (Closes: #576212) (LP: #919216)
+               - a versioned argument requests a version
+                 which is not available for every package
+                 it applies to;
+                 (Closes: #590686) (LP: #585408)
+
+  * [cmdline]: An install run will no longer proceed if any
+               package was unavailable or failed to download
+               correctly, instead an error will be shown
+               and exit with non-zero status (100).
+               (Closes: #121313, #302784, #639789)
+               (LP: #734737)
+
+               The old behaviour can be obtained with the new
+               --fix-missing option or setting
+               Aptitude::CmdLine::Fix-Missing.
+
+  * [cmdline]: --visual-preview exits with non-zero status:
+               - user quits (1);
+               - a package fails to download and the user
+                 chooses not to continue (100); or
+               - a package fails to install (100).
+               (Closes: #282408)
+
+  * [cmdline]: changelog exits with non-zero status on any
+               error (Closes: #675833)
+
+- New features:
+
+  * [cmdline]: Regular expressions are now supported to match names
+               (same as apt-utils):
+
+                $ aptitude show ^tf$
+
+               Previously this would result in a "no such package"
+               error.
+
+  * New aliases for some command-line options:
+    --yes, for --assume-yes (apt-get)
+    --default-release, for --target-release (apt-utils)
+    --install-on-startup, for -i
+    --update-on-startup, for -u
+
+  * New configuration item:
+    Aptitude::CmdLine::Sorting, equivalent to --sort
+
+  * [all]: ?architecture search terms now support using specification
+           strings and wildcards (for example, “linux-any”) as defined
+           in Debian Policy § 11.1 “Architecture specification
+           strings”.
+
+  * [all]: Support downloading changelogs for packages on
+           third-party sites by guessing the URI. (LP: #563155)
+
+  * [all]: New sort policy 'debsize' for sorting by package size.
+           Thanks to Marcel Partap.
+           
+- Minor bugs:
+
+  * handle "-qq" like other apt-utils
+  * properly process all -o command line options (Closes: #587671)
+  * unknown command line options trigger an error (Closes: #434502)
+  * --add-user-tag-to, --remove-user-tag-from are working;
+    no bug reports suggests that noone has noticed they
+    were broken, but they work now anyway
+
+  * [cmdline]: Virtual packages which have an already
+               installed provider are only skipped when the
+               requested action is to install them.
+
+  * [cmdline]: search exit with status 1 if it found no
+               matches (Closes: #497299)
+
+  * [cmdline]: why exits with status 1 if it found no
+               reasons given the particular arguments
+
+  * [cmdline]: Package arguments without an arch-qualifier
+               will also consider foreign-arch packages, in
+               order of preference.  (LP: #892074)
+
+  * [cmdline]: Package arguments can use '*' wildcard in their
+               arch-qualifier to select all matching packages,
+               where 'any' would select only the first such
+               package.
+
+  * [all]: use up-to-date changelog uri construction from apt-get
+           using APT::Changelogs::Server
+
+  * [all]: drop disused Aptitude::Changelog-URL-Template
+
+  * [cmdline]: update to changelog logic:
+               - remove extraneous guess-work with source packages,
+                 which happened to also download the wrong changelog
+                 sometimes (Closes: #631464)
+               - changelog download works with no deb-src lines, so
+                 we don't need to instruct the user to add any
+                 (Closes: #587775, #537393)
+
+  * [curses]: Do not group packages as tasks based on their name,
+              rather, use their section.  (Closes: #679602)
+
+- Internal changes:
+
+  * Unified the way packages are selected from command line
+    arguments.
+
+  * Use apt's CommandLine parser
+
+    Previously aptitude was using it's own command line
+    parser implemented on top of getopt.  Replacing this
+    with the standard apt class means there are no longer
+    subtle quirks with our parser (such as "-qq" not
+    being valid when it is fine for other apt programs).
+
+  * download_install_manager.cc:
+    - repeat if package manager result is DoAgain;
+    - report all download errors not just the first;
+
+  * Use standard apt-xapian-index location, rather than libept.
+
+  * Read tags from debtags database even when libept is
+    disabled, but fall back to Packages files if the database
+    is not available. (Closes: #501732)
+
+- Cosmetic and UI bugs:
+
+  * [cmdline]: Use arch-qualified names for virtual packages in
+               more places as this is what apt-utils do.
+
+  * [cmdline]: Most errors are now displayed at the end of a command's
+               output which makes them easier to spot when there is
+               lots of output. (Closes: #430392)
+
+- Build system changes:
+
+  * Using libept is optional and disabled by default.  Use
+    --enable-ept with configure to turn it on.
+    (Closes: #504153)
+
+- Documentation:
+
+  * [doc]: add section on exit status to the man page
+
+- Translation updates:
+
+  * Polish (Closes: #678153)
+
 [5/11/2012]
 Version 0.6.8                               "Never need a reason,
                                              never need a rhyme"

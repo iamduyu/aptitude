@@ -31,20 +31,11 @@
 #include <apt-pkg/pkgrecords.h>
 #include <apt-pkg/pkgsystem.h>
 #include <apt-pkg/version.h>
+#include <apt-pkg/cachefilter.h>
 
 #include <cwidget/generic/util/transcode.h>
 
-#ifdef HAVE_EPT_TEXTSEARCH
-#include <ept/textsearch/textsearch.h>
-#else
-#ifdef HAVE_EPT_AXI
-#include <ept/axi/axi.h>
-#else
-#error "Don't know how to use the debtags Xapian database."
-#endif
-#endif
-
-#include <xapian/enquire.h>
+#include <xapian.h>
 
 #include <algorithm>
 
@@ -64,22 +55,6 @@ namespace aptitude
   {
     namespace
     {
-#ifdef HAVE_EPT_TEXTSEARCH
-      typedef ept::textsearch::TextSearch debtags_db;
-
-      const Xapian::docid get_docid_by_name(const debtags_db &db,
-                                            const char *name)
-      {
-        return db.docidByName(name);
-      }
-
-      const Xapian::Database &get_xapian_db(const debtags_db &db)
-      {
-        return db.db();
-      }
-#endif
-
-#ifdef HAVE_EPT_AXI
       typedef Xapian::Database debtags_db;
 
       const Xapian::docid get_docid_by_name(const debtags_db &db,
@@ -99,7 +74,6 @@ namespace aptitude
       {
         return db;
       }
-#endif
 
       /** \brief Evaluate any regular expression-based pattern.
        *
@@ -406,15 +380,7 @@ namespace aptitude
       {
 	try
 	  {
-#ifdef HAVE_EPT_TEXTSEARCH
-	    db.reset(new ept::textsearch::TextSearch);
-#else
-#ifdef HAVE_EPT_AXI
-            db.reset(new Xapian::Database(ept::axi::path_db()));
-#else
-#error "Can't figure out how to create the debtags database."
-#endif
-#endif
+            db.reset(new Xapian::Database("/var/lib/apt-xapian-index/index"));
 	  }
 	catch(...)
 	  {
@@ -907,8 +873,9 @@ namespace aptitude
 
 	    {
 	      pkgCache::VerIterator ver(target.get_version_iterator(cache));
-              if(p->get_architecture_architecture().empty() == true ||
-		 p->get_architecture_architecture() == ver.Arch())
+              const ref_ptr<arch_specification> spec(p->get_architecture_arch_specification());
+
+              if(spec->matches(ver.Arch()) == true)
                 return match::make_atomic(p, ver.Arch());
               else
                 return NULL;
@@ -1631,29 +1598,20 @@ namespace aptitude
 	    {
 	      pkgCache::PkgIterator pkg(target.get_package_iterator(cache));
 
-#ifdef HAVE_EPT
               using aptitude::apt::get_fullname;
 	      using aptitude::apt::get_tags;
               using aptitude::apt::tag;
-#endif
 
-#ifdef HAVE_EPT
-	      const std::set<tag> realTags(get_tags(pkg));
-	      const std::set<tag> * const tags(&realTags);
-#else
-	      const std::set<tag> * const tags(get_tags(pkg));
-#endif
+	      const std::set<tag> tags(get_tags(pkg));
 
-	      if(tags == NULL)
+	      if(tags.empty() == true)
 		return NULL;
 
-	      for(std::set<tag>::const_iterator i=tags->begin(); i!=tags->end(); ++i)
+	      for(std::set<tag>::const_iterator i = tags.begin();
+                  i != tags.end();
+                  ++i)
 		{
-#ifdef HAVE_EPT
 		  std::string name(get_fullname(*i));
-#else
-		  const std::string name = i->str().c_str();
-#endif
 		  ref_ptr<match> rval =
 		    evaluate_regexp(p,
 				    p->get_tag_regex_info(),
@@ -3082,7 +3040,7 @@ namespace aptitude
 
     void search(const ref_ptr<pattern> &p,
 		const ref_ptr<search_cache> &search_info,
-		std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > > &matches,
+		pkg_results_list &matches,
 		aptitudeDepCache &cache,
 		pkgRecords &records,
                 bool debug,
@@ -3193,7 +3151,7 @@ namespace aptitude
 
     void search_versions(const ref_ptr<pattern> &p,
                          const ref_ptr<search_cache> &search_info,
-                         std::vector<std::pair<pkgCache::VerIterator, ref_ptr<structural_match> > > &matches,
+                         ver_results_list &matches,
                          aptitudeDepCache &cache,
                          pkgRecords &records,
                          bool debug,

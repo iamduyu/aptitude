@@ -42,28 +42,23 @@ int cmdline_download(int argc, char *argv[])
 
   if(argc<=1)
     {
-      printf(_("download: you must specify at least one package to download\n"));
-      return -1;
+      _error->Error(_("download: you must specify at least one package to download"));
+      return 100;
     }
 
-  _error->DumpErrors();
+  consume_errors();
 
   shared_ptr<OpProgress> progress = make_text_progress(false, term, term, term);
   apt_init(progress.get(), false);
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   pkgSourceList list;
   if(!list.ReadMainList())
     {
       _error->Error(_("Couldn't read source list"));
-
-      _error->DumpErrors();
-      return -1;
+      return 100;
     }
 
   std::pair<download_signal_log *, boost::shared_ptr<acquire_download_progress> >
@@ -72,63 +67,21 @@ int cmdline_download(int argc, char *argv[])
   pkgAcquire fetcher;
   fetcher.Setup(progress_display.first);
   string filenames[(*apt_cache_file)->Head().PackageCount];
-  string default_release = aptcfg->Find("APT::Default-Release");
 
   for(int i=1; i<argc; ++i)
     {
-      cmdline_version_source source;
+      cmdline_version_source source = cmdline_version_cand;
       string name, sourcestr;
       if(!cmdline_parse_source(argv[i], source, name, sourcestr))
 	continue;
 
-      if(source == cmdline_version_cand && !default_release.empty())
-	{
-	  source = cmdline_version_archive;
-	  sourcestr = default_release;
-	}
+      pkgset packages;
+      if(aptitude::cmdline::pkgset_from_string(&packages, name) == false)
+        continue;
 
-      std::vector<pkgCache::PkgIterator> packages;
-
-      if(!aptitude::matching::is_pattern(name))
-	{
-	  pkgCache::PkgIterator pkg=(*apt_cache_file)->FindPkg(name);
-	  if(pkg.end())
-	    {
-	      _error->Error(_("Can't find a package named \"%s\""), name.c_str());
-	      continue;
-	    }
-
-	  packages.push_back(pkg);
-	}
-      else
-	{
-	  using namespace aptitude::matching;
-	  using cwidget::util::ref_ptr;
-	  ref_ptr<pattern> p(parse(name.c_str()));
-	  if(!p.valid())
-	    {
-	      _error->DumpErrors();
-	      return false;
-	    }
-
-	  std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > > matches;
-	  ref_ptr<search_cache> search_info(search_cache::create());
-	  search(p, search_info,
-		 matches,
-		 *apt_cache_file,
-		 *apt_package_records);
-
-	  for(std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > >::const_iterator
-		it = matches.begin(); it != matches.end(); ++it)
-	    packages.push_back(it->first);
-
-	  // Maybe there should be a warning here if packages is
-	  // empty?  TODO: think about it again when the string freeze
-	  // is lifted post-lenny.
-	}
-
-      for(std::vector<pkgCache::PkgIterator>::const_iterator it =
-	    packages.begin(); it != packages.end(); ++it)
+      for(pkgset::const_iterator it = packages.begin();
+          it != packages.end();
+          ++it)
 	{
 	  const pkgCache::PkgIterator pkg = *it;
 
@@ -138,7 +91,8 @@ int cmdline_download(int argc, char *argv[])
 	    continue;
 
 	  if(!ver.Downloadable())
-	    _error->Error(_("No downloadable files for %s version %s; perhaps it is a local or obsolete package?"),
+            _error->Error(_("No downloadable files for %s version %s;"
+                            " perhaps it is a local or obsolete package?"),
 			  name.c_str(), ver.VerStr());
 
 	  get_archive(&fetcher, &list, apt_package_records,
@@ -148,10 +102,7 @@ int cmdline_download(int argc, char *argv[])
 
   if(fetcher.Run()!=pkgAcquire::Continue)
     // We failed or were cancelled
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   return 0;
 }

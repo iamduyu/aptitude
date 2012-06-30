@@ -385,8 +385,6 @@ public:
 
 void view_changelog(pkgCache::VerIterator ver)
 {
-  bool in_debian=false;
-
   string pkgname = ver.ParentPkg().Name();
 
 
@@ -404,18 +402,6 @@ void view_changelog(pkgCache::VerIterator ver)
     }
 
   // TODO: add a configurable association between origins and changelog URLs.
-  for(pkgCache::VerFileIterator vf=ver.FileList();
-      !vf.end() && !in_debian; ++vf)
-    if(!vf.File().end() && vf.File().Origin()!=NULL &&
-       strcmp(vf.File().Origin(), "Debian")==0)
-      in_debian=true;
-
-  if(!in_debian)
-    {
-      show_message(_("You can only view changelogs of official Debian packages."),
-		   NULL, cw::get_style("Error"));
-      return;
-    }
 
   boost::shared_ptr<changelog_callbacks> callbacks =
     boost::make_shared<changelog_callbacks>(ver.ParentPkg().Name(),
