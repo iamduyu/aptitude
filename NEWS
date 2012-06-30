@@ -165,6 +165,10 @@ ii. to make the program more atomic and reliable when used
 
   * Use standard apt-xapian-index location, rather than libept.
 
+  * Read tags from debtags database even when libept is
+    disabled, but fall back to Packages files if the database
+    is not available.
+
 - Cosmetic and UI bugs:
 
   * [cmdline]: Use arch-qualified names for virtual packages in

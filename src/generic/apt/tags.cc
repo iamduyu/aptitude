@@ -149,10 +149,20 @@ typedef set<tag> db_entry;
 // to provide a progress bar to the user.
 db_entry *tagDB;
 
+static void insert_tags(std::set<tag> &tags,
+                        const char *start,
+                        const char *finish)
+{
+  const tag_list lst(start, finish);
+
+  for(tag_list::const_iterator t=lst.begin(); t!=lst.end(); ++t)
+    tags.insert(*t);
+}
+
 static void insert_tags(const pkgCache::VerIterator &ver,
 			const pkgCache::VerFileIterator &vf)
 {
-  set<tag> *tags = tagDB + ver.ParentPkg()->ID;
+  set<tag> *tags = tagDB + ver.ParentPkg().Group()->ID;
 
   const char *recstart=0, *recend=0;
   const char *tagstart, *tagend;
@@ -170,10 +180,7 @@ static void insert_tags(const pkgCache::VerIterator &ver,
   if(!sec.Find("Tag", tagstart, tagend))
     return;
 
-  tag_list lst(tagstart, tagend);
-
-  for(tag_list::const_iterator t=lst.begin(); t!=lst.end(); ++t)
-    tags->insert(*t);
+  insert_tags((*tags), tagstart, tagend);
 }
 
 static void reset_tags()
@@ -187,7 +194,60 @@ const std::set<tag> aptitude::apt::get_tags(const pkgCache::PkgIterator &pkg)
   if(!apt_cache_file || !tagDB)
     return std::set<tag>();
 
-  return tagDB[pkg->ID];
+  return tagDB[pkg.Group()->ID];
+}
+
+static bool read_debtags_package_tags(OpProgress *progress,
+                                      const std::string &filename)
+{
+  FileFd F(filename, FileFd::ReadOnly);
+
+  if(!F.IsOpen())
+    {
+      // _error->Warning(_("Unable to load debtags package tags, perhaps"
+      //                   " debtags is not installed?"));
+      // Fail silently; debtags need not be installed.
+      return false;
+    }
+
+  const unsigned long m = (*apt_cache_file)->Head().GroupCount;
+  unsigned long n = 0;
+
+  if(progress != NULL)
+    progress->OverallProgress(0, m, 1,
+                             _("Building tag database"));
+
+  const unsigned long long buf_size = 4096;
+  char buf[buf_size];
+  while(F.ReadLine(buf, buf_size) != NULL)
+    {
+      if(progress != NULL)
+        progress->OverallProgress(++n, m, 1,
+                                  _("Building tag database"));
+
+      const char *sep = strstr(buf, ": ");
+      if(sep == NULL)
+        continue;
+
+      const string pkg_name(buf, sep - buf);
+      const pkgCache::GrpIterator grp((*apt_cache_file)->FindGrp(pkg_name));
+      if(grp.end() == true)
+        continue;
+
+      set<tag> *tags = tagDB + grp->ID;
+
+      const char *tagstart = sep + 2;
+      const char *tagend = tagstart;
+      while((*tagend) != '\0')
+        ++tagend;
+
+      insert_tags((*tags), tagstart, tagend);
+    }
+
+  if(progress != NULL)
+    progress->Done();
+
+  return true;
 }
 
 bool initialized_reset_signal;
@@ -202,8 +262,17 @@ void aptitude::apt::load_tags(OpProgress *progress)
       initialized_reset_signal = true;
     }
 
-  tagDB = new db_entry[(*apt_cache_file)->Head().PackageCount];
+  tagDB = new db_entry[(*apt_cache_file)->Head().GroupCount];
 
+  // Try to load from the debtags database
+  {
+    const string filename(aptcfg->FindFile("Debtags::Package-Tags",
+                                           "/var/lib/debtags/package-tags"));
+    if(read_debtags_package_tags(progress, filename) == true)
+      return;
+  }
+
+  // Otherwise fall back to reading the Packages files directly
   std::vector<loc_pair> verfiles;
 
   for(pkgCache::PkgIterator p = (*apt_cache_file)->PkgBegin();
