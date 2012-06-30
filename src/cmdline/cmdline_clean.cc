@@ -53,12 +53,12 @@ int cmdline_clean(int argc, char *argv[], bool simulate)
 {
   const string archivedir = aptcfg->FindDir("Dir::Cache::archives");
 
-  _error->DumpErrors();
+  consume_errors();
 
   if(argc != 1)
     {
-      fprintf(stderr, _("E: The clean command takes no arguments\n"));
-      return -1;
+      _error->Error(_("The clean command takes no arguments"));
+      return 100;
     }  
 
   if(simulate)
@@ -77,20 +77,13 @@ int cmdline_clean(int argc, char *argv[], bool simulate)
     }
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   pkgAcquire fetcher;
   fetcher.Clean(archivedir);
   fetcher.Clean(archivedir+"partial/");
 
-  int rval=_error->PendingError() ? -1 : 0;
-
-  _error->DumpErrors();
-
-  return rval;
+  return _error->PendingError() ? 100 : 0;
 }
 
 // Shamelessly stolen from apt-get:
@@ -127,12 +120,12 @@ int cmdline_autoclean(int argc, char *argv[], bool simulate)
   const string archivedir = aptcfg->FindDir("Dir::Cache::archives");
   const shared_ptr<terminal_io> term = create_terminal();
 
-  _error->DumpErrors();
+  consume_errors();
 
   if(argc != 1)
     {
-      fprintf(stderr, _("E: The autoclean command takes no arguments\n"));
-      return -1;
+      _error->Error(_("The autoclean command takes no arguments"));
+      return 100;
     }  
 
   // Lock the archive directory
@@ -144,8 +137,7 @@ int cmdline_autoclean(int argc, char *argv[], bool simulate)
       if (_error->PendingError() == true)
         {
           _error->Error(_("Unable to lock the download directory"));
-          _error->DumpErrors();
-          return -1;
+          return 100;
         }
     }
 
@@ -154,19 +146,14 @@ int cmdline_autoclean(int argc, char *argv[], bool simulate)
   apt_init(progress.get(), false);
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   LogCleaner cleaner(simulate);
   int rval=0;
   if(!(cleaner.Go(archivedir, *apt_cache_file) &&
        cleaner.Go(archivedir+"partial/", *apt_cache_file)) ||
      _error->PendingError())
-    rval=-1;
-
-  _error->DumpErrors();
+    rval = 100;
 
   if(simulate)
     printf(_("Would free %sB of disk space\n"),
@@ -177,4 +164,3 @@ int cmdline_autoclean(int argc, char *argv[], bool simulate)
 
   return rval;
 }
-

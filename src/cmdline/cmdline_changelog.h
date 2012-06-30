@@ -40,7 +40,7 @@ namespace aptitude
 /** \brief Display the changelog of each of the given package specifiers.
  *
  *  The specifiers are literal package names, with optional version/archive
- *  descriptors.  DumpErrors() is called after each changelog is displayed.
+ *  descriptors.
  */
 void do_cmdline_changelog(const std::vector<std::string> &packages,
                           const boost::shared_ptr<aptitude::cmdline::terminal_metrics> &term_metrics);

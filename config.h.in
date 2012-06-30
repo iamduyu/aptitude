@@ -292,29 +292,8 @@
 /* Set to true if apt is DDTP-enabled */
 #undef HAVE_DDTP
 
-/* Backwards compatibility symbol; must always be defined. */
+/* Define if the ept library is to be used. */
 #undef HAVE_EPT
-
-/* Define if ept/axi/axi.h can provide docids. */
-#undef HAVE_EPT_AXI
-
-/* Define if ept::debtags::Facet exists */
-#undef HAVE_EPT_DEBTAGS_FACET
-
-/* Define if ept::debtags::Facet exists and supports description retrieval. */
-#undef HAVE_EPT_DEBTAGS_FACET_DESCRIPTION
-
-/* Define if ept::debtags::Facet exists and supports description retrieval. */
-#undef HAVE_EPT_DEBTAGS_FACET_NAME
-
-/* Define if ept::debtags::Tag exists. */
-#undef HAVE_EPT_DEBTAGS_TAG
-
-/* Define if ept::debtags::Tag exists and supports description retrieval. */
-#undef HAVE_EPT_DEBTAGS_TAG_DESCRIPTION
-
-/* Define if ept::debtags::Tag exists and has a fullname() method */
-#undef HAVE_EPT_DEBTAGS_TAG_FULLNAME
 
 /* Define if the ept debtags vocabulary object exists and supports facetData()
    */
@@ -323,9 +302,6 @@
 /* Define if the ept debtags vocabulary object exists and supports tagData()
    */
 #undef HAVE_EPT_DEBTAGS_VOCABULARY_TAG_DATA
-
-/* Define if ept::textsearch exists */
-#undef HAVE_EPT_TEXTSEARCH
 
 /* Define if the execinfo file (for self-backtracing) is available */
 #undef HAVE_EXECINFO_H

@@ -1290,18 +1290,14 @@ bool interpret_why_args(const std::vector<std::string> &args,
   for(std::vector<std::string>::const_iterator it = args.begin();
       it != args.end(); ++it)
     {
-      // If there isn't a tilde, treat it as an exact package name.
       cwidget::util::ref_ptr<pattern> p;
-      if(!aptitude::matching::is_pattern(*it))
-	{
-	  pkgCache::PkgIterator pkg = (*apt_cache_file)->FindPkg(*it);
-	  if(pkg.end())
-	    _error->Error(_("No package named \"%s\" exists."), it->c_str());
-	  else
-	    p = pattern::make_name(ssprintf("^%s$", pkg.Name()));
-	}
+      pkgCache::PkgIterator pkg = (*apt_cache_file)->FindPkg(*it);
+      if(pkg.end() == false)
+        p = pattern::make_exact_name(pkg.Name());
+      else if(aptitude::matching::is_pattern(*it) == true)
+        p = parse(*it);
       else
-	p = parse(*it);
+        _error->Error(_("Unable to locate package %s"), (*it).c_str());
 
       if(!p.valid())
 	parsing_arguments_failed = true;
@@ -1359,13 +1355,14 @@ int cmdline_why(int argc, char *argv[],
 {
   const shared_ptr<terminal_io> term = create_terminal();
 
-  _error->DumpErrors();
+  consume_errors();
 
   if(argc < 2)
     {
-      fprintf(stderr, _("%s: this command requires at least one argument (the package to query).\n"),
-	      argv[0]);
-      return -1;
+      _error->Error(_("%s: this command requires at least one argument (the"
+                      " package to query)"),
+                    argv[0]);
+      return 100;
     }
 
   OpProgress progress;
@@ -1373,10 +1370,7 @@ int cmdline_why(int argc, char *argv[],
   apt_init(&progress, true, status_fname);
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   // Keep track of whether any argument couldn't be parsed, but
   // don't bail until we finish parsing, so we can display all
@@ -1385,10 +1379,10 @@ int cmdline_why(int argc, char *argv[],
 
   const char *pkgname = argv[argc - 1];
   bool is_removal = is_why_not;
-  pkgCache::PkgIterator pkg = (*apt_cache_file)->FindPkg(argv[argc - 1]);
+  pkgCache::PkgIterator pkg = (*apt_cache_file)->FindPkg(pkgname);
   if(pkg.end())
     {
-      _error->Error(_("No package named \"%s\" exists."), pkgname);
+      _error->Error(_("Unable to locate package %s"), pkgname);
       parsing_arguments_failed = true;
     }
 
@@ -1410,13 +1404,9 @@ int cmdline_why(int argc, char *argv[],
 	matchers.push_back(p);
     }
 
-
-
-  _error->DumpErrors();
-
   int rval;
   if(parsing_arguments_failed)
-    rval = -1;
+    rval = 100;
   else
     rval = do_why(matchers,
                   pkg,

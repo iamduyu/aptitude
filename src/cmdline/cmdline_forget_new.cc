@@ -47,14 +47,14 @@ int cmdline_forget_new(int argc, char *argv[],
 {
   const shared_ptr<terminal_io> term = create_terminal();
 
-  _error->DumpErrors();
+  consume_errors();
 
   // NB: perhaps we should allow forgetting the new state of just
   // a few packages?
   if(argc != 1)
     {
-      fprintf(stderr, _("E: The forget-new command takes no arguments\n"));
-      return -1;
+      _error->Error(_("The forget-new command takes no arguments"));
+      return 100;
     }  
 
   shared_ptr<OpProgress> progress = make_text_progress(false, term, term, term);
@@ -62,10 +62,7 @@ int cmdline_forget_new(int argc, char *argv[],
   apt_init(progress.get(), false, status_fname);
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   // In case we aren't root.
   if(!simulate)
@@ -74,10 +71,7 @@ int cmdline_forget_new(int argc, char *argv[],
     apt_cache_file->ReleaseLock();
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   if(simulate)
     printf(_("Would forget what packages are new\n"));
@@ -88,11 +82,7 @@ int cmdline_forget_new(int argc, char *argv[],
       (*apt_cache_file)->save_selection_list(*progress);
 
       if(_error->PendingError())
-	{
-	  _error->DumpErrors();
-
-	  return -1;
-	}
+        return 100;
     }
 
   return 0;

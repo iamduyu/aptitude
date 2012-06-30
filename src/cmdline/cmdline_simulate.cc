@@ -71,11 +71,11 @@ int cmdline_simulate(bool as_upgrade,
   pkgPackageManager::OrderResult Res=PM.DoInstall();
 
   if(Res==pkgPackageManager::Failed)
-    return -1;
+    return 100;
   else if(Res!=pkgPackageManager::Completed)
     {
       _error->Error(_("Internal Error, Ordering didn't finish"));
-      return -1;
+      return 100;
     }
   else
     return 0;

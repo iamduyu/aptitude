@@ -54,8 +54,9 @@ namespace aptitude
     {
       if(argc < 2)
 	{
-	  fprintf(stderr, _("extract-cache-entries: at least one argument is required (the directory\nto which to write files).\n"));
-	  return -1;
+          _error->Error(_("extract-cache-entries: at least one argument is"
+                          " required (the directory to which to write files)"));
+          return 100;
 	}
 
       const shared_ptr<terminal_io> term = create_terminal();
@@ -66,13 +67,9 @@ namespace aptitude
 
       apt_init(progress.get(), true);
       if(_error->PendingError())
-	{
-	  _error->DumpErrors();
-	  return -1;
-	}
+        return 100;
 
-      bool ok = true;
-      std::set<pkgCache::PkgIterator> packages;
+      pkgset packages;
       if(argc == 2)
 	{
 	  for(pkgCache::PkgIterator pIt = (*apt_cache_file)->PkgBegin();
@@ -82,65 +79,22 @@ namespace aptitude
       else
 	{
 	  for(int i = 2; i < argc; ++i)
-	    {
-	      std::string arg(argv[i]);
-
-	      if(!aptitude::matching::is_pattern(arg))
-		{
-		  pkgCache::PkgIterator pIt = (*apt_cache_file)->FindPkg(arg);
-		  if(pIt.end())
-		    {
-                      std::cerr << ssprintf(_("No such package \"%s\""), arg.c_str())
-                                << std::endl;
-		      ok = false;
-		    }
-		  else
-		    packages.insert(pIt);
-		}
-	      else
-		{
-		  using namespace aptitude::matching;
-		  using cwidget::util::ref_ptr;
-
-		  ref_ptr<pattern> p = parse(arg);
-
-		  if(p.valid())
-		    {
-		      _error->DumpErrors();
-		    }
-		  else
-		    {
-		      std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > > matches;
-		      ref_ptr<search_cache> search_info(search_cache::create());
-		      search(p, search_info,
-			     matches,
-			     *apt_cache_file,
-			     *apt_package_records);
-
-		      for(std::vector<std::pair<pkgCache::PkgIterator, ref_ptr<structural_match> > >::const_iterator
-			    it = matches.begin(); it != matches.end(); ++it)
-			packages.insert(it->first);
-		    }
-		}
-	    }
+            pkgset_from_string(&packages, argv[i]);
 	}
 
-      if(!ok)
-	return 2;
+      if(_error->PendingError() == true)
+        return 100;
 
       if(packages.size() == 0)
-	{
-	  printf(_("No packages were selected by the given search pattern; nothing to do.\n"));
-	  return 0;
-	}
+        {
+          printf(_("No packages were selected by the given search pattern;"
+                   " nothing to do.\n"));
+          return 0;
+        }
 
       aptitude::apt::make_truncated_state_copy(out_dir, packages);
 
-      bool copy_ok = !_error->PendingError();
-
-      _error->DumpErrors();
-
-      return copy_ok ? 0 : 1;
+      return _error->PendingError() == true ? 100 : 0;
     }
   }
 }

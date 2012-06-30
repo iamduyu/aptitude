@@ -1,6 +1,7 @@
 // cmdline_util.h                                   -*-c++-*-
 //
 // Copyright (C) 2004, 2010 Daniel Burrows
+// Copyright (C) 2012 Daniel Hartwig
 //
 // This program is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License as
@@ -65,7 +66,8 @@ void cmdline_show_stringlist(strvector &items,
  */
 pkgCache::VerIterator cmdline_find_ver(pkgCache::PkgIterator pkg,
 				       cmdline_version_source source,
-				       string sourcestr);
+				       string sourcestr,
+                                       GlobalError::MsgType error_type = GlobalError::ERROR);
 
 /** Starts up the visual UI in preview mode, and exits with status 0
  *  when the UI shuts down.
@@ -93,10 +95,6 @@ bool cmdline_parse_source(const string &input,
 			  cmdline_version_source &source,
 			  string &package,
 			  string &sourcestr);
-
-bool cmdline_parse_task(std::string pattern,
-                        aptitude::apt::task &task,
-                        std::string &arch);
 
 /** Run the given download and post-download commands using the
  *  standard command-line UI.  Runs the preparation routine, the
@@ -220,6 +218,17 @@ namespace aptitude
       const cwidget::util::ref_ptr<aptitude::matching::pattern> &
       get_pattern() const { return pattern; }
     };
+
+    /** \brief Read user-tag application requests from a configuration tree.
+     *
+     *  \param user_tags The vector to which the applications will be added.
+     *  \param config_item Name of the configuration item tree to read from.
+     *  \param is_add \b true if these are add requests.
+     *  \param implicit \b true if these are implicit requests.
+     */
+    bool read_user_tag_applications(std::vector<tag_application> &user_tags,
+                                    const char *config_item,
+                                    const bool is_add, const bool implicit);
 
     /** \brief Apply explicit and implicit user-tags to packages.
      *
@@ -431,6 +440,39 @@ namespace aptitude
         return std::wstring();
       }
     };
+
+    bool pkgset_from_group(pkgset * const pkgset, string name,
+                           GlobalError::MsgType error_type = GlobalError::ERROR);
+
+    bool pkgset_from_task(pkgset * const pkgset, string pattern,
+                          GlobalError::MsgType error_type = GlobalError::ERROR);
+
+    /** \brief Fill a pkgset using the given regex to match package
+     *  names.
+     */
+    bool pkgset_from_regex(pkgset * const pkgset, string pattern,
+                           GlobalError::MsgType error_type = GlobalError::ERROR);
+
+    /** \brief Fill a pkgset using the given matching pattern.
+     *
+     *  This does not try any string as a search pattern, only those
+     *  which contain explicit search terms or regex characters.
+     */
+    bool pkgset_from_pattern(pkgset * const pkgset, string pattern,
+                             GlobalError::MsgType error_type = GlobalError::ERROR);
+
+    /** \brief Fill a pkgset using the given string.  If the
+     *  string names exactly a package then insert that package,
+     *  otherwise, if the string is a search pattern, add all matching
+     *  packages.
+     *
+     *  Based on cacheset.cc(PackageContainerInterface::FromString).
+     *  TODO: Should be replaced with cacheset functions once we have
+     *  become more compatible with them.
+     */
+    bool pkgset_from_string(pkgset * const pkgset, string str,
+                            GlobalError::MsgType error_type = GlobalError::ERROR,
+                            GlobalError::MsgType pattern_error_type = GlobalError::NOTICE);
   }
 }
 

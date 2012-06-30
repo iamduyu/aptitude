@@ -887,7 +887,7 @@ cmdline_resolve_deps(pkgset &to_install,
 		aptitude_solution sol = calculate_current_solution(true, term_metrics);
 
 		if(_error->PendingError())
-		  _error->DumpErrors();
+                  _error->DumpErrors();
 
 		if(sol != lastsol || redisplay)
 		  {
@@ -1111,7 +1111,8 @@ cmdline_resolve_deps(pkgset &to_install,
 	  }
 	catch(cwidget::util::Exception &e)
 	  {
-	    cout << _("*** ERROR: search aborted by fatal exception.  You may continue\n           searching, but some solutions will be unreachable.")
+            cout << _("*** ERROR: search aborted by fatal exception.  You may continue\n"
+                      "           searching, but some solutions will be unreachable.")
 		 << endl
 		 << endl
 		 << e.errmsg();

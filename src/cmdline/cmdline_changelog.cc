@@ -177,7 +177,6 @@ void set_name(temp::name n, temp::name *target)
       single_download_progress::failure(msg);
 
       _error->Error(_("Changelog download failed: %s"), msg.c_str());
-      _error->DumpErrors();
 
       out_changelog_file = temp::name();
       aptitude::cmdline::exit_main();
@@ -231,7 +230,7 @@ void set_name(temp::name n, temp::name *target)
                                                                    term_metrics);
 
     boost::shared_ptr<aptitude::apt::changelog_info>
-      info = aptitude::apt::changelog_info::create(srcpkg, ver, section, name);
+      info = aptitude::apt::changelog_info::guess(srcpkg, ver, section, name);
 
     get_changelog(info,
 		  callbacks,
@@ -288,29 +287,20 @@ void do_cmdline_changelog(const vector<string> &packages,
 	pager="more";
     }
 
-  string default_release = aptcfg->Find("APT::Default-Release");
-
+  _error->PushToStack();
   for(vector<string>::const_iterator i=packages.begin(); i!=packages.end(); ++i)
     {
       // We need to do this because some code (see above) checks
-      // PendingError to see whether everything is OK.  In addition,
-      // dumping errors means we get sensible error message output
-      // (this will be true even if the PendingError check is removed
-      // ... which it arguably should be).
-      _error->DumpErrors();
+      // PendingError to see whether everything is OK.
+      _error->MergeWithStack();
+      _error->PushToStack();
       string input=*i;
 
-      cmdline_version_source source;
+      cmdline_version_source source = cmdline_version_cand;
       string package, sourcestr;
 
       if(!cmdline_parse_source(input, source, package, sourcestr))
 	continue;
-
-      if(source == cmdline_version_cand && !default_release.empty())
-	{
-	  source    = cmdline_version_archive;
-	  sourcestr = default_release;
-	}
 
       pkgCache::PkgIterator pkg=(*apt_cache_file)->FindPkg(package);
 
@@ -326,54 +316,7 @@ void do_cmdline_changelog(const vector<string> &packages,
 
 	  if(!ver.end())
 	    {
-	      // Move this to a central location and just display an
-	      // apt error?
-	      bool in_debian=false;
-
-	      for(pkgCache::VerFileIterator vf=ver.FileList();
-		  !vf.end() && !in_debian; ++vf)
-		if(!vf.File().end() && vf.File().Origin()!=NULL &&
-		   strcmp(vf.File().Origin(), "Debian")==0)
-		  in_debian=true;
-
-	      if(!in_debian)
-		{
-		  _error->Error(_("%s is not an official Debian package, cannot display its changelog."), input.c_str());
-		  continue;
-		}
-	    }
-
-	  aptitude::cmdline::source_package p =
-	    aptitude::cmdline::find_source_package(package,
-						   source,
-						   sourcestr);
-
-	  // Use the source package if one was found; otherwise try to
-	  // use an explicit version.
-	  if(p.valid())
-	    {
-	      get_changelog_from_source(p.get_package(),
-					p.get_version(),
-					p.get_section(),
-					pkg.Name(),
-					filename,
-                                        term_metrics);
-	    }
-	  else
-	    {
-	      // Fall back to string-based guessing if the version is
-	      // invalid.
-	      if(ver.end())
-                {
-                  if(source == cmdline_version_version)
-                    filename = changelog_by_version(package, sourcestr, term_metrics);
-                  // If we don't even have a version string, leave
-                  // filename blank; we'll fail below.
-                }
-	      else
-		{
-		  get_changelog(ver, filename, term_metrics);
-		}
+              get_changelog(ver, filename, term_metrics);
 	    }
 	}
       else
@@ -392,33 +335,6 @@ void do_cmdline_changelog(const vector<string> &packages,
 					filename,
                                         term_metrics);
 	    }
-	  else
-	    {
-	      // We couldn't find a real or source package with the
-	      // given name and version.
-	      //
-	      // If the user didn't specify a version or selected a
-	      // candidate and we couldn't find anything, we have no
-	      // recourse.  But if they passed a version number, we
-	      // can fall back to just blindly guessing that the
-	      // version exists.
-
-	      switch(source)
-		{
-		case cmdline_version_cand:
-		  break;
-
-		case cmdline_version_curr_or_cand:
-		  break;
-
-		case cmdline_version_archive:
-		  break;
-
-		case cmdline_version_version:
-		  filename = changelog_by_version(package, sourcestr, term_metrics);
-		  break;
-		}
-	    }
 	}
 
       if(!filename.valid())
@@ -429,7 +345,7 @@ void do_cmdline_changelog(const vector<string> &packages,
           _error->Error(_("Couldn't run pager %s"), pager);
     }
 
-  _error->DumpErrors();
+  _error->MergeWithStack();
 }
 
 // TODO: fetch them all in one go.
@@ -437,16 +353,13 @@ int cmdline_changelog(int argc, char *argv[])
 {
   shared_ptr<terminal_io> term = create_terminal();
 
-  _error->DumpErrors();
+  consume_errors();
 
   OpProgress progress;
   apt_init(&progress, false);
 
   if(_error->PendingError())
-    {
-      _error->DumpErrors();
-      return -1;
-    }
+    return 100;
 
   vector<string> packages;
   for(int i=1; i<argc; ++i)
@@ -454,7 +367,5 @@ int cmdline_changelog(int argc, char *argv[])
 
   do_cmdline_changelog(packages, term);
 
-  _error->DumpErrors();
-
-  return 0;
+  return _error->PendingError() ? 100 : 0;
 }

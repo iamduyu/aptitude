@@ -102,7 +102,7 @@ namespace aptitude
  */
 bool cmdline_applyaction(cmdline_pkgaction_type action,
 			 pkgCache::PkgIterator pkg,
-			 std::set<pkgCache::PkgIterator> &seen_virtual_packages,
+			 pkgset &seen_virtual_packages,
 			 pkgset &to_install, pkgset &to_hold,
 			 pkgset &to_remove, pkgset &to_purge,
 			 int verbose,

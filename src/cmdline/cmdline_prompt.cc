@@ -475,7 +475,10 @@ static bool prompt_essential(const shared_ptr<terminal_metrics> &term_metrics)
 
   if(!ok)
     {
-      printf(_("WARNING: Performing this action will probably cause your system to break!\n         Do NOT continue unless you know EXACTLY what you are doing!\n"));
+      printf(_("WARNING: Performing this action will probably cause your"
+               " system to break!\n"
+               "         Do NOT continue unless you know EXACTLY what you"
+               " are doing!\n"));
 
       string untranslated_prompt = N_("I am aware that this is a very bad idea");
       string prompt = _(untranslated_prompt.c_str());
@@ -739,8 +742,8 @@ bool cmdline_show_preview(bool as_upgrade, pkgset &to_install,
 	printf(_("Need to get %sB of archives. "),
 	       SizeToStr(f.DebBytes).c_str());
     }
-  else
-    _error->DumpErrors();
+  // else
+  //   _error->DumpErrors();
 
   if((*apt_cache_file)->UsrSize() >=0)
     printf(_("After unpacking %sB will be used.\n"),

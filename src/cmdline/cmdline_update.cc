@@ -48,29 +48,27 @@ int cmdline_update(int argc, char *argv[], int verbose)
 {
   shared_ptr<terminal_io> term = create_terminal();
 
-  _error->DumpErrors();
+  consume_errors();
 
   if(argc!=1)
     {
-      fprintf(stderr, _("E: The update command takes no arguments\n"));
-      return -1;
+      _error->Error(_("The update command takes no arguments"));
+      return 100;
     }
 
   // Don't exit if there's an error: it probably means that there
   // was a problem loading the package lists, so go ahead and try to
   // download new ones.
-  _error->DumpErrors();
+  consume_errors();
 
   download_update_manager m;
   m.pre_autoclean_hook.connect(sigc::ptr_fun(print_autoclean_msg));
   int rval =
     (cmdline_do_download(&m, verbose, term, term, term, term)
-     == download_manager::success ? 0 : -1);
+     == download_manager::success ? 0 : 100);
 
   if(_error->PendingError())
-    rval = -1;
-
-  _error->DumpErrors();
+    rval = 100;
 
   return rval;
 }
