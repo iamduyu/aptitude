@@ -146,6 +146,9 @@ ii. to make the program more atomic and reliable when used
                  we don't need to instruct the user to add any
                  (Closes: #587775, #537393)
 
+  * [curses]: Do not group packages as tasks based on their name,
+              rather, use their section.  (Closes: #679602)
+
 - Internal changes:
 
   * Unified the way packages are selected from command line
