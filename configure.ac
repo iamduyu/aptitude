@@ -324,12 +324,12 @@ AM_CONDITIONAL([BUILD_LOCAL_GMOCK], [test x$BUILD_LOCAL_GMOCK = x1])
 
 ########################################################################
 
-WANT_HAVE_EPT=1
+WANT_HAVE_EPT=0
 AC_ARG_ENABLE(ept,
-	AS_HELP_STRING(--disable-ept, [disable use of ept library]),
-	[if test x$enableval = xno
+	AS_HELP_STRING(--enable-ept, [enable use of ept library]),
+	[if test x$enableval = xyes
 	 then
-	     WANT_HAVE_EPT=0
+	     WANT_HAVE_EPT=1
 	 fi])
 
 HAVE_EPT=0

@@ -167,7 +167,7 @@ ii. to make the program more atomic and reliable when used
 
   * Read tags from debtags database even when libept is
     disabled, but fall back to Packages files if the database
-    is not available.
+    is not available. (Closes: #501732)
 
 - Cosmetic and UI bugs:
 
@@ -180,7 +180,9 @@ ii. to make the program more atomic and reliable when used
 
 - Build system changes:
 
-  * Using libept is optional; use --disable-ept to disable it.
+  * Using libept is optional and disabled by default.  Use
+    --enable-ept with configure to turn it on.
+    (Closes: #504153)
 
 - Documentation:
 
