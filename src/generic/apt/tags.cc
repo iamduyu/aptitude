@@ -30,7 +30,7 @@
 #include <map>
 #include <utility>
 
-#include <ctype.h>
+#include <cctype>
 #include <string.h>
 
 #include <sigc++/functors/mem_fun.h>
@@ -42,71 +42,69 @@
 #include <cwidget/generic/util/eassert.h>
 
 using namespace std;
+using aptitude::apt::tag;
 
-tag::tag(std::string::const_iterator start,
-	 std::string::const_iterator finish)
+class tag_list
 {
-  while(start != finish && isspace(*start))
-    ++start;
-
-  while(start != finish && isspace(*(finish-1)))
-    --finish;
-
-  s.assign(start, finish);
-}
-
-tag::const_iterator &tag::const_iterator::operator++()
-{
-  start = finish;
-  while(start != limit && (*start)==':')
-    ++start;
-
-  if(start == limit)
-    finish = limit;
-  else
+  // The string to parse.
+  std::string s;
+public:
+  class const_iterator
+  {
+    std::string::const_iterator start, finish, limit;
+  public:
+    const_iterator(const std::string::const_iterator &_start,
+		   const std::string::const_iterator &_finish,
+		   const std::string::const_iterator &_limit)
+      :start(_start), finish(_finish), limit(_limit)
     {
-      finish = start+1;
-      while(finish != limit && (*finish) != ':')
-	++finish;
     }
 
-  return *this;
-}
-
-tag::const_iterator tag::begin() const
-{
-  tag::const_iterator rval(s.begin(), s.begin(), s.end());
-
-  ++rval;
-
-  return rval;
-}
-
-int tag::cmp(const tag &other) const
-{
-  const_iterator myT=begin(), otherT=other.begin();
-
-  while(myT != end() && otherT != other.end())
+    const_iterator operator=(const const_iterator &other)
     {
-      // ew, rather slow
-      if(lexicographical_compare(myT.start, myT.finish,
-				 otherT.start, otherT.finish))
-	return -1;
-      else if(lexicographical_compare(otherT.start, otherT.finish,
-				      myT.start, myT.finish))
-	return 1;
+      start = other.start;
+      finish = other.finish;
+      limit = other.limit;
 
-      ++myT;
-      ++otherT;
+      return *this;
     }
 
-  if(otherT != other.end())
-    return -1;
-  else if(myT != end())
-    return 1;
-  else
-    return 0;
-}
+    bool operator==(const const_iterator &other)
+    {
+      return other.start == start && other.finish == finish && other.limit == limit;
+    }
+
+    bool operator!=(const const_iterator &other)
+    {
+      return other.start != start || other.finish != finish || other.limit != limit;
+    }
+
+    const_iterator &operator++();
+
+    tag operator*()
+    {
+      return tag(start, finish);
+    }
+  };
+
+  tag_list(const char *start, const char *finish)
+    :s(start, finish)
+  {
+  }
+
+  tag_list &operator=(const tag_list &other)
+  {
+    s=other.s;
+
+    return *this;
+  }
+
+  const_iterator begin() const;
+  const_iterator end() const
+  {
+    return const_iterator(s.end(), s.end(), s.end());
+  }
+};
 
 tag_list::const_iterator &tag_list::const_iterator::operator++()
 {
@@ -116,6 +114,9 @@ tag_list::const_iterator &tag_list::const_iterator::operator++()
     ++start;
 
   if(start != limit) // Push past the comma.
+    ++start;
+
+  while(start != limit && isspace(*start))
     ++start;
 
   if(start == limit)
@@ -181,16 +182,16 @@ static void reset_tags()
   tagDB = NULL;
 }
 
-const set<tag> *get_tags(const pkgCache::PkgIterator &pkg)
+const std::set<tag> aptitude::apt::get_tags(const pkgCache::PkgIterator &pkg)
 {
   if(!apt_cache_file || !tagDB)
-    return NULL;
+    return std::set<tag>();
 
-  return tagDB + pkg->ID;
+  return tagDB[pkg->ID];
 }
 
 bool initialized_reset_signal;
-void load_tags(OpProgress &progress)
+void aptitude::apt::load_tags(OpProgress *progress)
 {
   eassert(apt_cache_file && apt_package_records);
 
@@ -214,22 +215,23 @@ void load_tags(OpProgress &progress)
 
   sort(verfiles.begin(), verfiles.end(), location_compare());
 
-  progress.OverallProgress(0, verfiles.size(), 1,
-			   _("Building tag database"));
+  if(progress != NULL)
+    progress->OverallProgress(0, verfiles.size(), 1,
+                             _("Building tag database"));
   size_t n=0;
   for(std::vector<loc_pair>::iterator i=verfiles.begin();
       i!=verfiles.end(); ++i)
     {
       insert_tags(i->first, i->second);
       ++n;
-      progress.OverallProgress(n, verfiles.size(), 1, _("Building tag database"));
+      if(progress != NULL)
+        progress->OverallProgress(n, verfiles.size(), 1,
+                                  _("Building tag database"));
     }
 
-  progress.Done();
+  if(progress != NULL)
+    progress->Done();
 }
-
-
-
 
 // TAG VOCABULARY FILE
 typedef map<string, string> facet_description_map;
@@ -285,9 +287,11 @@ static void init_vocabulary()
     }
 }
 
-string facet_description(const std::string &facet)
+std::string aptitude::apt::get_facet_long_description(const tag &t)
 {
   init_vocabulary();
+
+  const string facet(get_facet_name(t));
 
   facet_description_map::const_iterator found =
     facet_descriptions->find(facet);
@@ -298,17 +302,31 @@ string facet_description(const std::string &facet)
     return found->second;
 }
 
-string tag_description(const std::string &tag)
+// FIXME: This code to split long/short descriptions is repeated in
+// too many places.
+std::string aptitude::apt::get_facet_short_description(const tag &t)
+{
+  const string desc(get_facet_long_description(t));
+  return string(desc, 0, desc.find('\n'));
+}
+
+std::string aptitude::apt::get_tag_long_description(const tag &t)
 {
   init_vocabulary();
 
   tag_description_map::const_iterator found =
-    tag_descriptions->find(tag);
+    tag_descriptions->find(t);
 
   if(found == tag_descriptions->end())
     return string();
   else
     return found->second;
+}
+
+std::string aptitude::apt::get_tag_short_description(const tag &t)
+{
+  const string desc = get_tag_long_description(t);
+  return string(desc, 0, desc.find('\n'));
 }
 
 #else // HAVE_EPT
@@ -349,7 +367,7 @@ namespace aptitude
     }
 
     bool initialized_reset_signal;
-    void load_tags()
+    void load_tags(OpProgress *progress)
     {
       if(!initialized_reset_signal)
 	{
@@ -390,26 +408,6 @@ namespace aptitude
 	{
 	  return std::set<tag>();
 	}
-    }
-
-    std::string get_facet_name(const tag &t)
-    {
-      const std::string name = get_fullname(t);
-      std::size_t split_pos = name.find("::");
-      if(split_pos == std::string::npos)
-        return _("legacy");
-      else
-        return std::string(name, 0, split_pos);
-    }
-
-    std::string get_tag_name(const tag &t)
-    {
-      const std::string name = get_fullname(t);
-      std::size_t split_pos = name.find("::");
-      if(split_pos == std::string::npos)
-        return name;
-      else
-        return std::string(name, split_pos + 2);
     }
 
 #ifdef HAVE_EPT_DEBTAGS_VOCABULARY_FACET_DATA
@@ -483,3 +481,29 @@ namespace aptitude
 }
 
 #endif // HAVE_EPT
+
+namespace aptitude
+{
+  namespace apt
+  {
+    std::string get_facet_name(const tag &t)
+    {
+      const std::string name = get_fullname(t);
+      std::size_t split_pos = name.find("::");
+      if(split_pos == std::string::npos)
+        return _("legacy");
+      else
+        return std::string(name, 0, split_pos);
+    }
+
+    std::string get_tag_name(const tag &t)
+    {
+      const std::string name = get_fullname(t);
+      std::size_t split_pos = name.find("::");
+      if(split_pos == std::string::npos)
+        return name;
+      else
+        return std::string(name, split_pos + 2);
+    }
+  }
+}

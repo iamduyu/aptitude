@@ -177,7 +177,6 @@ ii. to make the program more atomic and reliable when used
 - Build system changes:
 
   * Using libept is optional; use --disable-ept to disable it.
-    Debtags are not properly supported without libept.
 
 - Documentation:
 

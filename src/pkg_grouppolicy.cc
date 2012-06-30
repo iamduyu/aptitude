@@ -1399,29 +1399,21 @@ public:
   virtual void add_package(const pkgCache::PkgIterator &pkg,
 			   pkg_subtree *root)
   {
-#ifdef HAVE_EPT
     using aptitude::apt::get_facet_name;
     using aptitude::apt::get_tag_long_description;
     using aptitude::apt::get_tag_name;
     using aptitude::apt::get_tag_short_description;
     using aptitude::apt::get_tags;
     using aptitude::apt::tag;
-#endif
 
-#ifdef HAVE_EPT
-    const set<tag> realTags(get_tags(pkg));
-    const set<tag> * const tags(&realTags);
-#else
-    const set<tag> * const tags(get_tags(pkg));
-#endif
+    const set<tag> tags(get_tags(pkg));
 
-    if(tags != NULL)
+    if(tags.empty() == true)
       return;
 
-    for(set<tag>::const_iterator ti = tags->begin();
-	ti != tags->end(); ++ti)
+    for(set<tag>::const_iterator ti = tags.begin();
+	ti != tags.end(); ++ti)
       {
-#ifdef HAVE_EPT
         const std::string thisfacet = get_facet_name(*ti);
 
 	// Don't create items for tags that aren't in our facet.
@@ -1432,23 +1424,6 @@ public:
 	// call it?
 	std::string tagname = get_tag_name(*ti);
 
-#else // HAVE_EPT
-	tag::const_iterator j = ti->begin();
-	if(j == ti->end())
-	  continue;
-
-	string thisfacet = *j;
-
-	if(thisfacet != match_facet)
-	  continue;
-
-	++j;
-	if(j == ti->end())
-	  continue;
-
-	string tagname = *j;
-#endif // HAVE_EPT
-
 	childmap::const_iterator found =
 	  children.find(tagname);
 
@@ -1457,13 +1432,8 @@ public:
 
 	if(found == children.end())
 	  {
-#ifdef HAVE_EPT
 	    const std::string desc = get_tag_long_description(*ti);
 	    const std::string shortdesc = get_tag_short_description(*ti);
-#else // HAVE_EPT
-	    string desc = tag_description(ti->str());
-	    string shortdesc(desc, 0, desc.find('\n'));
-#endif
 
 	    subtree = new pkg_subtree(swsprintf(L"%s - %s",
 						tagname.c_str(),
@@ -1538,20 +1508,13 @@ public:
   virtual void add_package(const pkgCache::PkgIterator &pkg,
 			   pkg_subtree *root)
   {
-#ifdef HAVE_EPT
     using aptitude::apt::get_tags;
     using aptitude::apt::tag;
-#endif
 
-#ifdef HAVE_EPT
-    const set<tag> realTags(get_tags(pkg));
-    const set<tag> * const tags(&realTags);
-#else
-    const set<tag> * const tags(get_tags(pkg));
-#endif
+    const set<tag> tags(get_tags(pkg));
 
     // Put all untagged, non-virtual packages into a separate list.
-    if((tags == NULL || tags->empty()) && !pkg.VersionList().end())
+    if(tags.empty() == true && !pkg.VersionList().end())
       {
 	if(untagged_tree == NULL)
 	  {
@@ -1569,13 +1532,12 @@ public:
 	untagged_policy->add_package(pkg, untagged_tree);
       }
 
-    if(tags == NULL)
+    if(tags.empty() == true)
       return;
 
-    for(set<tag>::const_iterator ti = tags->begin();
-	ti != tags->end(); ++ti)
+    for(set<tag>::const_iterator ti = tags.begin();
+	ti != tags.end(); ++ti)
       {
-#ifdef HAVE_EPT
         using aptitude::apt::get_facet_long_description;
         using aptitude::apt::get_facet_name;
         using aptitude::apt::get_facet_short_description;
@@ -1585,23 +1547,6 @@ public:
 
 	std::string thisfacet(get_facet_name(*ti));
 	std::string thistag(get_tag_name(*ti));
-#else // HAVE_EPT
-	tag::const_iterator j = ti->begin();
-
-	eassert(j != ti->end());
-
-	string thisfacet = *j;
-
-	if(j != ti->end())
-	  ++j;
-
-	string thistag;
-
-	if(j == ti->end())
-	  thistag = _("MISSING TAG");
-	else
-	  thistag = *j;
-#endif
 
 	facetmap::const_iterator facetfound =
 	  children.find(thisfacet);
@@ -1611,13 +1556,8 @@ public:
 
 	if(facetfound == children.end())
 	  {
-#ifdef HAVE_EPT
 	    string desc(get_facet_long_description(*ti));
 	    string shortdesc(get_facet_short_description(*ti));
-#else // HAVE_EPT
-	    string desc = facet_description(thisfacet);
-	    string shortdesc(desc, 0, desc.find('\n'));
-#endif
 
 	    if(!shortdesc.empty())
 	      tagtree = new pkg_subtree(swsprintf(L"%s - %s",
@@ -1649,13 +1589,8 @@ public:
 
 	if(tagfound == tagchildren->end())
 	  {
-#ifdef HAVE_EPT
 	    string desc(get_tag_long_description(*ti));
 	    string shortdesc(get_tag_short_description(*ti));
-#else // HAVE_EPT
-	    string desc = tag_description(ti->str());
-	    string shortdesc(desc, 0, desc.find('\n'));
-#endif
 
 	    if(!shortdesc.empty())
 	      subtree = new pkg_subtree(swsprintf(L"%s - %s",
