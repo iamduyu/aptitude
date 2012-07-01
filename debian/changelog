@@ -38,6 +38,8 @@ aptitude (0.6.9-1) unstable; urgency=low
   * Depend on libxapian instead.
   * Depend on newer version of libapt-pkg for architecture
     specification string support.
+  * debian/rules:
+    - Clean up extra translated files which po4a is leaving.
   * Translation updates:
     - Polish (Closes: #678153)
 
