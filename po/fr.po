@@ -4,22 +4,22 @@
 #
 # Martin Quinson <mquinson@ens-lyon.fr>, 2001.
 # Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>, 2004, 2005, 2006, 2007, 2008.
-# Christian Perrier <bubulle@debian.org>, 2004, 2006, 2008, 2009.
+# Christian Perrier <bubulle@debian.org>, 2004, 2006, 2008, 2009, 2012.
 # Jean-Baka Domelevo Entfellner <domelevo@gmail.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
 "POT-Creation-Date: 2012-06-29 17:45+0800\n"
-"PO-Revision-Date: 2012-06-03 12:25+0800\n"
-"Last-Translator: Jean-Baka Domelevo Entfellner <domelevo@gmail.com>\n"
+"PO-Revision-Date: 2012-07-04 20:36-0600\n"
+"Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.4\n"
 "X-Poedit-Language: French\n"
 "X-Poedit-Country: FRANCE\n"
 
@@ -2393,10 +2393,10 @@ msgid "Unable to locate package %s"
 msgstr "Paquet %s introuvable"
 
 #: src/cmdline/cmdline_util.cc:937
-#, fuzzy, c-format
+#, c-format
 #| msgid "Couldn't run pager %s"
 msgid "Couldn't find task '%s'"
-msgstr "Impossible d'exécuter l'outil de mise en page %s"
+msgstr "Impossible de trouve la tâche « %s »"
 
 #: src/cmdline/cmdline_util.cc:939
 #, c-format
@@ -2404,11 +2404,10 @@ msgid "Note: selecting the task \"%s: %s\" for installation\n"
 msgstr "Note : sélection de la tâche « %s : %s » pour installation\n"
 
 #: src/cmdline/cmdline_util.cc:966
-#, fuzzy, c-format
+#, c-format
 #| msgid "Couldn't find a changelog for %s"
 msgid "Couldn't find any package for pattern '%s'"
-msgstr ""
-"Impossible de trouver le journal des modifications (« changelog ») pour %s"
+msgstr "Impossible de trouver un paquet pour le motif « %s »"
 
 #: src/cmdline/cmdline_versions.cc:126
 #, c-format
@@ -2970,7 +2969,7 @@ msgstr "impossible de récupérer %s : %s"
 
 #: src/generic/apt/download_install_manager.cc:136
 msgid "Some files failed to download"
-msgstr ""
+msgstr "Échec du téléchargement de certains fichiers"
 
 #: src/generic/apt/download_install_manager.cc:147
 msgid ""
@@ -3009,6 +3008,8 @@ msgid ""
 "Some index files failed to download. They have been ignored, or old ones "
 "used instead."
 msgstr ""
+"Certains fichiers d'index n'ont pas pu être téléchargés. Ils ont été ignorés "
+"et de plus anciens seront utilisés à la place."
 
 #: src/generic/apt/download_update_manager.cc:178
 msgid "Couldn't rebuild package cache"
@@ -3132,11 +3133,13 @@ msgstr "[%s] %s\n"
 #: src/generic/apt/log.cc:145
 #, c-format
 msgid ""
-"===============================================================================\n"
+"=============================================================================="
+"=\n"
 "\n"
 "Log complete.\n"
 msgstr ""
-"===============================================================================\n"
+"=============================================================================="
+"=\n"
 "\n"
 "Enregistrement terminé.\n"
 
@@ -3351,7 +3354,7 @@ msgstr "Pas de description disponible pour %s."
 #: src/generic/apt/tasks.cc:123
 #, c-format
 msgid "Unhandled packages method in task %s: %s"
-msgstr ""
+msgstr "Méthode de paquets non gérée dans la tâche %s : %s"
 
 #: src/generic/apt/tasks.cc:484
 msgid "Reading task descriptions"
@@ -3531,14 +3534,13 @@ msgid "Reload the package cache"
 msgstr "Recharger le cache des paquets"
 
 #: src/gtk/aptitude.glade:118 src/gtk/aptitude.glade:2372 src/ui.cc:2391
-#, fuzzy
 #| msgid ""
 #| "Run 'su' to become root; this will restart the program, but your settings "
 #| "will be preserved"
 msgid "Restart the program as root; your settings will be preserved"
 msgstr ""
-"Utilisez la commande « su » pour devenir administrateur. Cela relancera le "
-"programme mais vos préférences seront conservées"
+"Veuillez lancer le programme avec les privilèges du superutilisateur ; vos "
+"préférences seront conservées"
 
 #: src/gtk/aptitude.glade:127 src/gtk/aptitude.glade:2382 src/ui.cc:2394
 msgid "Exit the program"
@@ -5865,6 +5867,7 @@ msgstr "Journaliser « %s » inconnu"
 #: src/main.cc:729
 msgid "Conflicting command line options --safe-resolver and --full-resolver"
 msgstr ""
+"Options de ligne de commande en conflit : --safe-resolver et --full-resolver"
 
 #: src/main.cc:765
 msgid "--show-package-names|never"
@@ -5921,7 +5924,6 @@ msgstr ""
 "packages-with-dep-versions »."
 
 #: src/main.cc:831
-#, fuzzy
 #| msgid ""
 #| "Only one of --auto-clean-on-startup, --clean-on-startup, -i, and -u may "
 #| "be specified\n"
@@ -5929,11 +5931,10 @@ msgid ""
 "Only one of --auto-clean-on-startup, --clean-on-startup, -i, and -u may be "
 "specified"
 msgstr ""
-"Seule une des options --auto-clean-on-startup, --clean-on-startup, -u et -i  "
-"peut être indiquée à la fois\n"
+"Seule une des options --auto-clean-on-startup, --clean-on-startup, -i et -u  "
+"peut être indiquée à la fois"
 
 #: src/main.cc:837
-#, fuzzy
 #| msgid ""
 #| "-u, -i, and --clean-on-startup may not be specified in command-line mode "
 #| "(eg, with 'install')"
@@ -5941,7 +5942,8 @@ msgid ""
 "-u, -i, --clean-on-startup, and --autoclean-on-startup may not be specified "
 "in command-line mode (eg, with 'install')"
 msgstr ""
-"-u, -i et --clean-on-startup ne peuvent pas être indiquées dans le mode "
+"-u, -i, --clean-on-startup et --autoclean-on-startup peuvent ne pas être "
+"indiquées dans le mode "
 "ligne de commande (par exemple avec « install »)"
 
 #: src/main.cc:969
