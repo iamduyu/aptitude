@@ -1,4 +1,4 @@
-aptitude (0.6.9-1) unstable; urgency=low
+aptitude (0.6.9-1~exp1) experimental; urgency=low
 
   * New upstream release.
     - See NEWS for full details.
