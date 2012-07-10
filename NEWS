@@ -155,6 +155,9 @@ ii. to make the program more atomic and reliable when used
   * [all]: Really silence errors when debtags is not installed
            (Closes: #681021)
 
+  * [curses]: Use dpkg package names when calling dpkg
+              (Closes: #680333)
+
 - Internal changes:
 
   * Unified the way packages are selected from command line
