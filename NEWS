@@ -152,6 +152,9 @@ ii. to make the program more atomic and reliable when used
   * [curses]: Do not group packages as tasks based on their name,
               rather, use their section.  (Closes: #679602)
 
+  * [all]: Really silence errors when debtags is not installed
+           (Closes: #681021)
+
 - Internal changes:
 
   * Unified the way packages are selected from command line

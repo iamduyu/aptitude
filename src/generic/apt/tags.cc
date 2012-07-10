@@ -200,7 +200,9 @@ const std::set<tag> aptitude::apt::get_tags(const pkgCache::PkgIterator &pkg)
 static bool read_debtags_package_tags(OpProgress *progress,
                                       const std::string &filename)
 {
+  _error->PushToStack();
   FileFd F(filename, FileFd::ReadOnly);
+  _error->RevertToStack();
 
   if(!F.IsOpen())
     {
@@ -320,8 +322,10 @@ static void init_vocabulary()
   facet_descriptions = new facet_description_map;
   tag_descriptions = new tag_description_map;
 
+  _error->PushToStack();
   FileFd F(aptcfg->FindFile("DebTags::Vocabulary", "/var/lib/debtags/vocabulary"),
 	   FileFd::ReadOnly);
+  _error->RevertToStack();
 
   if(!F.IsOpen())
     {
