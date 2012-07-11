@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-30 22:50+0800\n"
+"POT-Creation-Date: 2012-07-11 12:15+0800\n"
 "PO-Revision-Date: 2012-06-03 13:17+0800\n"
 "Last-Translator: Tshewang Norbu <bumthap2006@hotmail.com>\n"
 "Language-Team: Dzongkha <pgeyleg@dit.gov.bt>\n"
@@ -1168,7 +1168,7 @@ msgid "No packages to show -- enter the package names on the line after 'i'.\n"
 msgstr "ཐུམ་སྒྲིལ་ཚུ་སྟོན་ནི་མེད --  'i' གི་ཤུལ་ལས་གྲལ་ཐིག་གུར་ཐུམ་སྒྲིལ་ཚུ་གི་མིང་ཐོབཀད་འབད།\n"
 
 #: src/cmdline/cmdline_prompt.cc:780 src/cmdline/cmdline_prompt.cc:795
-#: src/pkg_item.cc:410 src/ui.cc:1219
+#: src/pkg_item.cc:411 src/ui.cc:1219
 msgid "Press Return to continue."
 msgstr "འཕྲོ་མཐུད་ནིའི་དོན་ལུ་ སལར་ལལོག་ལུ་ཨེབ་གཏང་འབད།"
 
@@ -2847,6 +2847,17 @@ msgstr ""
 msgid "Couldn't rebuild package cache"
 msgstr "ཐུམ་སྒྲིལ་འདྲ་མཛོད་སླར་བཟོ་བརྩིགས་འབད་མ་ཚུགས།"
 
+#: src/generic/apt/dpkg.cc:102
+#, fuzzy, c-format
+#| msgid "Couldn't find a changelog for %s"
+msgid "Couldn't chroot into %s for %s"
+msgstr "%s གི་དོན་ལུ་ བསྒྱུར་བཅོས་དྲན་དེབ་ཐོབ་མ་ཚུགས།"
+
+#: src/generic/apt/dpkg.cc:124
+#, c-format
+msgid "Waited for %s but it wasn't there"
+msgstr ""
+
 #: src/generic/apt/dump_packages.cc:539 src/generic/apt/dump_packages.cc:629
 #, fuzzy, c-format
 msgid "Unable to stat %s."
@@ -3159,26 +3170,26 @@ msgstr ""
 msgid "Failed to parse the cost settings string: %s"
 msgstr "དཔེ་གཞི་%s་དེ་མིང་དཔྱད་འབད་མ་ཚུགས།"
 
-#: src/generic/apt/tags.cc:218 src/generic/apt/tags.cc:226
-#: src/generic/apt/tags.cc:289 src/generic/apt/tags.cc:298
+#: src/generic/apt/tags.cc:220 src/generic/apt/tags.cc:228
+#: src/generic/apt/tags.cc:291 src/generic/apt/tags.cc:300
 msgid "Building tag database"
 msgstr "ངོ་རྟགས་གནད་སྡུད་གཞི་རྟེན་བཟོ་བརྩིགས་འབད་དོ།"
 
-#: src/generic/apt/tags.cc:486 src/generic/apt/tags.cc:501
-#: src/generic/apt/tags.cc:520 src/generic/apt/tags.cc:535
+#: src/generic/apt/tags.cc:490 src/generic/apt/tags.cc:505
+#: src/generic/apt/tags.cc:524 src/generic/apt/tags.cc:539
 #, fuzzy
 #| msgid "Not Installed"
 msgid "No tag descriptions are available."
 msgstr "གཞི་བཙུགས་མ་འབད་བས།"
 
-#: src/generic/apt/tags.cc:492 src/generic/apt/tags.cc:507
-#: src/generic/apt/tags.cc:526 src/generic/apt/tags.cc:541
+#: src/generic/apt/tags.cc:496 src/generic/apt/tags.cc:511
+#: src/generic/apt/tags.cc:530 src/generic/apt/tags.cc:545
 #, fuzzy, c-format
 #| msgid "Not Installed"
 msgid "No description available for %s."
 msgstr "གཞི་བཙུགས་མ་འབད་བས།"
 
-#: src/generic/apt/tags.cc:563
+#: src/generic/apt/tags.cc:567
 msgid "legacy"
 msgstr ""
 
@@ -6652,7 +6663,7 @@ msgstr "%sདེ་ལུ་བརྟེན་མི་ཐུམ་སྒྲི�
 msgid "Versions of %s"
 msgstr "ཐོན་རིམ་ཚུ།"
 
-#: src/pkg_item.cc:87
+#: src/pkg_item.cc:88
 #, c-format
 msgid ""
 "%s is an essential package!%n%nAre you sure you want to remove it?%nType "
@@ -6661,12 +6672,12 @@ msgstr ""
 "%sདེེ་ཉེ་བར་མཁོ་བའི་ཐུམོ་སྒྲིལ་ཨིན! %n%n ཁྱོད་ཀྱིས་འདི་རྩ་བསྐྲད་གཏང་ནིི་ཨིན་ཟེར་མི་དེ་ངེས་ཏིག་ཨིན་ན? %n "
 "ཁྱོད་ཨིན་པ་ཅིན་ '%s' དེ་ཡིག་དཔར་རྐྱབས།"
 
-#: src/pkg_item.cc:372 src/pkg_ver_item.cc:748
+#: src/pkg_item.cc:373 src/pkg_ver_item.cc:748
 #, c-format
 msgid "Reporting a bug in %s:\n"
 msgstr "%sནང་ལུ་རྐྱེན་སྙན་ཞུ་འབད་དོ:\n"
 
-#: src/pkg_item.cc:392
+#: src/pkg_item.cc:393
 msgid ""
 "You are not root and I cannot find any way to become root.  To reconfigure "
 "this package, install the menu package, the login package, or run aptitude "
@@ -6676,12 +6687,12 @@ msgstr ""
 "སྒྲིག་འབད་ནིའི་དོན་ལུ་ དཀར་ཆག་ཐུམ་སྒརིལ་དང་ ནང་བསྐྱོད་ཐུམ་སྒྲིལ་གཞི་བཙུགས་འབད་ནི་དང་ ཡང་ན་ གོམས་"
 "འདྲིས་དེ་རྩ་བ་སྦེ་གཡོག་བཀོལ།"
 
-#: src/pkg_item.cc:400
+#: src/pkg_item.cc:401
 #, c-format
 msgid "Reconfiguring %s\n"
 msgstr "%sསླར་རིམ་སྒྲིག་འབད་དོ།\n"
 
-#: src/pkg_item.cc:427 src/pkg_view.cc:673
+#: src/pkg_item.cc:428 src/pkg_view.cc:673
 msgid "Hierarchy Editor"
 msgstr "སྡེ་རིམ་ཞུན་དག་པ།"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-30 22:50+0800\n"
+"POT-Creation-Date: 2012-07-11 12:15+0800\n"
 "PO-Revision-Date: 2012-05-23 11:46+0800\n"
 "Last-Translator: Martin Bagge <brother@bsnet.se>\n"
 "Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
@@ -1260,7 +1260,7 @@ msgid "No packages to show -- enter the package names on the line after 'i'.\n"
 msgstr "Inga paket att visa -- ange paketnamnen på raden efter \"i\".\n"
 
 #: src/cmdline/cmdline_prompt.cc:780 src/cmdline/cmdline_prompt.cc:795
-#: src/pkg_item.cc:410 src/ui.cc:1219
+#: src/pkg_item.cc:411 src/ui.cc:1219
 msgid "Press Return to continue."
 msgstr "Tryck på Return för att fortsätta."
 
@@ -2915,6 +2915,17 @@ msgstr ""
 msgid "Couldn't rebuild package cache"
 msgstr "Kunde inte bygga om paketcachen"
 
+#: src/generic/apt/dpkg.cc:102
+#, fuzzy, c-format
+#| msgid "Couldn't find a changelog for %s"
+msgid "Couldn't chroot into %s for %s"
+msgstr "Kunde inte hitta ändringsloggen för %s"
+
+#: src/generic/apt/dpkg.cc:124
+#, c-format
+msgid "Waited for %s but it wasn't there"
+msgstr ""
+
 #: src/generic/apt/dump_packages.cc:539 src/generic/apt/dump_packages.cc:629
 #, c-format
 msgid "Unable to stat %s."
@@ -3219,24 +3230,24 @@ msgstr ""
 msgid "Failed to parse the cost settings string: %s"
 msgstr "Kunde inte tolka mönstret %s"
 
-#: src/generic/apt/tags.cc:218 src/generic/apt/tags.cc:226
-#: src/generic/apt/tags.cc:289 src/generic/apt/tags.cc:298
+#: src/generic/apt/tags.cc:220 src/generic/apt/tags.cc:228
+#: src/generic/apt/tags.cc:291 src/generic/apt/tags.cc:300
 msgid "Building tag database"
 msgstr "Bygger taggdatabas"
 
-#: src/generic/apt/tags.cc:486 src/generic/apt/tags.cc:501
-#: src/generic/apt/tags.cc:520 src/generic/apt/tags.cc:535
+#: src/generic/apt/tags.cc:490 src/generic/apt/tags.cc:505
+#: src/generic/apt/tags.cc:524 src/generic/apt/tags.cc:539
 #, fuzzy
 msgid "No tag descriptions are available."
 msgstr "Inte installerat"
 
-#: src/generic/apt/tags.cc:492 src/generic/apt/tags.cc:507
-#: src/generic/apt/tags.cc:526 src/generic/apt/tags.cc:541
+#: src/generic/apt/tags.cc:496 src/generic/apt/tags.cc:511
+#: src/generic/apt/tags.cc:530 src/generic/apt/tags.cc:545
 #, fuzzy, c-format
 msgid "No description available for %s."
 msgstr "Inte installerat"
 
-#: src/generic/apt/tags.cc:563
+#: src/generic/apt/tags.cc:567
 msgid "legacy"
 msgstr ""
 
@@ -6442,7 +6453,7 @@ msgstr "Paket som är beroende av %s"
 msgid "Versions of %s"
 msgstr "Versioner för %s"
 
-#: src/pkg_item.cc:87
+#: src/pkg_item.cc:88
 #, c-format
 msgid ""
 "%s is an essential package!%n%nAre you sure you want to remove it?%nType "
@@ -6451,12 +6462,12 @@ msgstr ""
 "%s är ett systemkritiskt paket!%n%nÄr du säker att du vill ta bort det?"
 "%nSkriv in \"%s\" om du är säker."
 
-#: src/pkg_item.cc:372 src/pkg_ver_item.cc:748
+#: src/pkg_item.cc:373 src/pkg_ver_item.cc:748
 #, c-format
 msgid "Reporting a bug in %s:\n"
 msgstr "Rapporterar ett fel i %s:\n"
 
-#: src/pkg_item.cc:392
+#: src/pkg_item.cc:393
 msgid ""
 "You are not root and I cannot find any way to become root.  To reconfigure "
 "this package, install the menu package, the login package, or run aptitude "
@@ -6466,12 +6477,12 @@ msgstr ""
 "konfigurera om detta paket, installera paketen \"menu\" och \"login\" eller "
 "kör aptitude som root."
 
-#: src/pkg_item.cc:400
+#: src/pkg_item.cc:401
 #, c-format
 msgid "Reconfiguring %s\n"
 msgstr "Konfigurerar om %s\n"
 
-#: src/pkg_item.cc:427 src/pkg_view.cc:673
+#: src/pkg_item.cc:428 src/pkg_view.cc:673
 msgid "Hierarchy Editor"
 msgstr "Hierarkiredigerare"
 

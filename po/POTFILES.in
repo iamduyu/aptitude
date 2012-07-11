@@ -127,6 +127,8 @@ src/generic/apt/download_signal_log.cc
 src/generic/apt/download_signal_log.h
 src/generic/apt/download_update_manager.cc
 src/generic/apt/download_update_manager.h
+src/generic/apt/dpkg.cc
+src/generic/apt/dpkg.h
 src/generic/apt/dump_packages.cc
 src/generic/apt/dump_packages.h
 src/generic/apt/globals.cc

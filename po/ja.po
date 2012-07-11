@@ -186,7 +186,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-30 22:50+0800\n"
+"POT-Creation-Date: 2012-07-11 12:15+0800\n"
 "PO-Revision-Date: 2012-06-03 12:26+0800\n"
 "Last-Translator: Kenshi Muto <kmuto@debian.org>\n"
 "Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
@@ -1434,7 +1434,7 @@ msgstr ""
 "い。\n"
 
 #: src/cmdline/cmdline_prompt.cc:780 src/cmdline/cmdline_prompt.cc:795
-#: src/pkg_item.cc:410 src/ui.cc:1219
+#: src/pkg_item.cc:411 src/ui.cc:1219
 msgid "Press Return to continue."
 msgstr "先に進むには Return を押してください。"
 
@@ -3132,6 +3132,17 @@ msgstr ""
 msgid "Couldn't rebuild package cache"
 msgstr "パッケージキャッシュを再構築できませんでした"
 
+#: src/generic/apt/dpkg.cc:102
+#, fuzzy, c-format
+#| msgid "Couldn't find a changelog for %s"
+msgid "Couldn't chroot into %s for %s"
+msgstr "%s の変更履歴が見つかりません"
+
+#: src/generic/apt/dpkg.cc:124
+#, c-format
+msgid "Waited for %s but it wasn't there"
+msgstr ""
+
 #: src/generic/apt/dump_packages.cc:539 src/generic/apt/dump_packages.cc:629
 #, c-format
 msgid "Unable to stat %s."
@@ -3462,24 +3473,24 @@ msgstr ""
 msgid "Failed to parse the cost settings string: %s"
 msgstr "変更履歴のダウンロードに失敗しました: %s"
 
-#: src/generic/apt/tags.cc:218 src/generic/apt/tags.cc:226
-#: src/generic/apt/tags.cc:289 src/generic/apt/tags.cc:298
+#: src/generic/apt/tags.cc:220 src/generic/apt/tags.cc:228
+#: src/generic/apt/tags.cc:291 src/generic/apt/tags.cc:300
 msgid "Building tag database"
 msgstr "タグのデータベースを構築しています"
 
-#: src/generic/apt/tags.cc:486 src/generic/apt/tags.cc:501
-#: src/generic/apt/tags.cc:520 src/generic/apt/tags.cc:535
+#: src/generic/apt/tags.cc:490 src/generic/apt/tags.cc:505
+#: src/generic/apt/tags.cc:524 src/generic/apt/tags.cc:539
 #, fuzzy
 msgid "No tag descriptions are available."
 msgstr "利用可能な更新はありません"
 
-#: src/generic/apt/tags.cc:492 src/generic/apt/tags.cc:507
-#: src/generic/apt/tags.cc:526 src/generic/apt/tags.cc:541
+#: src/generic/apt/tags.cc:496 src/generic/apt/tags.cc:511
+#: src/generic/apt/tags.cc:530 src/generic/apt/tags.cc:545
 #, fuzzy, c-format
 msgid "No description available for %s."
 msgstr "利用可能な更新はありません"
 
-#: src/generic/apt/tags.cc:563
+#: src/generic/apt/tags.cc:567
 msgid "legacy"
 msgstr ""
 
@@ -6758,7 +6769,7 @@ msgstr "%s に依存しているパッケージ"
 msgid "Versions of %s"
 msgstr "%s のバージョン"
 
-#: src/pkg_item.cc:87
+#: src/pkg_item.cc:88
 #, c-format
 msgid ""
 "%s is an essential package!%n%nAre you sure you want to remove it?%nType "
@@ -6767,12 +6778,12 @@ msgstr ""
 "%sは必須パッケージです!%n%n本当に削除したいのですか?%n削除したい場合は '%s' "
 "と入力してください。"
 
-#: src/pkg_item.cc:372 src/pkg_ver_item.cc:748
+#: src/pkg_item.cc:373 src/pkg_ver_item.cc:748
 #, c-format
 msgid "Reporting a bug in %s:\n"
 msgstr "%s の以下のバグを報告しています:\n"
 
-#: src/pkg_item.cc:392
+#: src/pkg_item.cc:393
 msgid ""
 "You are not root and I cannot find any way to become root.  To reconfigure "
 "this package, install the menu package, the login package, or run aptitude "
@@ -6782,12 +6793,12 @@ msgstr ""
 "定し直すには、menu パッケージや login パッケージをインストールするか、"
 "aptitude を root で起動してください。"
 
-#: src/pkg_item.cc:400
+#: src/pkg_item.cc:401
 #, c-format
 msgid "Reconfiguring %s\n"
 msgstr "%s を再設定しています\n"
 
-#: src/pkg_item.cc:427 src/pkg_view.cc:673
+#: src/pkg_item.cc:428 src/pkg_view.cc:673
 msgid "Hierarchy Editor"
 msgstr "階層エディタ"
 
