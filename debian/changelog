@@ -1,3 +1,14 @@
+aptitude (0.6.9.1-1) experimental; urgency=low
+
+  * Really silence errors when debtags is not installed
+    (Closes: #681021)
+  * Use dpkg package names when calling dpkg
+    (Closes: #680333)
+  * Translation updates:
+    - French (Closes: #680040)
+
+ -- Daniel Hartwig <mandyke@gmail.com>  Thu, 12 Jul 2012 11:00:18 +0800
+
 aptitude (0.6.9-1~exp1) experimental; urgency=low
 
   * New upstream release.
