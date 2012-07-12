@@ -1,3 +1,18 @@
+[7/12/2012]
+Version 0.6.9.1
+
+- Minor bugs:
+
+  * [all]: Really silence errors when debtags is not installed
+           (Closes: #681021)
+
+  * [curses]: Use dpkg package names when calling dpkg
+              (Closes: #680333)
+
+- Translation updates:
+
+  * French (Closes: #680040)
+
 [6/8/2012]
 Version 0.6.9                               "All in a days work"
 
@@ -152,12 +167,6 @@ ii. to make the program more atomic and reliable when used
   * [curses]: Do not group packages as tasks based on their name,
               rather, use their section.  (Closes: #679602)
 
-  * [all]: Really silence errors when debtags is not installed
-           (Closes: #681021)
-
-  * [curses]: Use dpkg package names when calling dpkg
-              (Closes: #680333)
-
 - Internal changes:
 
   * Unified the way packages are selected from command line
@@ -202,7 +211,6 @@ ii. to make the program more atomic and reliable when used
 
 - Translation updates:
 
-  * French (Closes: #680040)
   * Polish (Closes: #678153)
 
 [5/11/2012]
