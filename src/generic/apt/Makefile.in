@@ -84,8 +84,9 @@ am_libgeneric_apt_a_OBJECTS = aptcache.$(OBJEXT) apt.$(OBJEXT) \
 	desc_parse.$(OBJEXT) download_manager.$(OBJEXT) \
 	download_install_manager.$(OBJEXT) download_queue.$(OBJEXT) \
 	download_update_manager.$(OBJEXT) \
-	download_signal_log.$(OBJEXT) dump_packages.$(OBJEXT) \
-	globals.$(OBJEXT) infer_reason.$(OBJEXT) log.$(OBJEXT) \
+	download_signal_log.$(OBJEXT) dpkg.$(OBJEXT) \
+	dump_packages.$(OBJEXT) globals.$(OBJEXT) \
+	infer_reason.$(OBJEXT) log.$(OBJEXT) \
 	parse_dpkg_status.$(OBJEXT) pkg_acqfile.$(OBJEXT) \
 	pkg_changelog.$(OBJEXT) pkg_hier.$(OBJEXT) \
 	resolver_manager.$(OBJEXT) screenshot.$(OBJEXT) tags.$(OBJEXT) \
@@ -350,6 +351,8 @@ libgeneric_apt_a_SOURCES = \
 	download_update_manager.h   \
 	download_signal_log.cc \
 	download_signal_log.h  \
+	dpkg.cc             \
+	dpkg.h              \
 	dump_packages.cc    \
 	dump_packages.h     \
 	globals.cc          \
@@ -448,6 +451,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/download_queue.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/download_signal_log.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/download_update_manager.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dpkg.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dump_packages.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/globals.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/infer_reason.Po@am__quote@

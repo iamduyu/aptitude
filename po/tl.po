@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-30 22:50+0800\n"
+"POT-Creation-Date: 2012-07-12 10:42+0800\n"
 "PO-Revision-Date: 2012-05-23 11:47+0800\n"
 "Last-Translator: Ryan Escarez <rescarez@gmail.com>\n"
 "Language-Team: Tagalog <debian-tl@banwa.upm.edu.ph>\n"
@@ -1159,7 +1159,7 @@ msgid "No packages to show -- enter the package names on the line after 'i'.\n"
 msgstr "Walang paketeng ipapakita - ibigay ang mga pakete pagkatapos ng 'i'.\n"
 
 #: src/cmdline/cmdline_prompt.cc:780 src/cmdline/cmdline_prompt.cc:795
-#: src/pkg_item.cc:410 src/ui.cc:1219
+#: src/pkg_item.cc:411 src/ui.cc:1219
 msgid "Press Return to continue."
 msgstr "Pindutin ang Enter upang tumuloy."
 
@@ -2804,6 +2804,17 @@ msgstr ""
 msgid "Couldn't rebuild package cache"
 msgstr "Hindi mabasa ang pinagmulang listahan ng mga pakete"
 
+#: src/generic/apt/dpkg.cc:102
+#, fuzzy, c-format
+#| msgid "Couldn't find a changelog for %s"
+msgid "Couldn't chroot into %s for %s"
+msgstr "Hindi mahanap ang changelog ng %s"
+
+#: src/generic/apt/dpkg.cc:124
+#, c-format
+msgid "Waited for %s but it wasn't there"
+msgstr ""
+
 #: src/generic/apt/dump_packages.cc:539 src/generic/apt/dump_packages.cc:629
 #, fuzzy, c-format
 msgid "Unable to stat %s."
@@ -3108,24 +3119,24 @@ msgstr ""
 msgid "Failed to parse the cost settings string: %s"
 msgstr "Hindi ma-buksan ang %s para sulatan"
 
-#: src/generic/apt/tags.cc:218 src/generic/apt/tags.cc:226
-#: src/generic/apt/tags.cc:289 src/generic/apt/tags.cc:298
+#: src/generic/apt/tags.cc:220 src/generic/apt/tags.cc:228
+#: src/generic/apt/tags.cc:291 src/generic/apt/tags.cc:300
 msgid "Building tag database"
 msgstr ""
 
-#: src/generic/apt/tags.cc:486 src/generic/apt/tags.cc:501
-#: src/generic/apt/tags.cc:520 src/generic/apt/tags.cc:535
+#: src/generic/apt/tags.cc:490 src/generic/apt/tags.cc:505
+#: src/generic/apt/tags.cc:524 src/generic/apt/tags.cc:539
 #, fuzzy
 msgid "No tag descriptions are available."
 msgstr "hindi naka-instol"
 
-#: src/generic/apt/tags.cc:492 src/generic/apt/tags.cc:507
-#: src/generic/apt/tags.cc:526 src/generic/apt/tags.cc:541
+#: src/generic/apt/tags.cc:496 src/generic/apt/tags.cc:511
+#: src/generic/apt/tags.cc:530 src/generic/apt/tags.cc:545
 #, fuzzy, c-format
 msgid "No description available for %s."
 msgstr "hindi naka-instol"
 
-#: src/generic/apt/tags.cc:563
+#: src/generic/apt/tags.cc:567
 msgid "legacy"
 msgstr ""
 
@@ -6380,7 +6391,7 @@ msgstr "Pakete na naka-depende sa %s"
 msgid "Versions of %s"
 msgstr "Bersyon"
 
-#: src/pkg_item.cc:87
+#: src/pkg_item.cc:88
 #, fuzzy, c-format
 msgid ""
 "%s is an essential package!%n%nAre you sure you want to remove it?%nType "
@@ -6391,12 +6402,12 @@ msgstr ""
 "Ikaw ba'y sigurado na aalisin ito?\n"
 "Makinilyahin '%s' kung ukaw ay sigurado."
 
-#: src/pkg_item.cc:372 src/pkg_ver_item.cc:748
+#: src/pkg_item.cc:373 src/pkg_ver_item.cc:748
 #, c-format
 msgid "Reporting a bug in %s:\n"
 msgstr "Mag-ulat ng bug sa %s:\n"
 
-#: src/pkg_item.cc:392
+#: src/pkg_item.cc:393
 #, fuzzy
 msgid ""
 "You are not root and I cannot find any way to become root.  To reconfigure "
@@ -6408,12 +6419,12 @@ msgstr ""
 "instal ang menu pakete, ang login na pakete,\n"
 "o patakbuhin ang aptitude bilang root."
 
-#: src/pkg_item.cc:400
+#: src/pkg_item.cc:401
 #, c-format
 msgid "Reconfiguring %s\n"
 msgstr "Reconfiguring %s\n"
 
-#: src/pkg_item.cc:427 src/pkg_view.cc:673
+#: src/pkg_item.cc:428 src/pkg_view.cc:673
 #, fuzzy
 msgid "Hierarchy Editor"
 msgstr "Hierarchy editor"

@@ -4,22 +4,22 @@
 #
 # Martin Quinson <mquinson@ens-lyon.fr>, 2001.
 # Jean-Luc Coulon (f5ibh) <jean-luc.coulon@wanadoo.fr>, 2004, 2005, 2006, 2007, 2008.
-# Christian Perrier <bubulle@debian.org>, 2004, 2006, 2008, 2009.
+# Christian Perrier <bubulle@debian.org>, 2004, 2006, 2008, 2009, 2012.
 # Jean-Baka Domelevo Entfellner <domelevo@gmail.com>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: aptitude\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2012-06-30 22:50+0800\n"
-"PO-Revision-Date: 2012-06-03 12:25+0800\n"
-"Last-Translator: Jean-Baka Domelevo Entfellner <domelevo@gmail.com>\n"
+"POT-Creation-Date: 2012-07-12 10:42+0800\n"
+"PO-Revision-Date: 2012-07-04 20:36-0600\n"
+"Last-Translator: Christian Perrier <bubulle@debian.org>\n"
 "Language-Team: French <debian-l10n-french@lists.debian.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n>1;\n"
-"X-Generator: Lokalize 1.0\n"
+"X-Generator: Lokalize 1.4\n"
 "X-Poedit-Language: French\n"
 "X-Poedit-Country: FRANCE\n"
 
@@ -1283,7 +1283,7 @@ msgstr ""
 "Aucun paquet à afficher — indiquez les noms de paquets à la suite de « i ».\n"
 
 #: src/cmdline/cmdline_prompt.cc:780 src/cmdline/cmdline_prompt.cc:795
-#: src/pkg_item.cc:410 src/ui.cc:1219
+#: src/pkg_item.cc:411 src/ui.cc:1219
 msgid "Press Return to continue."
 msgstr "Appuyez sur Entrée pour continuer."
 
@@ -2393,10 +2393,9 @@ msgid "Unable to locate package %s"
 msgstr "Paquet %s introuvable"
 
 #: src/cmdline/cmdline_util.cc:937
-#, fuzzy, c-format
-#| msgid "Couldn't run pager %s"
+#, c-format
 msgid "Couldn't find task '%s'"
-msgstr "Impossible d'exécuter l'outil de mise en page %s"
+msgstr "Impossible de trouve la tâche « %s »"
 
 #: src/cmdline/cmdline_util.cc:939
 #, c-format
@@ -2404,11 +2403,9 @@ msgid "Note: selecting the task \"%s: %s\" for installation\n"
 msgstr "Note : sélection de la tâche « %s : %s » pour installation\n"
 
 #: src/cmdline/cmdline_util.cc:966
-#, fuzzy, c-format
-#| msgid "Couldn't find a changelog for %s"
+#, c-format
 msgid "Couldn't find any package for pattern '%s'"
-msgstr ""
-"Impossible de trouver le journal des modifications (« changelog ») pour %s"
+msgstr "Impossible de trouver un paquet pour le motif « %s »"
 
 #: src/cmdline/cmdline_versions.cc:126
 #, c-format
@@ -2970,7 +2967,7 @@ msgstr "impossible de récupérer %s : %s"
 
 #: src/generic/apt/download_install_manager.cc:136
 msgid "Some files failed to download"
-msgstr ""
+msgstr "Échec du téléchargement de certains fichiers"
 
 #: src/generic/apt/download_install_manager.cc:147
 msgid ""
@@ -3009,10 +3006,24 @@ msgid ""
 "Some index files failed to download. They have been ignored, or old ones "
 "used instead."
 msgstr ""
+"Certains fichiers d'index n'ont pas pu être téléchargés. Ils ont été ignorés "
+"et de plus anciens seront utilisés à la place."
 
 #: src/generic/apt/download_update_manager.cc:178
 msgid "Couldn't rebuild package cache"
 msgstr "Impossible de reconstruire le cache des paquets"
+
+#: src/generic/apt/dpkg.cc:102
+#, fuzzy, c-format
+#| msgid "Couldn't find a changelog for %s"
+msgid "Couldn't chroot into %s for %s"
+msgstr ""
+"Impossible de trouver le journal des modifications (« changelog ») pour %s"
+
+#: src/generic/apt/dpkg.cc:124
+#, c-format
+msgid "Waited for %s but it wasn't there"
+msgstr ""
 
 #: src/generic/apt/dump_packages.cc:539 src/generic/apt/dump_packages.cc:629
 #, c-format
@@ -3329,30 +3340,30 @@ msgstr ""
 msgid "Failed to parse the cost settings string: %s"
 msgstr "Analyse de la chaîne des paramètres de coût %s impossible"
 
-#: src/generic/apt/tags.cc:218 src/generic/apt/tags.cc:226
-#: src/generic/apt/tags.cc:289 src/generic/apt/tags.cc:298
+#: src/generic/apt/tags.cc:220 src/generic/apt/tags.cc:228
+#: src/generic/apt/tags.cc:291 src/generic/apt/tags.cc:300
 msgid "Building tag database"
 msgstr "Construction de la base de données des étiquettes"
 
-#: src/generic/apt/tags.cc:486 src/generic/apt/tags.cc:501
-#: src/generic/apt/tags.cc:520 src/generic/apt/tags.cc:535
+#: src/generic/apt/tags.cc:490 src/generic/apt/tags.cc:505
+#: src/generic/apt/tags.cc:524 src/generic/apt/tags.cc:539
 msgid "No tag descriptions are available."
 msgstr "Pas de description d'étiquette disponible."
 
-#: src/generic/apt/tags.cc:492 src/generic/apt/tags.cc:507
-#: src/generic/apt/tags.cc:526 src/generic/apt/tags.cc:541
+#: src/generic/apt/tags.cc:496 src/generic/apt/tags.cc:511
+#: src/generic/apt/tags.cc:530 src/generic/apt/tags.cc:545
 #, c-format
 msgid "No description available for %s."
 msgstr "Pas de description disponible pour %s."
 
-#: src/generic/apt/tags.cc:563
+#: src/generic/apt/tags.cc:567
 msgid "legacy"
 msgstr "ancien"
 
 #: src/generic/apt/tasks.cc:123
 #, c-format
 msgid "Unhandled packages method in task %s: %s"
-msgstr ""
+msgstr "Méthode de paquets non gérée dans la tâche %s : %s"
 
 #: src/generic/apt/tasks.cc:484
 msgid "Reading task descriptions"
@@ -3532,14 +3543,10 @@ msgid "Reload the package cache"
 msgstr "Recharger le cache des paquets"
 
 #: src/gtk/aptitude.glade:118 src/gtk/aptitude.glade:2372 src/ui.cc:2391
-#, fuzzy
-#| msgid ""
-#| "Run 'su' to become root; this will restart the program, but your settings "
-#| "will be preserved"
 msgid "Restart the program as root; your settings will be preserved"
 msgstr ""
-"Utilisez la commande « su » pour devenir administrateur. Cela relancera le "
-"programme mais vos préférences seront conservées"
+"Veuillez lancer le programme avec les privilèges du superutilisateur ; vos "
+"préférences seront conservées"
 
 #: src/gtk/aptitude.glade:127 src/gtk/aptitude.glade:2382 src/ui.cc:2394
 msgid "Exit the program"
@@ -5867,6 +5874,7 @@ msgstr "Journaliser « %s » inconnu"
 #: src/main.cc:729
 msgid "Conflicting command line options --safe-resolver and --full-resolver"
 msgstr ""
+"Options de ligne de commande en conflit : --safe-resolver et --full-resolver"
 
 #: src/main.cc:765
 msgid "--show-package-names|never"
@@ -5923,28 +5931,20 @@ msgstr ""
 "packages-with-dep-versions »."
 
 #: src/main.cc:831
-#, fuzzy
-#| msgid ""
-#| "Only one of --auto-clean-on-startup, --clean-on-startup, -i, and -u may "
-#| "be specified\n"
 msgid ""
 "Only one of --auto-clean-on-startup, --clean-on-startup, -i, and -u may be "
 "specified"
 msgstr ""
-"Seule une des options --auto-clean-on-startup, --clean-on-startup, -u et -i  "
-"peut être indiquée à la fois\n"
+"Seule une des options --auto-clean-on-startup, --clean-on-startup, -i et -u  "
+"peut être indiquée à la fois"
 
 #: src/main.cc:837
-#, fuzzy
-#| msgid ""
-#| "-u, -i, and --clean-on-startup may not be specified in command-line mode "
-#| "(eg, with 'install')"
 msgid ""
 "-u, -i, --clean-on-startup, and --autoclean-on-startup may not be specified "
 "in command-line mode (eg, with 'install')"
 msgstr ""
-"-u, -i et --clean-on-startup ne peuvent pas être indiquées dans le mode "
-"ligne de commande (par exemple avec « install »)"
+"-u, -i, --clean-on-startup et --autoclean-on-startup peuvent ne pas être "
+"indiquées dans le mode ligne de commande (par exemple avec « install »)"
 
 #: src/main.cc:969
 #, c-format
@@ -6602,7 +6602,7 @@ msgstr "Paquets dépendants de %s"
 msgid "Versions of %s"
 msgstr "Versions de %s"
 
-#: src/pkg_item.cc:87
+#: src/pkg_item.cc:88
 #, c-format
 msgid ""
 "%s is an essential package!%n%nAre you sure you want to remove it?%nType "
@@ -6611,12 +6611,12 @@ msgstr ""
 "%s est un paquet essentiel !%n%nÊtes-vous sûr de vouloir le supprimer ?%nSi "
 "oui, entrez « %s »."
 
-#: src/pkg_item.cc:372 src/pkg_ver_item.cc:748
+#: src/pkg_item.cc:373 src/pkg_ver_item.cc:748
 #, c-format
 msgid "Reporting a bug in %s:\n"
 msgstr "Rapporter un bogue dans %s :\n"
 
-#: src/pkg_item.cc:392
+#: src/pkg_item.cc:393
 msgid ""
 "You are not root and I cannot find any way to become root.  To reconfigure "
 "this package, install the menu package, the login package, or run aptitude "
@@ -6626,12 +6626,12 @@ msgstr ""
 "de le devenir. Pour reconfigurer ce paquet, installer le paquet menu et le "
 "paquet login, ou lancer aptitude en tant qu'administrateur."
 
-#: src/pkg_item.cc:400
+#: src/pkg_item.cc:401
 #, c-format
 msgid "Reconfiguring %s\n"
 msgstr "Reconfiguration de %s\n"
 
-#: src/pkg_item.cc:427 src/pkg_view.cc:673
+#: src/pkg_item.cc:428 src/pkg_view.cc:673
 msgid "Hierarchy Editor"
 msgstr "Éditeur de hiérarchie"
 
