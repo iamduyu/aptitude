@@ -1,3 +1,18 @@
+[7/12/2012]
+Version 0.6.9.1
+
+- Minor bugs:
+
+  * [all]: Really silence errors when debtags is not installed
+           (Closes: #681021)
+
+  * [curses]: Use dpkg package names when calling dpkg
+              (Closes: #680333)
+
+- Translation updates:
+
+  * French (Closes: #680040)
+
 [6/8/2012]
 Version 0.6.9                               "All in a days work"
 
