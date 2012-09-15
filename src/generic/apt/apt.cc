@@ -388,15 +388,6 @@ void apt_close_cache()
   else
     LOG_TRACE(logger, "No global apt cache file exists; none deleted.");
 
-  if(apt_source_list)
-    {
-      delete apt_source_list;
-      apt_source_list=NULL;
-      LOG_TRACE(logger, "Deleted the apt sources list.");
-    }
-  else
-    LOG_TRACE(logger, "No global apt sources list exists; none deleted.");
-
   LOG_DEBUG(logger, "Done closing the apt cache.");
 }
 
@@ -414,11 +405,6 @@ void apt_load_cache(OpProgress *progress_bar, bool do_initselections,
   LOG_INFO(logger, "Loading apt cache.");
 
   aptitudeCacheFile *new_file=new aptitudeCacheFile;
-
-  LOG_TRACE(logger, "Reading the sources list.");
-
-  apt_source_list=new pkgSourceList;
-  apt_source_list->ReadMainList();
 
   bool simulate = aptcfg->FindB(PACKAGE "::Simulate", false);
 

@@ -1,6 +1,7 @@
 // aptcache.h  -*-c++-*-
 //
 //  Copyright 1999-2005, 2007-2009, 2011 Daniel Burrows
+//  Copyright (C) 2012 Daniel Hartwig
 //
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -24,6 +25,7 @@
 
 #include <cwidget/generic/util/bool_accumulate.h>
 
+#include <apt-pkg/cachefile.h>
 #include <apt-pkg/depcache.h>
 #include <apt-pkg/pkgrecords.h>
 
@@ -568,31 +570,25 @@ public:
 
 class pkgPolicy;
 
-class aptitudeCacheFile
+class aptitudeCacheFile : public pkgCacheFile
 // Hack around problems in libapt.  Most of the code associated with this
 // class was copied directly from libapt and reindented..
 {
-  MMap *Map;
-
-  pkgCache *Cache;
-  aptitudeDepCache *DCache;
-
+protected:
   bool have_system_lock;
   // hm, used to make it look like the old stuff?
 public:
 
-  pkgPolicy *Policy;
-
   // We look pretty much exactly like a pointer to a dep cache
-  inline operator pkgCache &() {return *Cache;};
-  inline operator pkgCache *() {return Cache;};
-  inline operator aptitudeDepCache &() {return *DCache;};
-  inline operator aptitudeDepCache *() {return DCache;};
-  inline aptitudeDepCache *operator ->() {return DCache;};
-  inline aptitudeDepCache &operator *() {return *DCache;};
+  inline operator aptitudeDepCache &() {return *(aptitudeDepCache *)DCache;};
+  inline operator aptitudeDepCache *() {return (aptitudeDepCache *)DCache;};
+  inline aptitudeDepCache *operator ->() {return (aptitudeDepCache *)DCache;};
+  inline aptitudeDepCache &operator *() {return *(aptitudeDepCache *)DCache;};
   inline aptitudeDepCache::StateCache &operator [](pkgCache::PkgIterator const &I) {return (*DCache)[I];};
   inline unsigned char &operator [](pkgCache::DepIterator const &I) {return (*DCache)[I];};
 
+  bool BuildDepCache(OpProgress *Progress, bool do_initselections, bool WithLock=true,
+                     const char *status_fname=NULL);
   bool Open(OpProgress &Progress, bool do_initselections, bool WithLock=true,
 	    const char * status_fname=NULL);
   bool is_locked() {return have_system_lock;} // EWW (also not quite right)

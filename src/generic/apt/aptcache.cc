@@ -1,6 +1,7 @@
 // aptcache.cc
 //
 //  Copyright 1999-2009, 2011 Daniel Burrows
+//  Copyright (C) 2012 Daniel Hartwig
 //
 //  This program is free software; you can redistribute it and/or modify
 //  it under the terms of the GNU General Public License as published by
@@ -2139,63 +2140,61 @@ void aptitudeDepCache::apply_solution(const generic_solution<aptitude_universe> 
 }
 
 aptitudeCacheFile::aptitudeCacheFile()
-  :Map(NULL), Cache(NULL), DCache(NULL), have_system_lock(false), Policy(NULL)
+  : have_system_lock(false)
 {
 }
 
 aptitudeCacheFile::~aptitudeCacheFile()
 {
-  delete Cache;
-  delete Map;
-  ReleaseLock();
+  apt_source_list = NULL;
+}
 
-  delete DCache;
-  delete Policy;
+bool aptitudeCacheFile::BuildDepCache(OpProgress *Progress, bool do_initselections,
+                                      bool WithLock, const char *status_fname)
+{
+  if(DCache != NULL)
+    return true;
+
+  aptitudeDepCache *dep_cache = new aptitudeDepCache(Cache, Policy);
+  DCache = dep_cache;
+  if(_error->PendingError() == true)
+    return false;
+
+  dep_cache->Init(Progress, WithLock, do_initselections, status_fname);
+
+  return true;
 }
 
 bool aptitudeCacheFile::Open(OpProgress &Progress, bool do_initselections,
 			     bool WithLock, const char *status_fname)
 {
-  if(WithLock)
-    {
-      if(!_system->Lock())
-	return false;
-
-      have_system_lock=true;
-    }
-
   if(_error->PendingError())
     return false;
 
-  pkgSourceList List;
-  if(!List.ReadMainList())
-    return _error->Error(_("The list of sources could not be read."));
+  /* TODO: Old versions of aptitude ignored this setting which is used
+     by pkgCacheFile.  Force it to "true" to maintain this behaviour
+     but look at respecting it in the future.
+    
+     Bug: #687678 */
+  aptcfg->SetNoUser("pkgCacheFile::Generate", true);
 
-  // Read the caches:
-  bool Res=pkgMakeStatusCache(List, Progress, &Map, !WithLock);
-  Progress.Done();
-
-  if(!Res)
-    return _error->Error(_("The package lists or status file could not be parsed or opened."));
-
-  if(!_error->empty())
-    _error->Warning(_("You may want to update the package lists to correct these missing files"));
-
-  Cache=new pkgCache(Map);
-  if(_error->PendingError())
+  if(BuildCaches(&Progress, WithLock) == false)
     return false;
 
-  Policy=new aptitudePolicy(Cache);
-  if(_error->PendingError())
-    return false;
-  if(ReadPinFile(*Policy) == false || ReadPinDir(*Policy) == false)
+  /* Taking the lock is handled by BuildCaches, just record that this
+     was done. */
+  if(WithLock == true)
+    have_system_lock = true;
+
+  // TODO: Existing code still references this global variable.
+  apt_source_list = SrcList;
+
+  if(BuildPolicy(&Progress) == false)
     return false;
 
-  DCache=new aptitudeDepCache(Cache, Policy);
-  if(_error->PendingError())
+  if(BuildDepCache(&Progress, do_initselections, WithLock, status_fname) == false)
     return false;
 
-  DCache->Init(&Progress, WithLock, do_initselections, status_fname);
   Progress.Done();
 
   if(_error->PendingError())
