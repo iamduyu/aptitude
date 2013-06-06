@@ -686,6 +686,14 @@ namespace aptitude
 	      pkgRecords &records,
 	      bool debug = false);
 
+    cwidget::util::ref_ptr<structural_match>
+    get_match(const cwidget::util::ref_ptr<pattern> &p,
+              const pkgCache::GrpIterator &grp,
+              const cwidget::util::ref_ptr<search_cache> &search_info,
+              aptitudeDepCache &cache,
+              pkgRecords &records,
+              bool debug = false);
+
     /** \brief Retrieve all the packages matching the given pattern.
      *
      *  This may use Xapian or other indices to accelerate the search
@@ -733,6 +741,16 @@ namespace aptitude
                          bool debug = false,
                          const sigc::slot<void, aptitude::util::progress_info> &progress_slot =
                            sigc::slot<void, aptitude::util::progress_info>());
+
+    void search_groups(const cwidget::util::ref_ptr<pattern> &p,
+                       const cwidget::util::ref_ptr<search_cache> &search_info,
+                       std::vector<std::pair<pkgCache::GrpIterator,
+                                             cwidget::util::ref_ptr<structural_match> > > &matches,
+                       aptitudeDepCache &cache,
+                       pkgRecords &records,
+                       bool debug = false,
+                       const sigc::slot<void, aptitude::util::progress_info> &progress_slot =
+                         sigc::slot<void, aptitude::util::progress_info>());
   }
 }
 

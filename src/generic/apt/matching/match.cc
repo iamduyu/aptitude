@@ -1,6 +1,7 @@
 // match.cc
 //
 //   Copyright (C) 2008-2011 Daniel Burrows
+//   Copyright (C) 2013 Daniel Hartwig
 //
 //   This program is free software; you can redistribute it and/or
 //   modify it under the terms of the GNU General Public License as
@@ -3031,6 +3032,57 @@ namespace aptitude
 		       search_info, cache, records, debug);
     }
 
+    ref_ptr<structural_match>
+    get_match(const ref_ptr<pattern> &p,
+              const pkgCache::GrpIterator &grp,
+              const ref_ptr<search_cache> &search_info,
+              aptitudeDepCache &cache,
+              pkgRecords &records,
+              bool debug)
+    {
+      eassert(p.valid());
+      eassert(search_info.valid());
+
+      std::vector<matchable> initial_pool;
+      for(pkgCache::PkgIterator pkg = grp.PackageList();
+          pkg.end() == false;
+          pkg = grp.NextPkg(pkg))
+        {
+          if(pkg.VersionList().end() == true)
+            {
+              initial_pool.push_back(matchable(pkg));
+            }
+          else
+            {
+              for(pkgCache::VerIterator ver = pkg.VersionList();
+                  ver.end() == false;
+                  ++ver)
+                {
+                  initial_pool.push_back(matchable(pkg, ver));
+                }
+            }
+        }
+
+      std::sort(initial_pool.begin(), initial_pool.end());
+
+      stack st;
+      st.push_back(&initial_pool);
+
+      ref_ptr<search_cache::implementation> search_info_imp =
+        search_info.dyn_downcast<search_cache::implementation>();
+      eassert(search_info_imp.valid());
+
+      return evaluate_structural(structural_eval_any,
+                                 p,
+                                 st,
+                                 search_info_imp,
+                                 initial_pool,
+                                 cache,
+                                 records,
+                                 debug);
+    }
+
+
     void xapian_info::setup(const Xapian::Database &db,
 			    const ref_ptr<pattern> &p,
 			    bool debug)
@@ -3305,6 +3357,69 @@ namespace aptitude
 	{
 	  _error->Error("%s", e.get_msg().c_str());
 	}
+    }
+
+    void search_groups(const ref_ptr<pattern> &p,
+                       const ref_ptr<search_cache> &search_info,
+                       std::vector<std::pair<pkgCache::GrpIterator,
+                                             ref_ptr<structural_match> > > &matches,
+                       aptitudeDepCache &cache,
+                       pkgRecords &records,
+                       bool debug,
+                       const sigc::slot<void, progress_info> &progress_slot)
+    {
+      try
+        {
+          progress_slot(progress_info::pulse(_("Accessing index")));
+
+          eassert(p.valid());
+          eassert(search_info.valid());
+
+          const ref_ptr<search_cache::implementation> info =
+            search_info.dyn_downcast<search_cache::implementation>();
+          eassert(info.valid());
+
+          const std::string filter_msg = _("Filtering packages");
+          /* TODO: Can use Xapian here? */
+          if(1)
+            {
+              progress_info progress = progress_info::bar(0, filter_msg);
+              progress_slot(progress);
+
+              int i = 0;
+              for(pkgCache::GrpIterator grp = cache.GrpBegin();
+                  !grp.end(); ++grp)
+                {
+                  ref_ptr<structural_match> m(get_match(p,
+                                                        grp,
+                                                        info,
+                                                        cache,
+                                                        records,
+                                                        debug));
+
+                  if(m.valid())
+                    matches.push_back(std::make_pair(grp, m));
+
+                  ++i;
+                  progress.set_progress_fraction(((double)i) / ((double)cache.Head().GroupCount));
+                  progress_slot(progress);
+                }
+            }
+
+          progress_slot(progress_info::none());
+        }
+      catch(cwidget::util::Exception &e)
+        {
+          _error->Error("%s", e.errmsg().c_str());
+        }
+      catch(std::exception &e)
+        {
+          _error->Error("%s", e.what());
+        }
+      catch(Xapian::Error &e)
+        {
+          _error->Error("%s", e.get_msg().c_str());
+        }
     }
   }
 }
