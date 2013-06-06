@@ -31,6 +31,8 @@ libgeneric_apt_a_SOURCES = \
         aptitude_resolver_universe.h \
         apt_undo_group.cc   \
         apt_undo_group.h    \
+	cacheset.cc         \
+	cacheset.h          \
 	changelog_parse.cc  \
 	changelog_parse.h   \
         config_signal.cc    \
