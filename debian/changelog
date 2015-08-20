@@ -1,3 +1,11 @@
+aptitude (0.7.1~exp1-1~apt1.1~exp9) experimental; urgency=medium
+
+  * Rebuild current git master branch against apt 1.1~exp9, primarily for
+    testing purposes as with apt 1.1~exp*, too.
+    + Remove all patches as they were cherry-picked from master.
+
+ -- Axel Beckert <abe@debian.org>  Fri, 21 Aug 2015 22:43:52 +0200
+
 aptitude (0.7-1) unstable; urgency=medium
 
   [ Manuel A. Fernandez Montecelo ]
