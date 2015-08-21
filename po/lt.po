@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: aptitude_lt\n"
 "Report-Msgid-Bugs-To: aptitude@packages.debian.org\n"
-"POT-Creation-Date: 2015-07-31 22:38+0100\n"
+"POT-Creation-Date: 2015-08-18 14:34+0200\n"
 "PO-Revision-Date: 2012-06-03 12:27+0800\n"
 "Last-Translator: Darius Žitkevičius <skystis@gmail.com>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
@@ -1946,50 +1946,9 @@ msgstr "%s iconv nepavyko.\n"
 msgid "search: You must provide at least one search term\n"
 msgstr "paieška: Jūs turite įvesti bent vieną paieškos žodį\n"
 
-#: src/cmdline/cmdline_show_broken.cc:81
-#, c-format
-msgid "but %s is to be installed."
-msgstr "tačiau %s bus įdiegtas"
-
-#: src/cmdline/cmdline_show_broken.cc:84
-#, c-format
-msgid "but %s is installed and it is kept back."
-msgstr "tačiau %s įdiegtas ir jo atnaujinimas sulaikomas"
-
-#: src/cmdline/cmdline_show_broken.cc:87
-#, c-format
-msgid "but %s is installed."
-msgstr "tačiau %s yra įdiegtas."
-
-#: src/cmdline/cmdline_show_broken.cc:94
-#, c-format
-msgid "but it is not installable."
-msgstr "tačiau jis negali būti įdiegtas."
-
-#: src/cmdline/cmdline_show_broken.cc:96
-#, fuzzy, c-format
-msgid "but it is not going to be installed."
-msgstr "tačiau %s bus įdiegtas"
-
-#  FIXME: do something sensible here!
-#: src/cmdline/cmdline_show_broken.cc:101
-#, c-format
-msgid " which is a virtual package."
-msgstr " kuris yra virtualus paketas."
-
-#: src/cmdline/cmdline_show_broken.cc:104
-#, c-format
-msgid " or"
-msgstr " arba"
-
-#: src/cmdline/cmdline_show_broken.cc:127
-#, c-format
-msgid "The following packages have unmet dependencies:\n"
-msgstr "Šių paketų priklausomybės netenkinamos:\n"
-
 #: src/cmdline/cmdline_show.cc:197 src/cmdline/cmdline_show.cc:447
 #: src/cmdline/cmdline_versions.cc:207 src/gtk/resolver.cc:1192
-#: src/solution_fragment.cc:68
+#: src/solution_fragment.cc:64
 msgid "<NULL>"
 msgstr "<NULL>"
 
@@ -2182,11 +2141,11 @@ msgstr "Reikia"
 msgid "PreDepends"
 msgstr "Reikia prieš"
 
-#: src/cmdline/cmdline_show.cc:456 src/cmdline/cmdline_why.cc:297
+#: src/cmdline/cmdline_show.cc:456 src/cmdline/cmdline_why.cc:292
 msgid "Recommends"
 msgstr "Rekomenduoja"
 
-#: src/cmdline/cmdline_show.cc:458 src/cmdline/cmdline_why.cc:300
+#: src/cmdline/cmdline_show.cc:458 src/cmdline/cmdline_why.cc:295
 msgid "Suggests"
 msgstr "Siūlo"
 
@@ -2210,8 +2169,8 @@ msgstr "Nurašo"
 msgid "Enhances"
 msgstr ""
 
-#: src/cmdline/cmdline_show.cc:470 src/cmdline/cmdline_why.cc:228
-#: src/cmdline/cmdline_why.cc:1630 src/gtk/dependency_chains_tab.cc:205
+#: src/cmdline/cmdline_show.cc:470 src/cmdline/cmdline_why.cc:223
+#: src/cmdline/cmdline_why.cc:1624 src/gtk/dependency_chains_tab.cc:205
 msgid "Provides"
 msgstr "Pateikia"
 
@@ -2234,6 +2193,47 @@ msgstr "Nepavyko surasti paketą %s"
 #, c-format
 msgid "Unable to parse pattern %s"
 msgstr "Nepavyko interpretuoti derinio %s"
+
+#: src/cmdline/cmdline_show_broken.cc:81
+#, c-format
+msgid "but %s is to be installed."
+msgstr "tačiau %s bus įdiegtas"
+
+#: src/cmdline/cmdline_show_broken.cc:84
+#, c-format
+msgid "but %s is installed and it is kept back."
+msgstr "tačiau %s įdiegtas ir jo atnaujinimas sulaikomas"
+
+#: src/cmdline/cmdline_show_broken.cc:87
+#, c-format
+msgid "but %s is installed."
+msgstr "tačiau %s yra įdiegtas."
+
+#: src/cmdline/cmdline_show_broken.cc:94
+#, c-format
+msgid "but it is not installable."
+msgstr "tačiau jis negali būti įdiegtas."
+
+#: src/cmdline/cmdline_show_broken.cc:96
+#, fuzzy, c-format
+msgid "but it is not going to be installed."
+msgstr "tačiau %s bus įdiegtas"
+
+#  FIXME: do something sensible here!
+#: src/cmdline/cmdline_show_broken.cc:101
+#, c-format
+msgid " which is a virtual package."
+msgstr " kuris yra virtualus paketas."
+
+#: src/cmdline/cmdline_show_broken.cc:104
+#, c-format
+msgid " or"
+msgstr " arba"
+
+#: src/cmdline/cmdline_show_broken.cc:127
+#, c-format
+msgid "The following packages have unmet dependencies:\n"
+msgstr "Šių paketų priklausomybės netenkinamos:\n"
 
 #: src/cmdline/cmdline_simulate.cc:65
 #, c-format
@@ -2403,140 +2403,140 @@ msgstr ""
 msgid "versions: You must provide at least one package selector\n"
 msgstr "paieška: Jūs turite įvesti bent vieną paieškos žodį\n"
 
-#: src/cmdline/cmdline_why.cc:288
+#: src/cmdline/cmdline_why.cc:283
 msgid "dep_level"
 msgstr "dep_level"
 
-#: src/cmdline/cmdline_why.cc:294
+#: src/cmdline/cmdline_why.cc:289
 msgid "DependsOnly"
 msgstr "TikPriklauso"
 
-#: src/cmdline/cmdline_why.cc:308
+#: src/cmdline/cmdline_why.cc:303
 msgid "version_selection"
 msgstr "versijos_žymėjimas"
 
-#: src/cmdline/cmdline_why.cc:313
+#: src/cmdline/cmdline_why.cc:308
 msgid "Current"
 msgstr "Dabartinis"
 
-#: src/cmdline/cmdline_why.cc:316
+#: src/cmdline/cmdline_why.cc:311
 msgid "Candidate"
 msgstr "Kandidatas"
 
-#: src/cmdline/cmdline_why.cc:319 src/gtk/gui.cc:92 src/gtk/gui.cc:1418
+#: src/cmdline/cmdline_why.cc:314 src/gtk/gui.cc:92 src/gtk/gui.cc:1418
 msgid "Install"
 msgstr "Įdiegti"
 
-#: src/cmdline/cmdline_why.cc:322
+#: src/cmdline/cmdline_why.cc:317
 msgid "InstallNotCurrent"
 msgstr "DiegtiNeDabartinį"
 
-#: src/cmdline/cmdline_why.cc:330
+#: src/cmdline/cmdline_why.cc:325
 msgid "allow_choices"
 msgstr "leisti_pasirikti"
 
-#: src/cmdline/cmdline_why.cc:333
+#: src/cmdline/cmdline_why.cc:328
 msgid "true"
 msgstr "tesinga"
 
-#: src/cmdline/cmdline_why.cc:335
+#: src/cmdline/cmdline_why.cc:330
 msgid "false"
 msgstr "klaidinga"
 
-#: src/cmdline/cmdline_why.cc:379
+#: src/cmdline/cmdline_why.cc:374
 #, c-format
 msgid "Install(%s)"
 msgstr "Diegti(%s)"
 
-#: src/cmdline/cmdline_why.cc:381
+#: src/cmdline/cmdline_why.cc:376
 #, c-format
 msgid "Remove(%s)"
 msgstr "Šalinti(%s)"
 
-#: src/cmdline/cmdline_why.cc:383
+#: src/cmdline/cmdline_why.cc:378
 #, c-format
 msgid "Install(%s provides %s)"
 msgstr "Diegti(%s pateikia %s)"
 
-#: src/cmdline/cmdline_why.cc:387
+#: src/cmdline/cmdline_why.cc:382
 #, c-format
 msgid "Remove(%s provides %s)"
 msgstr "Šalinti(%s pateikia %s)"
 
-#: src/cmdline/cmdline_why.cc:1072
+#: src/cmdline/cmdline_why.cc:1067
 #, c-format
 msgid "    ++ Examining %F\n"
 msgstr "    ++ Tikrinama %F\n"
 
-#: src/cmdline/cmdline_why.cc:1080
+#: src/cmdline/cmdline_why.cc:1075
 msgid "    ++   --> skipping, not a conflict\n"
 msgstr "    ++   --> praleidžiama, nėra konfliktas\n"
 
-#: src/cmdline/cmdline_why.cc:1086
+#: src/cmdline/cmdline_why.cc:1081
 msgid "    ++   --> skipping conflict\n"
 msgstr "    ++   --> praleidžiama konfliktas\n"
 
-#: src/cmdline/cmdline_why.cc:1092
+#: src/cmdline/cmdline_why.cc:1087
 msgid "    ++   --> skipping, not relevant according to params\n"
 msgstr "    ++   --> praleidžiama, pagal parametrus nesvarbus\n"
 
-#: src/cmdline/cmdline_why.cc:1098
+#: src/cmdline/cmdline_why.cc:1093
 msgid "    ++   --> skipping, parent is not the selected version\n"
 msgstr "    ++   --> praleidžiama, tėvas nėra pažymėta versija\n"
 
-#: src/cmdline/cmdline_why.cc:1104
+#: src/cmdline/cmdline_why.cc:1099
 msgid "    ++   --> skipping, the dep is satisfied by the current version\n"
 msgstr ""
 "    ++   --> praleidžiama, priklausomybė tekžnkinama su dabartine versija\n"
 
-#: src/cmdline/cmdline_why.cc:1110
+#: src/cmdline/cmdline_why.cc:1105
 msgid "Skipping this solution, I've already seen it.\n"
 msgstr "Šis sprendimas praleidžiamas. Jis jau matytas.\n"
 
-#: src/cmdline/cmdline_why.cc:1116
+#: src/cmdline/cmdline_why.cc:1111
 msgid "    ++   --> skipping, version check failed\n"
 msgstr "    ++   --> praleidžiama, versijos patikrinimas nepavyko\n"
 
-#: src/cmdline/cmdline_why.cc:1122
+#: src/cmdline/cmdline_why.cc:1117
 msgid "    ++   --> ENQUEUING\n"
 msgstr ""
 
-#: src/cmdline/cmdline_why.cc:1128
+#: src/cmdline/cmdline_why.cc:1123
 #, c-format
 msgid "    ++   --> ENQUEUING %s Provides %s\n"
 msgstr ""
 
-#: src/cmdline/cmdline_why.cc:1136
+#: src/cmdline/cmdline_why.cc:1131
 #, c-format
 msgid "Starting search with parameters %ls\n"
 msgstr "Pradedama paieška su parametrais %ls\n"
 
-#: src/cmdline/cmdline_why.cc:1192
+#: src/cmdline/cmdline_why.cc:1187
 #, c-format
 msgid "Unable to find a reason to remove %s.\n"
 msgstr "Nepavyko rasti priežasties pašalinti %s.\n"
 
-#: src/cmdline/cmdline_why.cc:1194
+#: src/cmdline/cmdline_why.cc:1189
 #, c-format
 msgid "Unable to find a reason to install %s.\n"
 msgstr "Nepavyko rasti priežasties įdiegti %s.\n"
 
-#: src/cmdline/cmdline_why.cc:1233
+#: src/cmdline/cmdline_why.cc:1228
 #, fuzzy, c-format
 msgid "Packages requiring %s:"
 msgstr "Paketai, kuriems reikia %s"
 
-#: src/cmdline/cmdline_why.cc:1297 src/cmdline/cmdline_why.cc:1325
-#: src/cmdline/cmdline_why.cc:1389
+#: src/cmdline/cmdline_why.cc:1292 src/cmdline/cmdline_why.cc:1320
+#: src/cmdline/cmdline_why.cc:1384
 #, c-format
 msgid "No package named \"%s\" exists."
 msgstr "Nerandu paketo, pavadinimu „%s“."
 
-#: src/cmdline/cmdline_why.cc:1329
+#: src/cmdline/cmdline_why.cc:1324
 msgid "Unable to parse some match patterns."
 msgstr "Nepavyko interpretuoti kai kurių derinių."
 
-#: src/cmdline/cmdline_why.cc:1364
+#: src/cmdline/cmdline_why.cc:1359
 #, fuzzy, c-format
 msgid ""
 "%s: this command requires at least one argument (the package to query).\n"
@@ -2565,7 +2565,7 @@ msgstr "[KLAIDA]"
 msgid "UNSATISFIED"
 msgstr "NETINKAMAS"
 
-#: src/dep_item.cc:151 src/reason_fragment.cc:234
+#: src/dep_item.cc:151 src/reason_fragment.cc:241
 msgid "UNAVAILABLE"
 msgstr "NEEGZISTUOJA"
 
@@ -2651,6 +2651,71 @@ msgstr "[KLAIDA]"
 msgid "Attempt to start a download thread twice!"
 msgstr ""
 
+#. TRANSLATORS: Set this string to the name of a configuration
+#. file in $pkgdatadir/aptitude that overrides defaults for your
+#. language.  This is particularly intended for overriding entries
+#. in the Aptitude::Sections::Descriptions tree.
+#.
+#. For instance, Sections localized for the language .ww might be
+#. stored in a file named aptitude-defaults.ww, which would be
+#. indicated by translating "Localized defaults|" below to
+#. "aptitude-defaults.ww".  If you use this mechanism, you should
+#. also add your defaults file to pkgdata_DATA in Makefile.am.
+#: src/generic/apt/apt.cc:167
+msgid "Localized defaults|"
+msgstr ""
+
+#: src/generic/apt/apt.cc:240
+#, c-format
+msgid "%s is readable but not writable; unable to write configuration file."
+msgstr ""
+"%s galima skaityti, bet negalima į jį rašyti; negalima įrašyti "
+"konfigūracijos bylos."
+
+#: src/generic/apt/apt.cc:285
+#, c-format
+msgid "Unable to replace %s with new configuration file"
+msgstr "Negaliu pakeisti bylos %s nauja konfigūracijos byla"
+
+#: src/generic/apt/apt.cc:436
+msgid ""
+"Could not lock the cache file; this usually means that dpkg or another apt "
+"tool is already installing packages.  Opening in read-only mode; any changes "
+"you make to the states of packages will NOT be preserved!"
+msgstr ""
+"Nepavyko užrakinti krepšio bylos; dažniausiai tai reiškia, kad dpkg arba "
+"kitas apt įrankis jau diegia paketus.  Atidaroma tik skaitymui; bet kokie "
+"paketų būsenos pakeitimai NEBUS išsaugoti!"
+
+#: src/generic/apt/apt.cc:1230
+msgid "foreign"
+msgstr ""
+
+#: src/generic/apt/apt.cc:1232
+msgid "same"
+msgstr ""
+
+#: src/generic/apt/apt.cc:1235
+#, fuzzy
+msgid "allowed"
+msgstr "leisti_pasirikti"
+
+#: src/generic/apt/apt.cc:1324
+msgid "main"
+msgstr "pagrindiniai"
+
+#: src/generic/apt/apt.cc:1324
+msgid "contrib"
+msgstr ""
+
+#: src/generic/apt/apt.cc:1324
+msgid "non-free"
+msgstr ""
+
+#: src/generic/apt/apt.cc:1324
+msgid "non-US"
+msgstr ""
+
 #: src/generic/apt/aptcache.cc:271
 #, c-format
 msgid ""
@@ -2728,71 +2793,6 @@ msgstr ""
 #: src/generic/apt/aptcache.cc:2182
 msgid "You may want to update the package lists to correct these missing files"
 msgstr "Trūksta bylų, tikriausiai reikia atnaujinti paketų sąrašą"
-
-#. TRANSLATORS: Set this string to the name of a configuration
-#. file in $pkgdatadir/aptitude that overrides defaults for your
-#. language.  This is particularly intended for overriding entries
-#. in the Aptitude::Sections::Descriptions tree.
-#.
-#. For instance, Sections localized for the language .ww might be
-#. stored in a file named aptitude-defaults.ww, which would be
-#. indicated by translating "Localized defaults|" below to
-#. "aptitude-defaults.ww".  If you use this mechanism, you should
-#. also add your defaults file to pkgdata_DATA in Makefile.am.
-#: src/generic/apt/apt.cc:167
-msgid "Localized defaults|"
-msgstr ""
-
-#: src/generic/apt/apt.cc:240
-#, c-format
-msgid "%s is readable but not writable; unable to write configuration file."
-msgstr ""
-"%s galima skaityti, bet negalima į jį rašyti; negalima įrašyti "
-"konfigūracijos bylos."
-
-#: src/generic/apt/apt.cc:285
-#, c-format
-msgid "Unable to replace %s with new configuration file"
-msgstr "Negaliu pakeisti bylos %s nauja konfigūracijos byla"
-
-#: src/generic/apt/apt.cc:436
-msgid ""
-"Could not lock the cache file; this usually means that dpkg or another apt "
-"tool is already installing packages.  Opening in read-only mode; any changes "
-"you make to the states of packages will NOT be preserved!"
-msgstr ""
-"Nepavyko užrakinti krepšio bylos; dažniausiai tai reiškia, kad dpkg arba "
-"kitas apt įrankis jau diegia paketus.  Atidaroma tik skaitymui; bet kokie "
-"paketų būsenos pakeitimai NEBUS išsaugoti!"
-
-#: src/generic/apt/apt.cc:1230
-msgid "foreign"
-msgstr ""
-
-#: src/generic/apt/apt.cc:1232
-msgid "same"
-msgstr ""
-
-#: src/generic/apt/apt.cc:1235
-#, fuzzy
-msgid "allowed"
-msgstr "leisti_pasirikti"
-
-#: src/generic/apt/apt.cc:1324
-msgid "main"
-msgstr "pagrindiniai"
-
-#: src/generic/apt/apt.cc:1324
-msgid "contrib"
-msgstr ""
-
-#: src/generic/apt/apt.cc:1324
-msgid "non-free"
-msgstr ""
-
-#: src/generic/apt/apt.cc:1324
-msgid "non-US"
-msgstr ""
 
 #: src/generic/apt/aptitude_resolver.cc:441
 #, c-format
@@ -3047,13 +3047,13 @@ msgstr ""
 "\n"
 "Žurnalas užbaigtas.\n"
 
-#: src/generic/apt/matching/match.cc:3054
-#: src/generic/apt/matching/match.cc:3171
+#: src/generic/apt/matching/match.cc:3045
+#: src/generic/apt/matching/match.cc:3162
 msgid "Accessing index"
 msgstr ""
 
-#: src/generic/apt/matching/match.cc:3064
-#: src/generic/apt/matching/match.cc:3178
+#: src/generic/apt/matching/match.cc:3055
+#: src/generic/apt/matching/match.cc:3169
 #, fuzzy
 msgid "Filtering packages"
 msgstr "Gaunu paketus"
@@ -3088,8 +3088,7 @@ msgstr "Netikėta derinio šablono pabaiga (tikėtasi '%c')."
 msgid "Expected '%c', got '%c'."
 msgstr "Tikėtasi '%c', gauta '%c'."
 
-#: src/generic/apt/matching/parse.cc:861
-#: src/generic/apt/matching/parse.cc:1306
+#: src/generic/apt/matching/parse.cc:861 src/generic/apt/matching/parse.cc:1306
 #: src/generic/apt/matching/parse.cc:1346
 #, c-format
 msgid "Unknown dependency type: %s"
@@ -3311,27 +3310,27 @@ msgstr "Iš šablono \"%s\": %s nepavyko sukurti laikino aplanko"
 msgid "Unable to create temporary filename from prefix \"%s\""
 msgstr "Iš šablono \"%s\": %s nepavyko sukurti laikino aplanko"
 
-#: src/generic/util/util.cc:377
+#: src/generic/util/util.cc:372
 #, c-format
 msgid "Unable to stat \"%s\""
 msgstr "Nepavyko gauti „%s“ statistikos"
 
-#: src/generic/util/util.cc:383
+#: src/generic/util/util.cc:378
 #, c-format
 msgid "Unable to remove \"%s\""
 msgstr "Nepavyko pašalinti „%s“"
 
-#: src/generic/util/util.cc:393
+#: src/generic/util/util.cc:388
 #, c-format
 msgid "Unable to list files in \"%s\""
 msgstr "Nepavyko perskaityti „%s“ bylų sąrašo"
 
-#: src/generic/util/util.cc:410
+#: src/generic/util/util.cc:405
 #, c-format
 msgid "Failure closing directory \"%s\""
 msgstr "Klaida uždarant aplanką „%s“"
 
-#: src/generic/util/util.cc:416
+#: src/generic/util/util.cc:411
 #, c-format
 msgid "Unable to remove directory \"%s\""
 msgstr "Nepavyko pašalinti aplanko „%s“"
@@ -3629,7 +3628,7 @@ msgstr "Kilęs iš paketo: "
 msgid "Fix Manually"
 msgstr "Rankinis"
 
-#: src/gtk/aptitude.glade:1656 src/gtk/areas.cc:72 src/gtk/gui.cc:94
+#: src/gtk/aptitude.glade:1656 src/gtk/areas.cc:70 src/gtk/gui.cc:94
 #: src/gtk/gui.cc:1409
 msgid "Upgrade"
 msgstr "atnaujinti"
@@ -3667,43 +3666,43 @@ msgid ""
 "You can also modify the files by hand, then click \"No\"."
 msgstr ""
 
-#: src/gtk/areas.cc:73
+#: src/gtk/areas.cc:71
 msgid "Keep your computer up-to-date."
 msgstr ""
 
-#: src/gtk/areas.cc:75
+#: src/gtk/areas.cc:73
 #, fuzzy
 msgid "Browse"
 msgstr "Blogas"
 
-#: src/gtk/areas.cc:76
+#: src/gtk/areas.cc:74
 #, fuzzy
 msgid "Explore the available packages."
 msgstr "Negaliu sutvarkyti neegzistuojančių paketų"
 
-#: src/gtk/areas.cc:78
+#: src/gtk/areas.cc:76
 #, fuzzy
 msgid "Find"
 msgstr "^Rasti"
 
-#: src/gtk/areas.cc:79
+#: src/gtk/areas.cc:77
 #, fuzzy
 msgid "Search for packages."
 msgstr "Ieškoti: "
 
-#: src/gtk/areas.cc:81
+#: src/gtk/areas.cc:79
 msgid "Go"
 msgstr ""
 
-#: src/gtk/areas.cc:82
+#: src/gtk/areas.cc:80
 msgid "Finalize and apply your changes to the system."
 msgstr ""
 
-#: src/gtk/areas.cc:84 src/ui.cc:714 src/ui.cc:716
+#: src/gtk/areas.cc:82 src/ui.cc:714 src/ui.cc:716
 msgid "Preferences"
 msgstr "Nustatymai"
 
-#: src/gtk/areas.cc:85
+#: src/gtk/areas.cc:83
 msgid "Configure aptitude."
 msgstr ""
 
@@ -4375,7 +4374,7 @@ msgstr "Naudotojo instrukcijos"
 msgid "Toggle automatic status"
 msgstr ""
 
-#: src/gtk/gui.cc:1781 src/gtk/init.cc:144
+#: src/gtk/gui.cc:1781 src/gtk/init.cc:143
 #, c-format
 msgid "Unable to load the user interface definition file %s/aptitude.glade."
 msgstr ""
@@ -4417,7 +4416,7 @@ msgstr "ne"
 #: src/pkg_columnizer.cc:354 src/pkg_columnizer.cc:375
 #: src/pkg_columnizer.cc:382 src/pkg_grouppolicy.cc:268
 #: src/pkg_info_screen.cc:134 src/pkg_info_screen.cc:135
-#: src/pkg_ver_item.cc:345 src/pkg_ver_item.cc:379 src/qt/package.cc:224
+#: src/pkg_ver_item.cc:345 src/pkg_ver_item.cc:379 src/qt/package.cc:223
 #: src/qt/version.cc:114
 msgid "Unknown"
 msgstr "nežinomas"
@@ -4616,7 +4615,7 @@ msgstr ""
 msgid "Virtual package"
 msgstr "Paketas"
 
-#: src/gtk/resolver.cc:246 src/solution_fragment.cc:457
+#: src/gtk/resolver.cc:246 src/solution_fragment.cc:453
 msgid "Not Installed"
 msgstr "Neįdiegtas"
 
@@ -4741,59 +4740,57 @@ msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: src/gtk/resolver.cc:1240 src/solution_fragment.cc:131
+#: src/gtk/resolver.cc:1240 src/solution_fragment.cc:127
 #, c-format
 msgid "%s depends upon %s"
 msgstr "%s priklauso nuo %s"
 
-#: src/gtk/resolver.cc:1243 src/solution_fragment.cc:134
+#: src/gtk/resolver.cc:1243 src/solution_fragment.cc:130
 #, c-format
 msgid "%s pre-depends upon %s"
 msgstr "%s prieš-priklauso nuo %s"
 
-#: src/gtk/resolver.cc:1246 src/solution_fragment.cc:137
+#: src/gtk/resolver.cc:1246 src/solution_fragment.cc:133
 #, c-format
 msgid "%s suggests %s"
 msgstr "%s siūlo %s"
 
-#: src/gtk/resolver.cc:1249 src/solution_fragment.cc:140
-#: src/solution_item.cc:599
+#: src/gtk/resolver.cc:1249 src/solution_fragment.cc:136
+#: src/solution_item.cc:602
 #, c-format
 msgid "%s recommends %s"
 msgstr "%s rekomenduoja %s"
 
-#: src/gtk/resolver.cc:1252 src/solution_fragment.cc:143
+#: src/gtk/resolver.cc:1252 src/solution_fragment.cc:139
 #, c-format
 msgid "%s conflicts with %s"
 msgstr "%s konfliktuoja su %s"
 
-#: src/gtk/resolver.cc:1255 src/solution_fragment.cc:146
+#: src/gtk/resolver.cc:1255 src/solution_fragment.cc:142
 #, c-format
 msgid "%s breaks %s"
 msgstr "%s sugadina %s"
 
-#: src/gtk/resolver.cc:1258 src/solution_fragment.cc:149
+#: src/gtk/resolver.cc:1258 src/solution_fragment.cc:145
 #, c-format
 msgid "%s replaces %s"
 msgstr "%s pakeičia %s"
 
-#: src/gtk/resolver.cc:1261 src/solution_fragment.cc:152
+#: src/gtk/resolver.cc:1261 src/solution_fragment.cc:148
 #, c-format
 msgid "%s obsoletes %s"
 msgstr "%s nurašo %s"
 
-#: src/gtk/resolver.cc:1264 src/solution_fragment.cc:155
+#: src/gtk/resolver.cc:1264 src/solution_fragment.cc:151
 #, fuzzy, c-format
 msgid "%s enhances %s"
 msgstr "%s pakeičia %s"
 
-#: src/gtk/resolver.cc:1376 src/gtk/resolver.cc:1841
-#: src/solution_screen.cc:272
+#: src/gtk/resolver.cc:1376 src/gtk/resolver.cc:1841 src/solution_screen.cc:272
 msgid "Remove the following packages:"
 msgstr "Pašalinti šiuos paketus:"
 
-#: src/gtk/resolver.cc:1390 src/gtk/resolver.cc:1853
-#: src/solution_screen.cc:296
+#: src/gtk/resolver.cc:1390 src/gtk/resolver.cc:1853 src/solution_screen.cc:296
 msgid "Install the following packages:"
 msgstr "Įdiegti šiuos paketus:"
 
@@ -4802,18 +4799,16 @@ msgstr "Įdiegti šiuos paketus:"
 msgid "Keep the following packages:"
 msgstr "Pašalinti šiuos paketus:"
 
-#: src/gtk/resolver.cc:1416 src/gtk/resolver.cc:1877
-#: src/solution_screen.cc:308
+#: src/gtk/resolver.cc:1416 src/gtk/resolver.cc:1877 src/solution_screen.cc:308
 msgid "Upgrade the following packages:"
 msgstr "Atnaujinti šiuos paketus:"
 
-#: src/gtk/resolver.cc:1429 src/gtk/resolver.cc:1890
-#: src/solution_screen.cc:320
+#: src/gtk/resolver.cc:1429 src/gtk/resolver.cc:1890 src/solution_screen.cc:320
 msgid "Downgrade the following packages:"
 msgstr "Pasendinti šiuos paketus:"
 
 #: src/gtk/resolver.cc:1442 src/gtk/resolver.cc:1903
-#: src/solution_fragment.cc:513
+#: src/solution_fragment.cc:509
 #, fuzzy
 msgid "Leave the following dependencies unresolved:"
 msgstr "Palikti šias priklausomybes neišspręstas:%n"
@@ -6119,7 +6114,7 @@ msgid "<none>"
 msgstr "<nieko>"
 
 #: src/pkg_columnizer.cc:238 src/pkg_grouppolicy.cc:263
-#: src/pkg_grouppolicy.cc:1588 src/qt/package.cc:234
+#: src/pkg_grouppolicy.cc:1588 src/qt/package.cc:233
 #: src/qt/widgets/packages_tab.cc:73
 msgid "virtual"
 msgstr "virtualus"
@@ -6635,18 +6630,18 @@ msgstr ""
 msgid " (provided by %F)"
 msgstr " (pateiktas paketo %F)"
 
-#: src/reason_fragment.cc:265
+#: src/reason_fragment.cc:272
 #, c-format
 msgid "%F%s %F %F"
 msgstr "%F%s %F %F"
 
-#: src/reason_fragment.cc:314
+#: src/reason_fragment.cc:321
 msgid ""
 "If you select a package, an explanation of its current state will appear in "
 "this space."
 msgstr "Pažymėjus paketą, šioje vietoje atsiras jo būsenos aprašymas."
 
-#: src/reason_fragment.cc:348
+#: src/reason_fragment.cc:355
 msgid ""
 "%B%s%b was installed automatically;  it is being removed because all of the "
 "packages which depend upon it are being removed:"
@@ -6654,17 +6649,17 @@ msgstr ""
 "%B%s%b buvo įdiegtas automatiškai; dabar jis pašalintas, nes paketai, "
 "kuriems jo reikia pašalinami: "
 
-#: src/reason_fragment.cc:352
+#: src/reason_fragment.cc:359
 msgid "%B%s%b will be automatically removed because of dependency errors:"
 msgstr ""
 "%B%s%b bus automatiškai pašalintas, nes trūksta jam reikalingų paketų: "
 
-#: src/reason_fragment.cc:356
+#: src/reason_fragment.cc:363
 msgid ""
 "%B%s%b will be automatically installed to satisfy the following dependencies:"
 msgstr "%B%s%b bus automatiškai įdiegtas, nes jis reikalingas paketams: "
 
-#: src/reason_fragment.cc:362 src/reason_fragment.cc:374
+#: src/reason_fragment.cc:369 src/reason_fragment.cc:381
 msgid ""
 "%B%s%b cannot be upgraded now, but if it could be, it would still be held at "
 "version %B%s%b."
@@ -6672,7 +6667,7 @@ msgstr ""
 "%B%s%b negali būti atnaujintas dabar, bet jei galėtu, jis vis vien liktu "
 "versijos %B%s%b."
 
-#: src/reason_fragment.cc:365
+#: src/reason_fragment.cc:372
 msgid ""
 "%B%s%b will not be upgraded to version %B%s%b, to avoid breaking the "
 "following dependencies:"
@@ -6680,27 +6675,27 @@ msgstr ""
 "%B%s%b nebus atnaujintas iki versijos %B%s%b, kad nesugriautų šių "
 "priklausomybių: "
 
-#: src/reason_fragment.cc:377
+#: src/reason_fragment.cc:384
 msgid "%B%s%b is currently installed."
 msgstr "%B%s%b šiuo metu įdiegtas."
 
-#: src/reason_fragment.cc:383
+#: src/reason_fragment.cc:390
 msgid "%B%s%b is not currently installed."
 msgstr "%B%s%b šiuo metu nėra įdiegtas."
 
-#: src/reason_fragment.cc:391
+#: src/reason_fragment.cc:398
 msgid "Some dependencies of %B%s%b are not satisfied:"
 msgstr "Kai kurios %B%s%b priklausomybės netenkinamos:"
 
-#: src/reason_fragment.cc:395
+#: src/reason_fragment.cc:402
 msgid "%B%s%b will be downgraded."
 msgstr "%B%s%b bus pasendintas."
 
-#: src/reason_fragment.cc:402
+#: src/reason_fragment.cc:409
 msgid "%B%s%b will not be upgraded to the forbidden version %B%s%b."
 msgstr "%B%s%b nebus atnaujintas iki uždraustos versijos %B%s%b."
 
-#: src/reason_fragment.cc:406
+#: src/reason_fragment.cc:413
 msgid ""
 "%B%s%b could be upgraded to version %B%s%b, but it is being held at version "
 "%B%s%b."
@@ -6708,42 +6703,42 @@ msgstr ""
 "%B%s%b negali būti atnaujintas iki versijos %B%s%b, jis paliekamas %B%s%b "
 "versijos."
 
-#: src/reason_fragment.cc:413
+#: src/reason_fragment.cc:420
 msgid "%B%s%b will be re-installed."
 msgstr "%B%s%b bus įdiegtas iš naujo."
 
-#: src/reason_fragment.cc:417
+#: src/reason_fragment.cc:424
 msgid "%B%s%b will be installed."
 msgstr "%B%s%b bus įdiegtas."
 
-#: src/reason_fragment.cc:421
+#: src/reason_fragment.cc:428
 msgid "%B%s%b will be removed."
 msgstr "%B%s%b bus pašalintas."
 
-#: src/reason_fragment.cc:426
+#: src/reason_fragment.cc:433
 msgid "%B%s%b will be upgraded from version %B%s%b to version %B%s%b."
 msgstr "%B%s%b bus atnaujintas nuo versijos %B%s%b iki versijos %B%s%b."
 
-#: src/reason_fragment.cc:433
+#: src/reason_fragment.cc:440
 msgid "%B%s%b is only partly installed; its installation will be completed."
 msgstr "%B%s%b yra įdiegtas dalinai; o diegimas bus pabaigtas."
 
-#: src/reason_fragment.cc:465
+#: src/reason_fragment.cc:472
 msgid ""
 "The following packages depend on %B%s%b and will be broken by its removal:"
 msgstr "Šiems paketams reikia %B%s%b, jį pašalinus paketasi bus sugadinti: "
 
-#: src/reason_fragment.cc:468
+#: src/reason_fragment.cc:475
 msgid "The following packages depend on %B%s%b and are broken:"
 msgstr "Šiems paketams reikia %B%s%b ir jie yra sugadinti: "
 
-#: src/reason_fragment.cc:475
+#: src/reason_fragment.cc:482
 msgid ""
 "The following packages conflict with %B%s%b and will be broken by its "
 "installation:"
 msgstr "Šie paketai konfliktuoja su %B%s%b, todėl po įdiegimo būtų sugadinti:"
 
-#: src/reason_fragment.cc:508
+#: src/reason_fragment.cc:515
 msgid ""
 "The following packages depend on a version of %B%s%b other than the "
 "currently installed version of %B%s%b, or conflict with the currently "
@@ -6752,7 +6747,7 @@ msgstr ""
 "Šiems paketams reikia %B%s%b versijos, tačiau įdiegta versija yra %B%s%b. "
 "Arba paketas konfliktuoja su įdiegta versija:"
 
-#: src/reason_fragment.cc:512
+#: src/reason_fragment.cc:519
 msgid ""
 "The following packages conflict with %B%s%b, or depend on a version of it "
 "which is not going to be installed."
@@ -6760,33 +6755,33 @@ msgstr ""
 "Šie paketai konfliktuoja su %B%s%b, arba jiems reikia versijos, kurios "
 "neplanuojama įdiegti."
 
-#: src/reason_fragment.cc:516
+#: src/reason_fragment.cc:523
 msgid "The following packages conflict with %B%s%b:"
 msgstr "Šie paketai konfliktuoja su %B%s%b: "
 
-#: src/reason_fragment.cc:521
+#: src/reason_fragment.cc:528
 msgid ""
 "The following packages depend on a version of %B%s%b other than the "
 "currently installed version of %B%s%b:"
 msgstr ""
 "Šiems paketams reikia paketo %B%s%b kitos versijos nei yra įdiegta %B%s%b:"
 
-#: src/reason_fragment.cc:525
+#: src/reason_fragment.cc:532
 msgid ""
 "The following packages depend on a version of %B%s%b which is not going to "
 "be installed."
 msgstr ""
 "Šiems paketams reikia paketo versijos %B%s%b, kurios neplanuojama įdiegti."
 
-#: src/reason_fragment.cc:531
+#: src/reason_fragment.cc:538
 msgid "upgraded"
 msgstr "atnaujinta"
 
-#: src/reason_fragment.cc:531
+#: src/reason_fragment.cc:538
 msgid "downgraded"
 msgstr "pasendinta"
 
-#: src/reason_fragment.cc:537
+#: src/reason_fragment.cc:544
 msgid ""
 "The following packages depend on the currently installed version of %B%s%b "
 "(%B%s%b), or conflict with the version it will be %s to (%B%s%b), and will "
@@ -6795,7 +6790,7 @@ msgstr ""
 "Šiems paketams reikia šiuo metu įdiegtos versijos %B%s%b (%B%s%b), arba jis "
 "konfliktuoja su versija %s (%B%s%b), jei tai bus %s paketas bus sugadintas."
 
-#: src/reason_fragment.cc:544
+#: src/reason_fragment.cc:551
 msgid ""
 "The following packages conflict with version %B%s%b of %B%s%b, and will be "
 "broken if it is %s."
@@ -6803,7 +6798,7 @@ msgstr ""
 "Šie paketai konfliktuoja su versija %B%s%b paketo %B%s%b, jei tai bus %s "
 "paketas bus sugadintas."
 
-#: src/reason_fragment.cc:549
+#: src/reason_fragment.cc:556
 msgid ""
 "The following packages depend on version %B%s%b of %B%s%b, and will be "
 "broken if it is %s."
@@ -6839,43 +6834,43 @@ msgstr "Pritaikyti"
 msgid "Close"
 msgstr "Uždaryti"
 
-#: src/solution_fragment.cc:168
+#: src/solution_fragment.cc:164
 #, c-format
 msgid "%s conflicts with %s [provided by %s %s]"
 msgstr "%s konfliktuoja su %s [kurį pateikė %s %s]"
 
-#: src/solution_fragment.cc:181
+#: src/solution_fragment.cc:177
 #, c-format
 msgid "Removing %s"
 msgstr "Šalinamas %s"
 
-#: src/solution_fragment.cc:183
+#: src/solution_fragment.cc:179
 #, c-format
 msgid "Installing %s %s (%s)"
 msgstr "Diegiamas %s %s (%s)"
 
-#: src/solution_fragment.cc:189
+#: src/solution_fragment.cc:185
 #, c-format
 msgid "Leave %ls unresolved."
 msgstr ""
 
-#: src/solution_fragment.cc:415
+#: src/solution_fragment.cc:411
 msgid "%BRemove%b the following packages:%n"
 msgstr "%BPašalinti%b paketus:%n"
 
-#: src/solution_fragment.cc:430
+#: src/solution_fragment.cc:426
 msgid "%BInstall%b the following packages:%n"
 msgstr "%BĮdiegti%b paketus:%n"
 
-#: src/solution_fragment.cc:448
+#: src/solution_fragment.cc:444
 msgid "%BKeep%b the following packages at their current version:%n"
 msgstr "%BPalikti%b šiuos paketus palikti dabartinėse versijose:%n"
 
-#: src/solution_fragment.cc:472
+#: src/solution_fragment.cc:468
 msgid "%BUpgrade%b the following packages:%n"
 msgstr "%BAtnaujinti%b šiuos paketus:%n"
 
-#: src/solution_fragment.cc:492
+#: src/solution_fragment.cc:488
 msgid "%BDowngrade%b the following packages:%n"
 msgstr "%BPasendinti%b šiuos paketus:%n"
 
@@ -6914,7 +6909,7 @@ msgstr "Atnaujini %F [%s (%s) -> %s (%s)]"
 msgid "Downgrade %F [%s (%s) -> %s (%s)]"
 msgstr "Pasendinti %F [%s (%s) -> %s (%s)]"
 
-#: src/solution_item.cc:603
+#: src/solution_item.cc:606
 #, c-format
 msgid "-> Leave the dependency \"%s recommends %s\" unresolved."
 msgstr "-> Palikti priklausomybę „%s rekomenduoja %s“ neišspręsta."

@@ -17,11 +17,6 @@
 //   the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
 //   Boston, MA 02111-1307, USA.
 
-// g++ generates a spurious warning in a call to std::sort below;
-// downgrade it to a non-error.
-#pragma GCC diagnostic warning "-Wuninitialized"
-
-
 // Local includes:
 #include "cmdline_why.h"
 
@@ -1069,7 +1064,7 @@ namespace aptitude
         {
           if(verbosity > 1)
             {
-              std::auto_ptr<cw::fragment> tmp(cw::fragf(_("    ++ Examining %F\n"), print_dep(dep)));
+              std::unique_ptr<cw::fragment> tmp(cw::fragf(_("    ++ Examining %F\n"), print_dep(dep)));
               std::cout << tmp->layout(screen_width, screen_width, cw::style());
             }
         }
@@ -1142,9 +1137,9 @@ namespace aptitude
         {
           if(verbosity > 1)
             {
-              std::auto_ptr<cw::fragment> desc(justification_description(target, actions));
+              std::unique_ptr<cw::fragment> desc(justification_description(target, actions));
 
-              std::auto_ptr<cw::fragment> f(cw::fragf("Search for %F\n",
+              std::unique_ptr<cw::fragment> f(cw::fragf("Search for %F\n",
                                                       desc.release()));
               std::cout << f->layout(screen_width,
                                      screen_width,
@@ -1251,10 +1246,10 @@ int do_why(const std::vector<cwidget::util::ref_ptr<pattern> > &leaves,
   bool success = false;
   const boost::shared_ptr<why_callbacks> callbacks =
     make_cmdline_why_callbacks(verbosity, term_metrics);
-  std::auto_ptr<cw::fragment> f(do_why(leaves, root, display_mode,
-				       verbosity, root_is_removal,
-				       callbacks,
-                                       success));
+  std::unique_ptr<cw::fragment> f(do_why(leaves, root, display_mode,
+					 verbosity, root_is_removal,
+					 callbacks,
+					 success));
   const unsigned int screen_width = term_metrics->get_screen_width();
   // TODO: display each result as we find it.
   std::cout << f->layout(screen_width, screen_width, cw::style());
@@ -1553,7 +1548,6 @@ namespace aptitude
 	    {
 	      std::vector<std::pair<std::string, pkgCache::Dep::DepType> >
 		packages_by_dep_strength(roots.begin(), roots.end());
-              // g++ emits a spurious error here.  Don't know why:
 	      std::sort(packages_by_dep_strength.begin(),
 			packages_by_dep_strength.end(),
 			compare_pair_by_deptype());

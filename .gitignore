@@ -2,7 +2,6 @@
 *~
 
 # automake template stuff.
-COPYING
 ChangeLog
 INSTALL
 
@@ -15,10 +14,10 @@ INSTALL
 po/*.gmo
 po/aptitude.pot.sig
 po/remove-potcdate.sed
+build/
 
 # Distributed tar files.
 aptitude-*.tar.gz
-aptitude-*.tar.xz
 
 # autoconf-related files
 configure
@@ -137,8 +136,3 @@ tests/boost_test
 tests/cppunit_test
 tests/gtest_test
 tests/interactive_set_test
-
-# Things related to the Debian build:
-.pc/
-build-arch/
-build-indep/

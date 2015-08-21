@@ -480,7 +480,7 @@ static void reject_or_mandate_version(const string &s,
 		    else
 		      dep_rendering_stream << " | ";
 
-		    dep_rendering_stream << start.TargetPkg().FullName(true).c_str()
+		    dep_rendering_stream << start.TargetPkg().FullName(true)
 					 << " "
 					 << start.TargetVer();
 
@@ -1146,7 +1146,7 @@ namespace aptitude
 	  // The previous line will say "resolving dependencies...";
 	  // separate the solution from this message..
 	  std::cout << std::endl;
-	  std::auto_ptr<cw::fragment> story(solution_story(solution, NULL));
+	  std::unique_ptr<cw::fragment> story(solution_story(solution, NULL));
           const unsigned int screen_width = term_metrics->get_screen_width();
 	  std::cout << story->layout(screen_width, screen_width, cwidget::style());
 	}
